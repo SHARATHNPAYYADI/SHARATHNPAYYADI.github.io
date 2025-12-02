@@ -1,20 +1,286 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>[Your Name] — Robotics Portfolio</title>
+  <meta name="description" content="Robotics-focused portfolio showcasing projects, skills and contact info." />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 50px;
+    /* ----------------------
+       Simple, self-contained CSS
+       ----------------------*/
+    :root{
+      --bg:#0f1724; /* dark navy */
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent:#4fd1c5; /* teal */
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      --radius:14px;
+      --maxw:1100px;
+      color-scheme: dark;
     }
-    h1 {
-      color: #333;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(79,209,197,0.05), transparent), var(--bg);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:32px 20px;
+      display:flex;
+      justify-content:center;
     }
+    .wrap{width:100%;max-width:var(--maxw);}
+
+    /* Header / Hero */
+    header{
+      display:flex;align-items:center;gap:20px;justify-content:space-between;margin-bottom:28px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:60px;height:60px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(79,209,197,0.08);
+      transform:translateY(0);animation:float 4s ease-in-out infinite;
+    }
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+    .logo svg{width:36px;height:36px}
+    h1{margin:0;font-size:clamp(20px,3vw,28px)}
+    .subtitle{color:var(--muted);font-size:14px}
+
+    /* Grid */
+    main{display:grid;grid-template-columns:1fr 360px;gap:28px}
+    @media (max-width:900px){main{grid-template-columns:1fr;}}
+
+    /* Card */
+    .card{background:linear-gradient(180deg,var(--glass),var(--glass-2));border-radius:var(--radius);padding:20px;box-shadow:0 6px 24px rgba(2,6,23,0.6);}
+
+    /* Intro */
+    .hero{display:flex;gap:20px;align-items:center}
+    .hero-left{flex:1}
+    .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(79,209,197,0.08);color:var(--accent);font-weight:600;font-size:13px}
+    h2{margin:12px 0 6px;font-size:28px}
+    p.lead{color:var(--muted);line-height:1.6}
+
+    .cta{margin-top:16px;display:flex;gap:12px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);cursor:pointer;font-weight:600}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#60a5fa);color:#042028;border:none}
+
+    /* Project cards */
+    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+    @media (max-width:680px){.projects{grid-template-columns:1fr}}
+    .project{padding:14px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);transition:transform .28s cubic-bezier(.2,.9,.2,1),box-shadow .28s;transform-origin:center}
+    .project:hover{transform:translateY(-8px) rotate(-.2deg);box-shadow:0 18px 40px rgba(2,6,23,0.6)}
+    .project .meta{font-size:12px;color:var(--muted);margin-bottom:8px}
+    .project h3{margin:0 0 6px}
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+    .tag{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted)}
+
+    /* Right column */
+    aside .card{position:sticky;top:24px}
+    .skills{display:flex;flex-wrap:wrap;gap:8px}
+    .skill{padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);font-weight:600;color:var(--muted);font-size:13px}
+
+    /* Footer */
+    footer{margin-top:22px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* Simple reveal on load */
+    .reveal{opacity:0;transform:translateY(8px);animation:reveal .6s forwards;}
+    .reveal.delay-1{animation-delay:.06s}
+    .reveal.delay-2{animation-delay:.12s}
+    .reveal.delay-3{animation-delay:.18s}
+    @keyframes reveal{to{opacity:1;transform:none}}
+
+    /* small screens tweaks */
+    @media (max-width:520px){body{padding:18px 12px} .logo{width:52px;height:52px}}
+
+    /* focus styles */
+    a:focus,button:focus{outline:3px solid rgba(79,209,197,0.12);outline-offset:3px}
+
+    /* subtle line */
+    .separator{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.02),transparent);margin:18px 0}
   </style>
 </head>
 <body>
-  <h1>Hello! I'm Sharath N Payyadi</h1>
-  <p>Welcome to my portfolio 🚀</p>
+  <div class="wrap">
+    <header class="reveal">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <!-- small robot-ish SVG -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="7" width="18" height="10" rx="2" fill="white" fill-opacity="0.07"/>
+            <circle cx="8.5" cy="12" r="1.6" fill="#052b2a"/>
+            <circle cx="15.5" cy="12" r="1.6" fill="#052b2a"/>
+            <rect x="10.5" y="3" width="3" height="5" rx="1" fill="#60a5fa"/>
+          </svg>
+        </div>
+        <div>
+          <h1>[Your Name]</h1>
+          <div class="subtitle">Robotics Engineer • SLAM • Perception • ROS | Simulation</div>
+        </div>
+      </div>
+      <div class="nav reveal delay-1">
+        <nav style="display:flex;gap:10px;align-items:center">
+          <a class="btn" href="#projects">Projects</a>
+          <a class="btn" href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="card hero reveal">
+          <div class="hero">
+            <div class="hero-left">
+              <div class="eyebrow">Robotics Portfolio</div>
+              <h2>Hello — I'm [Your Name]. I build autonomous robots and robust perception systems.</h2>
+              <p class="lead">I work on perception, mapping, and navigation for mobile robots. I enjoy turning sensor data into reliable behaviours — ROS-based stacks, simulation (Gazebo / Ignition / Isaac), and real-world deployments.</p>
+
+              <div class="cta">
+                <a class="btn btn-primary" href="#projects">View projects</a>
+                <a class="btn" href="/resume.pdf" target="_blank">Download Resume</a>
+              </div>
+
+              <div class="separator"></div>
+
+              <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+                <div class="meta" style="color:var(--muted)">Location: India</div>
+                <div class="meta" style="color:var(--muted)">Email: <a href="mailto:you@example.com">you@example.com</a></div>
+              </div>
+            </div>
+
+            <div style="width:220px;min-width:160px;display:flex;align-items:center;justify-content:center">
+              <!-- simple tech stack / avatar card -->
+              <div style="width:180px;height:180px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);">
+                <svg width="60" height="60" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v3" stroke="#4fd1c5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M6 7v7" stroke="#60a5fa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M18 7v7" stroke="#fda4af" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                <div style="margin-top:12px;font-weight:700">Robotics</div>
+                <div style="font-size:12px;color:var(--muted);margin-top:6px">ROS • SLAM • Perception</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projects preview -->
+          <div id="projects" class="projects reveal delay-1">
+            <article class="project">
+              <div class="meta">Simulation • ROS • Navigation</div>
+              <h3>Autonomous Warehouse Robot</h3>
+              <p style="margin:0;color:var(--muted);font-size:14px;">Built a complete stack for autonomous pallet transport: perception (lidar + camera), ROS2 navigation, and a Gazebo-based test suite. Deployed to 2 physical robots.</p>
+              <div class="tags">
+                <span class="tag">ROS2</span>
+                <span class="tag">Nav2</span>
+                <span class="tag">Lidar</span>
+              </div>
+            </article>
+
+            <article class="project">
+              <div class="meta">Perception • Deep Learning</div>
+              <h3>3D Object Detection for AMR</h3>
+              <p style="margin:0;color:var(--muted);font-size:14px;">A realtime 3D detection pipeline using point cloud preprocessing and a light-weight model for obstacle avoidance on CPU and edge GPUs.</p>
+              <div class="tags">
+                <span class="tag">PointCloud</span>
+                <span class="tag">PyTorch</span>
+                <span class="tag">CUDA</span>
+              </div>
+            </article>
+
+            <article class="project">
+              <div class="meta">Mapping • SLAM</div>
+              <h3>Multi-floor SLAM & Map Merging</h3>
+              <p style="margin:0;color:var(--muted);font-size:14px;">System for global map merging across floors using loop closures and topological anchors. Reduced localization drift by 70% compared to baseline.</p>
+              <div class="tags">
+                <span class="tag">Cartographer</span>
+                <span class="tag">RTAB-Map</span>
+                <span class="tag">C++</span>
+              </div>
+            </article>
+
+            <article class="project">
+              <div class="meta">Control • Embedded</div>
+              <h3>Custom Motor Controller</h3>
+              <p style="margin:0;color:var(--muted);font-size:14px;">Designed a low-level motor controller for differential drive with velocity smoothing, current limiting and safety watchdogs.</p>
+              <div class="tags">
+                <span class="tag">Embedded</span>
+                <span class="tag">STM32</span>
+                <span class="tag">C</span>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px" aria-labelledby="about">
+          <h3 id="about">About</h3>
+          <p class="lead" style="margin-top:6px;color:var(--muted);">I am a robotics engineer focused on perception and navigation. I enjoy moving between research prototypes and production-ready systems. My toolbelt includes ROS, C++/Python, simulation, and neural perception stacks.</p>
+        </div>
+
+      </section>
+
+      <aside>
+        <div class="card reveal delay-2">
+          <h3>Skills</h3>
+          <div class="skills" style="margin-top:10px">
+            <div class="skill">ROS / ROS2</div>
+            <div class="skill">SLAM & Localization</div>
+            <div class="skill">Lidar / Point Cloud</div>
+            <div class="skill">Perception (DL)</div>
+            <div class="skill">C++ / Python</div>
+            <div class="skill">Gazebo / Ignition</div>
+            <div class="skill">Embedded Systems</div>
+            <div class="skill">Docker / CI</div>
+          </div>
+        </div>
+
+        <div class="card reveal delay-3" style="margin-top:14px">
+          <h3>Quick Links</h3>
+          <ul style="margin:8px 0 0;padding-left:18px;color:var(--muted)">
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="https://github.com/yourusername" target="_blank">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+
+        <div class="card reveal" style="margin-top:14px" id="contact">
+          <h3>Contact</h3>
+          <p style="color:var(--muted);margin-bottom:10px">Send a note or collaboration idea — I usually reply within a few days.</p>
+          <a class="btn" href="mailto:you@example.com">Email me</a>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="reveal" style="margin-top:28px">Made with ♥ — [Your Name]. Source: <a href="https://github.com/yourusername/yourrepo" target="_blank">GitHub</a></footer>
+  </div>
+
+  <script>
+    // Small interactive niceties (no libraries)
+    // 1) Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        e.preventDefault();
+        const id=a.getAttribute('href').slice(1);
+        const el=document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      })
+    })
+
+    // 2) small reveal-on-scroll for .reveal elements
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.style.animationPlayState='running';
+          e.target.classList.remove('reveal');
+          obs.unobserve(e.target);
+        }
+      })
+    },{threshold:0.12});
+    reveals.forEach(r=>{
+      r.style.animationPlayState='paused';
+      obs.observe(r);
+    });
+
+    // 3) keyboard shortcut to open projects (press 'p')
+    window.addEventListener('keydown',e=>{ if(e.key.toLowerCase()==='p'){ location.hash='#projects'; const el=document.getElementById('projects'); if(el) el.scrollIntoView({behavior:'smooth'}); } })
+  </script>
 </body>
 </html>
