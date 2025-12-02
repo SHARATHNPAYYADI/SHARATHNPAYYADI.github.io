@@ -78,7 +78,9 @@
     .tag{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted)}
 
     /* Right column */
-    aside .card{position:sticky;top:24px}
+    aside .card{position:relative;top:auto;z-index:0;margin-bottom:12px}
+    /* keep only the first card sticky to avoid overlap */
+    aside .card:first-child{position:sticky;top:24px;z-index:2}
     .skills{display:flex;flex-wrap:wrap;gap:8px}
     .skill{padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);font-weight:600;color:var(--muted);font-size:13px}
 
