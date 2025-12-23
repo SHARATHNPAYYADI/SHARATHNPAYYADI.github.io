@@ -1,17 +1,16 @@
-const sections = document.querySelectorAll("section");
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = 1;
-      entry.target.style.transform = "translateY(0)";
+const hamburger = document.getElementById('hamburger');
+const menu = document.querySelector('.menu');
+hamburger.addEventListener('click', function () {
+    const hamIcon = this.querySelector('.hamburger-icon');
+    const crossIcon = this.querySelector('.cross-icon');
+    if (hamIcon.style.display === "none") {
+        hamIcon.style.display = "inline-block"
+        menu.style.display = "none"
+        crossIcon.style.display = "none"
     }
-  });
-}, { threshold: 0.1 });
-
-sections.forEach(section => {
-  section.style.opacity = 0;
-  section.style.transform = "translateY(20px)";
-  section.style.transition = "all 0.6s ease";
-  observer.observe(section);
+    else {
+        crossIcon.style.display = "inline-block"
+        hamIcon.style.display = "none"
+        menu.style.display = "block"
+    }
 });
