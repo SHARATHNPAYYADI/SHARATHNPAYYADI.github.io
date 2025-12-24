@@ -2,104 +2,115 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sharath N P | Robotics Software Developer</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome (for future use) -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- Grid Background -->
-  <div class="background"></div>
+  <!-- ================= HEADER / INTRO ================= -->
+  <header class="section header">
+    <h1>Sharath N P</h1>
+    <h2>Robotics Software Developer</h2>
+    <p class="intro-line">
+      ROS2 · Simulation · Perception · Autonomous Systems
+    </p>
+  </header>
 
-  <div class="container">
+  <!-- ================= ABOUT ================= -->
+  <section class="section" id="about">
+    <h3>About</h3>
+    <p>
+      I am a robotics software developer focused on building reliable and scalable
+      robotic systems. My work spans robot simulation, perception, navigation,
+      motion control, and system integration using ROS2.
+    </p>
+    <p>
+      I am particularly interested in simulation-driven development, autonomous
+      systems, and bridging the gap between simulation and real-world deployment.
+    </p>
+  </section>
 
-    <!-- HERO -->
-    <header>
-      <!-- Optional photo -->
-      <!-- <img src="assets/profile.jpg" alt="Sharath N P" class="profile-pic"> -->
+  <!-- ================= SKILLS ================= -->
+  <section class="section" id="skills">
+    <h3>Skills</h3>
 
-      <h1>Sharath N P</h1>
-      <p class="subtitle">Robotics Software Developer</p>
-      <p class="stack">ROS2 • Simulation • Perception • AI • Gazebo • Isaac Sim</p>
+    <ul>
+      <li><strong>Robotics & Middleware:</strong> ROS2, Nav2, TF, ros_control</li>
+      <li><strong>Simulation:</strong> Gazebo (Classic / Harmonic), Isaac Sim, RViz</li>
+      <li><strong>Perception:</strong> OpenCV, depth estimation, sensor fusion</li>
+      <li><strong>Programming:</strong> C++, Python</li>
+      <li><strong>Tools:</strong> Linux, Git, Docker</li>
+    </ul>
+  </section>
 
-      <!-- MERGED TEMPLATE BUTTONS -->
-      <div class="hero-buttons">
-        <button class="btn primary-btn">View Projects</button>
-        <button class="btn ghost-btn">Download Resume</button>
-      </div>
-    </header>
+  <!-- ================= EXPERIENCE ================= -->
+  <section class="section" id="experience">
+    <h3>Experience</h3>
 
-    <!-- ABOUT -->
-    <section id="about">
-      <h2>About Me</h2>
+    <div class="item">
+      <h4>Robotics Software Engineer</h4>
+      <p class="meta">Company Name | 2023 – Present</p>
+      <ul>
+        <li>Developed ROS2-based robotic applications</li>
+        <li>Integrated sensors and perception pipelines</li>
+        <li>Built simulation environments for HIL testing</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section class="section" id="projects">
+    <h3>Projects</h3>
+
+    <div class="item">
+      <h4>Autonomous Safety Inspection Robot</h4>
       <p>
-        I am a robotics software developer focused on building reliable and scalable
-        robotic systems. My work spans robot simulation, perception, motion control,
-        and system integration using ROS2 and modern simulation platforms.
+        Built an autonomous inspection system using a quadruped robot to verify
+        fire extinguisher availability at predefined checkpoints.
       </p>
-    </section>
+      <ul>
+        <li>ROS2-based navigation with global and local planners</li>
+        <li>Monocular depth estimation for obstacle avoidance</li>
+        <li>Automated inspection report generation</li>
+      </ul>
+    </div>
 
-    <!-- EXPERIENCE -->
-    <section id="experience">
-      <h2>Experience</h2>
-      <div class="card">
-        <h3>Robotics Software Engineer</h3>
-        <span>Company Name | 2023 – Present</span>
-        <ul>
-          <li>Developed ROS2-based robot applications</li>
-          <li>Integrated sensors and perception pipelines</li>
-          <li>Worked with Gazebo / Isaac Sim for HIL testing</li>
-        </ul>
-      </div>
-    </section>
+    <div class="item">
+      <h4>AMR Simulation in Gazebo Harmonic</h4>
+      <p>
+        Designed and implemented a simulated autonomous mobile robot with navigation,
+        obstacle avoidance, and sensor integration.
+      </p>
+    </div>
+  </section>
 
-    <!-- EDUCATION -->
-    <section id="education">
-      <h2>Education</h2>
-      <div class="card">
-        <h3>Bachelor / Master in Engineering</h3>
-        <span>University Name | Year</span>
-        <p>Specialization in Robotics / Mechatronics / AI</p>
-      </div>
-    </section>
+  <!-- ================= EDUCATION ================= -->
+  <section class="section" id="education">
+    <h3>Education</h3>
 
-    <!-- PROJECTS -->
-    <section id="projects">
-      <h2>Projects</h2>
+    <div class="item">
+      <h4>Bachelor / Master in Engineering</h4>
+      <p class="meta">University Name | Year</p>
+      <p>Specialization in Robotics / Mechatronics / AI</p>
+    </div>
+  </section>
 
-      <div class="card">
-        <h3>Autonomous Mobile Robot Simulation</h3>
-        <p>
-          ROS2 + Gazebo Harmonic based AMR with navigation,
-          obstacle avoidance, and sensor fusion.
-        </p>
-        <a href="#" target="_blank">View on GitHub →</a>
-      </div>
+  <!-- ================= PUBLICATIONS ================= -->
+  <section class="section" id="publications">
+    <h3>Publications / Blogs</h3>
+    <p>Coming soon.</p>
+  </section>
 
-      <div class="card">
-        <h3>AI-Based Object Detection</h3>
-        <p>
-          Camera-based object detection integrated with robotic manipulation
-          pipelines.
-        </p>
-      </div>
-    </section>
+  <!-- ================= CONTACT ================= -->
+  <section class="section" id="contact">
+    <h3>Contact</h3>
+    <p>Email: your@email.com</p>
+    <p>GitHub: github.com/yourusername</p>
+    <p>LinkedIn: linkedin.com/in/yourname</p>
+  </section>
 
-    <footer>
-      <p>© 2025 Sharath N P</p>
-    </footer>
-
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>

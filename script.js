@@ -15,3 +15,4 @@ sections.forEach(section => {
   section.style.transition = "all 0.6s ease";
   observer.observe(section);
 });
+ branc
