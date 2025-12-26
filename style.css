@@ -11,13 +11,13 @@ body {
   line-height: 1.7;
 }
 
-/* SECTION LAYOUT */
+/* SECTION LAYOUT
 .section {
   max-width: 900px;
   margin: auto;
   padding: 60px 20px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
-}
+} */
 
 /* HEADER */
 .header {
