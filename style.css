@@ -91,8 +91,7 @@ a:hover {
   position: fixed;
   top: 0;
   width: 100%;
-  /* padding: 14px 30px; */
-  padding: 20px 40px;
+  padding: 14px 30px;
   display: flex;
   gap: 22px;
   justify-content: center;
