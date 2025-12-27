@@ -91,14 +91,44 @@ a:hover {
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 14px 30px 14px 1100px;
+  padding: 12px 30px;
   display: flex;
-  gap: 22px;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+
   background: rgba(10, 15, 28, 0.9);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
   z-index: 1000;
+}
+
+/* Left logo */
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo image */
+.logo {
+  height: 38px;          /* Adjust if needed */
+  width: auto;
+  display: block;
+}
+
+/* Center navigation */
+.nav-center {
+  display: flex;
+  gap: 22px;
+}
+
+.nav-center a {
+  color: #cfd6e6;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.nav-center a:hover {
+  color: #00eaff;
 }
 
 .navbar a {

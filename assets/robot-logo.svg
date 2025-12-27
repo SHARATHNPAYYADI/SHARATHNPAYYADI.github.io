@@ -1,0 +1,34 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 128 128"
+  width="128"
+  height="128"
+  fill="none"
+  stroke="#00eaff"
+  stroke-width="4"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+
+  <!-- Mobile base -->
+  <rect x="28" y="64" width="72" height="28" rx="6" />
+  
+  <!-- Wheels -->
+  <circle cx="44" cy="96" r="8" />
+  <circle cx="84" cy="96" r="8" />
+
+  <!-- Arm base -->
+  <circle cx="72" cy="56" r="5" />
+
+  <!-- Arm segments -->
+  <line x1="72" y1="56" x2="56" y2="44" />
+  <circle cx="56" cy="44" r="4" />
+
+  <line x1="56" y1="44" x2="44" y2="52" />
+  <circle cx="44" cy="52" r="3" />
+
+  <!-- Gripper -->
+  <line x1="42" y1="54" x2="38" y2="58" />
+  <line x1="42" y1="54" x2="46" y2="58" />
+
+</svg>
