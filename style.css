@@ -208,3 +208,32 @@ html {
   background: #00eaff;
   border-radius: 2px;
 }
+
+.contact-links {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.contact-btn {
+  padding: 6px 14px;
+  border-radius: 14px;
+  font-size: 0.85rem;
+  color: #cfd6e6;
+  border: 1px solid rgba(255,255,255,0.2);
+  text-decoration: none;
+}
+
+.contact-btn:hover {
+  border-color: #00eaff;
+  color: #00eaff;
+}
+/* ===== FOOTER ===== */
+.footer {
+  max-width: 900px;
+  margin: 40px auto 20px;
+  padding: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.8rem;
+  color: #9aa4bf;
+}
