@@ -47,3 +47,8 @@ sections.forEach(section => {
     navObserver.observe(section);
   }
 });
+document.getElementById("copy-email").addEventListener("click", e => {
+  e.preventDefault();
+  navigator.clipboard.writeText("sharathnpayyadi@gmail.com");
+  alert("Email copied to clipboard");
+});
