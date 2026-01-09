@@ -3,206 +3,569 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sharath N P | Robotics Software Developer</title>
-
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="assets/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
-
+  <title>RoboEngineer | Robotics Portfolio</title>
+  <meta name="description" content="Portfolio of a robotics engineer specializing in autonomous systems, computer vision, and motion planning." />
+  <meta name="author" content="RoboEngineer" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <!-- ================= NAVIGATION BAR ================= -->
-  <nav class="navbar">
-    <div class="nav-left">
-      <a href="#home">
-        <img src="assets/robot-logo.svg" alt="Robotics Logo" class="logo">
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <img src="favicon.ico" alt="Logo" class="nav-favicon" />
+        <span class="text-primary">&lt;</span>RoboEngineer<span class="text-primary">/&gt;</span>
       </a>
+      <div class="nav-links" id="nav-links">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#education" class="nav-link">Education</a>
+        <a href="#publications" class="nav-link">Publications</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <svg class="icon-menu" id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        <svg class="icon-close hidden" id="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
     </div>
-
-    <div class="nav-center">
-      <a href="#home" class="nav-link">Home</a>
-      <a href="#about" class="nav-link">About</a>
-      <a href="#skills" class="nav-link">Skills</a>
-      <a href="#experience" class="nav-link">Experience</a>
-      <a href="#projects" class="nav-link">Projects</a>
-      <a href="#education" class="nav-link">Education</a>
-      <a href="#publications" class="nav-link">Publications</a>
-      <a href="#contact" class="nav-link">Contact</a>
-    </div>
-    <!--Resume button -->
-    <div class="nav-right">
-      <a href="assets/Sharath_NP_Resume.pdf"
-        class="resume-btn"
-        download
-        title="Download CV (PDF)">
-        Download CV
-      </a>
+    <div class="nav-mobile hidden" id="nav-mobile">
+      <a href="#about" class="nav-mobile-link">About</a>
+      <a href="#skills" class="nav-mobile-link">Skills</a>
+      <a href="#experience" class="nav-mobile-link">Experience</a>
+      <a href="#projects" class="nav-mobile-link">Projects</a>
+      <a href="#education" class="nav-mobile-link">Education</a>
+      <a href="#publications" class="nav-mobile-link">Publications</a>
+      <a href="#contact" class="nav-mobile-link">Contact</a>
     </div>
   </nav>
-  
-  <!-- ================= HEADER / INTRO ================= -->
-  <header class="section header" id="home">
-    <h1>Sharath N Payyadi</h1>
-    <h2>Robotics Software Developer</h2>
-    <p class="intro-line">
-      ROS2 · Simulation · Perception · Autonomous Systems
-    </p>
-  </header>
 
-  <!-- ================= ABOUT ================= -->
-  <section class="section" id="about">
-    <h3>About</h3>
-    <p>
-      I am a Robotics Software Developer with 3+ years of experience building and deploying
-      robotics applications for autonomous systems. My work spans robotics software
-      development, simulation, infrastructure automation, and system integration using
-      C++ and Python with ROS and ROS2.
-    </p>
-    <p>
-      I have worked on production-deployed robotic systems, supporting real-world
-      commissioning, factory acceptance testing, and large-scale automation projects.
-      My interests lie in autonomous systems, multi-robot coordination, and building
-      robust, scalable robotics software.
-    </p>
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-terminal-bg"></div>
+    <div class="hero-gradient-top"></div>
+    <div class="hero-glow hero-glow-left"></div>
+    <div class="hero-glow hero-glow-right"></div>
+    
+    <div class="hero-content fade-in">
+      <span class="hero-badge">Robotics Engineer</span>
+      <h1 class="hero-title">
+        Building the Future
+        <span class="text-primary">One Robot at a Time</span>
+      </h1>
+      <p class="hero-description">
+        Passionate about creating intelligent machines that solve real-world problems. 
+        Specializing in autonomous systems, computer vision, and motion planning.
+      </p>
+      <div class="hero-buttons">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+      <div class="hero-cv-buttons">
+        <a href="resume.pdf" download class="btn btn-cv">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+          Download CV
+        </a>
+        <a href="resume.pdf" target="_blank" class="btn btn-cv-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          View CV
+        </a>
+      </div>
+    </div>
+    
+    <div class="scroll-indicator">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
   </section>
 
-  <!-- ================= SKILLS ================= -->
-  <section id="skills" class="section">
-  <h3>Skills</h3>
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-description">
+          I'm a robotics engineer with a passion for building intelligent systems 
+          that bridge the gap between software and the physical world. With expertise 
+          in ROS, computer vision, and embedded systems, I bring ideas to life.
+        </p>
+      </div>
+      
+      <div class="highlights-grid">
+        <div class="highlight-card fade-in">
+          <div class="highlight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+          </div>
+          <h3 class="highlight-title">Autonomous Systems</h3>
+          <p class="highlight-description">Designing robots that navigate and operate independently in complex environments.</p>
+        </div>
+        
+        <div class="highlight-card fade-in">
+          <div class="highlight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3 class="highlight-title">Computer Vision</h3>
+          <p class="highlight-description">Implementing perception systems that help robots understand their surroundings.</p>
+        </div>
+        
+        <div class="highlight-card fade-in">
+          <div class="highlight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h.01"/><path d="M17 7h.01"/><path d="M7 17h.01"/><path d="M17 17h.01"/></svg>
+          </div>
+          <h3 class="highlight-title">Embedded Systems</h3>
+          <p class="highlight-description">Programming microcontrollers and real-time systems for precise robot control.</p>
+        </div>
+        
+        <div class="highlight-card fade-in">
+          <div class="highlight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M12 2v2"/><path d="M12 22v-2"/><path d="m17 20.66-1-1.73"/><path d="M11 10.27 7 3.34"/><path d="m20.66 17-1.73-1"/><path d="m3.34 7 1.73 1"/><path d="M14 12h8"/><path d="M2 12h2"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m17 3.34-1 1.73"/><path d="m11 13.73-4 6.93"/></svg>
+          </div>
+          <h3 class="highlight-title">Motion Planning</h3>
+          <p class="highlight-description">Creating algorithms for smooth, efficient, and collision-free robot movement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <ul>
-    <li><strong>Robotics & Middleware:</strong> ROS1, ROS2, Nav2, MoveIt, DDS</li>
-    <li><strong>Programming:</strong> C++ (C++17), Python, Bash</li>
-    <li><strong>Simulation & Perception:</strong> Gazebo, OpenCV, ARUCO markers</li>
-    <li><strong>DevOps & Infrastructure:</strong> Docker, Jenkins, CI/CD pipelines</li>
-    <li><strong>Tools & OS:</strong> Linux, Git, Jira, Confluence</li>
-  </ul>
-</section>
+  <!-- Skills Section -->
+  <section class="skills" id="skills">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Skills & Technologies</h2>
+        <p class="section-description">
+          The tools and technologies I use to build intelligent robotic systems.
+        </p>
+      </div>
+      
+      <div class="skills-grid">
+        <div class="skill-card fade-in">
+          <h3 class="skill-category">Programming</h3>
+          <ul class="skill-list">
+            <li>Python</li>
+            <li>C++</li>
+            <li>MATLAB</li>
+            <li>JavaScript</li>
+          </ul>
+        </div>
+        
+        <div class="skill-card fade-in">
+          <h3 class="skill-category">Robotics</h3>
+          <ul class="skill-list">
+            <li>ROS/ROS2</li>
+            <li>Gazebo</li>
+            <li>MoveIt</li>
+            <li>Navigation2</li>
+          </ul>
+        </div>
+        
+        <div class="skill-card fade-in">
+          <h3 class="skill-category">Hardware</h3>
+          <ul class="skill-list">
+            <li>Arduino</li>
+            <li>Raspberry Pi</li>
+            <li>STM32</li>
+            <li>NVIDIA Jetson</li>
+          </ul>
+        </div>
+        
+        <div class="skill-card fade-in">
+          <h3 class="skill-category">AI/ML</h3>
+          <ul class="skill-list">
+            <li>PyTorch</li>
+            <li>TensorFlow</li>
+            <li>OpenCV</li>
+            <li>YOLO</li>
+          </ul>
+        </div>
+        
+        <div class="skill-card fade-in">
+          <h3 class="skill-category">Tools</h3>
+          <ul class="skill-list">
+            <li>Git</li>
+            <li>Docker</li>
+            <li>Linux</li>
+            <li>CAD</li>
+          </ul>
+        </div>
+        
+        <div class="skill-card fade-in">
+          <h3 class="skill-category">Sensors</h3>
+          <ul class="skill-list">
+            <li>LiDAR</li>
+            <li>Cameras</li>
+            <li>IMU</li>
+            <li>Encoders</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Experience Section -->
+  <section class="experience" id="experience">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Work Experience</h2>
+        <p class="section-description">
+          My professional journey in robotics and automation.
+        </p>
+      </div>
+      
+      <div class="timeline">
+        <div class="timeline-item fade-in">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3 class="timeline-title">Senior Robotics Engineer</h3>
+              <span class="timeline-date">2022 - Present</span>
+            </div>
+            <p class="timeline-company">TechRobotics Inc.</p>
+            <p class="timeline-description">
+              Leading the development of autonomous mobile robots for warehouse logistics. 
+              Designed SLAM algorithms, implemented ROS2-based navigation stack, and managed 
+              a team of 5 engineers.
+            </p>
+            <div class="timeline-tags">
+              <span class="timeline-tag">ROS2</span>
+              <span class="timeline-tag">SLAM</span>
+              <span class="timeline-tag">Python</span>
+              <span class="timeline-tag">Leadership</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item fade-in">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3 class="timeline-title">Robotics Software Engineer</h3>
+              <span class="timeline-date">2020 - 2022</span>
+            </div>
+            <p class="timeline-company">AutoDrive Labs</p>
+            <p class="timeline-description">
+              Developed perception pipelines for autonomous vehicles using LiDAR and camera fusion. 
+              Implemented real-time object detection and tracking algorithms.
+            </p>
+            <div class="timeline-tags">
+              <span class="timeline-tag">C++</span>
+              <span class="timeline-tag">OpenCV</span>
+              <span class="timeline-tag">PCL</span>
+              <span class="timeline-tag">PyTorch</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="timeline-item fade-in">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3 class="timeline-title">Robotics Intern</h3>
+              <span class="timeline-date">2019 - 2020</span>
+            </div>
+            <p class="timeline-company">Innovation Robotics</p>
+            <p class="timeline-description">
+              Worked on robotic arm kinematics and motion planning. Developed simulation 
+              environments in Gazebo and implemented control algorithms.
+            </p>
+            <div class="timeline-tags">
+              <span class="timeline-tag">ROS</span>
+              <span class="timeline-tag">Gazebo</span>
+              <span class="timeline-tag">MoveIt</span>
+              <span class="timeline-tag">MATLAB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- ================= EXPERIENCE ================= -->
-  <section id="experience" class="section">
-  <h3>Experience</h3>
+  <!-- Projects Section -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-description">
+          A selection of robotics projects I've worked on, from autonomous navigation 
+          to computer vision and motion control systems.
+        </p>
+      </div>
+      
+      <div class="projects-grid">
+        <div class="project-card fade-in">
+          <div class="project-image">
+            <img src="images/project-mobile-robot.jpg" alt="Autonomous Mobile Robot" loading="lazy">
+            <div class="project-image-overlay"></div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Autonomous Mobile Robot</h3>
+            <p class="project-description">A self-navigating robot using SLAM, LiDAR, and ROS2 for indoor warehouse operations.</p>
+            <div class="project-tags">
+              <span class="project-tag">ROS2</span>
+              <span class="project-tag">SLAM</span>
+              <span class="project-tag">Python</span>
+              <span class="project-tag">LiDAR</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                Code
+              </a>
+              <a href="#" class="project-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                Demo
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card fade-in">
+          <div class="project-image">
+            <img src="images/project-robot-arm.jpg" alt="Robotic Arm Controller" loading="lazy">
+            <div class="project-image-overlay"></div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Robotic Arm Controller</h3>
+            <p class="project-description">6-DOF robotic arm with inverse kinematics solver and computer vision integration for pick-and-place tasks.</p>
+            <div class="project-tags">
+              <span class="project-tag">C++</span>
+              <span class="project-tag">OpenCV</span>
+              <span class="project-tag">Kinematics</span>
+              <span class="project-tag">Arduino</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                Code
+              </a>
+              <a href="#" class="project-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                Demo
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card fade-in">
+          <div class="project-image">
+            <img src="images/project-drone-swarm.jpg" alt="Drone Swarm System" loading="lazy">
+            <div class="project-image-overlay"></div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Drone Swarm System</h3>
+            <p class="project-description">Multi-drone coordination system with distributed control algorithms for synchronized flight patterns.</p>
+            <div class="project-tags">
+              <span class="project-tag">PX4</span>
+              <span class="project-tag">MAVLink</span>
+              <span class="project-tag">Python</span>
+              <span class="project-tag">Gazebo</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                Code
+              </a>
+              <a href="#" class="project-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                Demo
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card fade-in">
+          <div class="project-image">
+            <img src="images/project-vision.jpg" alt="Object Detection Pipeline" loading="lazy">
+            <div class="project-image-overlay"></div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Object Detection Pipeline</h3>
+            <p class="project-description">Real-time object detection system for robotic manipulation using deep learning and point cloud processing.</p>
+            <div class="project-tags">
+              <span class="project-tag">PyTorch</span>
+              <span class="project-tag">ROS</span>
+              <span class="project-tag">PCL</span>
+              <span class="project-tag">CUDA</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                Code
+              </a>
+              <a href="#" class="project-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                Demo
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <div class="item">
-    <h4>AITONOMI AG — Software Developer (Robotics & Infrastructure Automation)</h4>
-    <p class="meta">Apr 2023 – Present · Düsseldorf, Germany</p>
-    <ul>
-      <li>Developed automation scripts to streamline testing workflows across simulation and physical robot platforms.</li>
-      <li>Designed and implemented Jenkins pipelines for automated builds and Docker-based deployments.</li>
-      <li>Supported on-site commissioning during Factory Acceptance Tests (FAT) and Site Acceptance Tests (SAT).</li>
-      <li>Led migration of a production software stack from ROS1 to ROS2 using DDS and lifecycle management.</li>
-    </ul>
-  </div>
+  <!-- Education Section -->
+  <section class="education" id="education">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Education</h2>
+        <p class="section-description">
+          My academic background in robotics and engineering.
+        </p>
+      </div>
+      
+      <div class="education-grid">
+        <div class="education-card fade-in">
+          <div class="education-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div class="education-content">
+            <h3 class="education-degree">Master of Science in Robotics</h3>
+            <p class="education-school">Stanford University</p>
+            <p class="education-year">2018 - 2020</p>
+            <p class="education-description">
+              Specialized in autonomous systems and machine learning for robotics. 
+              Thesis on "Deep Reinforcement Learning for Mobile Robot Navigation."
+            </p>
+          </div>
+        </div>
+        
+        <div class="education-card fade-in">
+          <div class="education-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div class="education-content">
+            <h3 class="education-degree">Bachelor of Engineering in Mechatronics</h3>
+            <p class="education-school">MIT</p>
+            <p class="education-year">2014 - 2018</p>
+            <p class="education-description">
+              Focus on mechanical design, electronics, and control systems. 
+              Graduated with honors. Capstone project: Humanoid Robot Arm.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <div class="item">
-    <h4>NODE Robotics GmbH — Master’s Thesis</h4>
-    <p class="meta">Apr 2022 – Dec 2022 · Stuttgart, Germany</p>
-    <ul>
-      <li>Worked on traffic management for multiple robots in graph-based environments.</li>
-      <li>Improved shared path-planning efficiency and reduced robot downtime.</li>
-    </ul>
-  </div>
+  <!-- Publications Section -->
+  <section class="publications" id="publications">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Publications & Blog</h2>
+        <p class="section-description">
+          My research papers and technical articles on Medium.
+        </p>
+      </div>
+      
+      <div class="publications-grid">
+        <!-- Research Papers -->
+        <div class="publication-category fade-in">
+          <h3 class="publication-category-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Research Papers
+          </h3>
+          <div class="publication-list">
+            <a href="#" class="publication-item">
+              <div class="publication-info">
+                <h4 class="publication-title">Deep Reinforcement Learning for Autonomous Navigation in Dynamic Environments</h4>
+                <p class="publication-meta">IEEE ICRA 2023 • Co-authored with Dr. Smith</p>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+            <a href="#" class="publication-item">
+              <div class="publication-info">
+                <h4 class="publication-title">Multi-Sensor Fusion for Robust Robot Localization</h4>
+                <p class="publication-meta">Journal of Robotics & Automation 2022</p>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Medium Blog Posts -->
+        <div class="publication-category fade-in">
+          <h3 class="publication-category-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+            Weekly Blog on Medium
+          </h3>
+          <div class="publication-list">
+            <a href="#" class="publication-item" target="_blank">
+              <div class="publication-info">
+                <h4 class="publication-title">Getting Started with ROS2: A Beginner's Guide</h4>
+                <p class="publication-meta">Medium • 5 min read • Jan 2024</p>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+            <a href="#" class="publication-item" target="_blank">
+              <div class="publication-info">
+                <h4 class="publication-title">Building a SLAM System from Scratch</h4>
+                <p class="publication-meta">Medium • 8 min read • Dec 2023</p>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+            <a href="#" class="publication-item" target="_blank">
+              <div class="publication-info">
+                <h4 class="publication-title">Computer Vision for Robotics: Essential Techniques</h4>
+                <p class="publication-meta">Medium • 6 min read • Nov 2023</p>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            </a>
+          </div>
+          <a href="https://medium.com/@yourusername" target="_blank" class="btn btn-outline publication-more">
+            View All Articles on Medium
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <div class="item">
-    <h4>NODE Robotics GmbH — Student Intern (ROS Backend Developer)</h4>
-    <p class="meta">Sep 2021 – Feb 2022 · Stuttgart, Germany</p>
-    <ul>
-      <li>Developed backend features for ROSBAG Player UI tools.</li>
-      <li>Integrated WebSocket and REST APIs for improved system communication.</li>
-    </ul>
-  </div>
-</section>
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-content fade-in">
+        <h2 class="section-title">Let's Connect</h2>
+        <p class="section-description">
+          Interested in collaborating on a robotics project? I'm always open to 
+          discussing new opportunities and ideas.
+        </p>
+        
+        <div class="contact-links">
+          <a href="https://github.com/yourusername" target="_blank" class="contact-link-card">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            <span class="contact-link-label">GitHub</span>
+            <span class="contact-link-value">@yourusername</span>
+          </a>
+          
+          <a href="https://linkedin.com/in/yourusername" target="_blank" class="contact-link-card">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            <span class="contact-link-label">LinkedIn</span>
+            <span class="contact-link-value">in/yourusername</span>
+          </a>
+          
+          <a href="mailto:hello@example.com" class="contact-link-card">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span class="contact-link-label">Email</span>
+            <span class="contact-link-value">hello@example.com</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p>© 2024 RoboEngineer. All rights reserved.</p>
+        <p>Built with passion for robotics</p>
+      </div>
+    </div>
+  </footer>
 
-  <!-- ================= PROJECTS ================= -->
-  <section id="projects" class="section">
-  <h3>Projects</h3>
-
-  <div class="item">
-    <h4>Pick and Place using TIAGo Robot</h4>
-    <ul>
-      <li>Implemented ARUCO marker-based perception for object detection.</li>
-      <li>Integrated MoveIt for robotic arm motion planning.</li>
-      <li>Evaluated real-world vs simulation performance in Gazebo.</li>
-    </ul>
-  </div>
-
-  <div class="item">
-    <h4>Disease Detection in Paddy Crop using CNN</h4>
-    <ul>
-      <li>Built a CNN-based plant disease detection system using Keras and OpenCV.</li>
-      <li>Published in International Journal of Recent Technology and Engineering (IJRTE).</li>
-    </ul>
-  </div>
-</section>
-
-
-  <!-- ================= EDUCATION ================= -->
-  <section id="education" class="section">
-  <h3>Education</h3>
-
-  <div class="item">
-    <h4>M.S. in Electrical and Information Technology</h4>
-    <p class="meta">Hochschule Darmstadt, Germany · 2020 – 2022</p>
-  </div>
-
-  <div class="item">
-    <h4>B.E. in Electronics and Communication Engineering</h4>
-    <p class="meta">Visvesvaraya Technological University, India · 2016 – 2020</p>
-  </div>
-</section>
-
-
-  <!-- ================= PUBLICATIONS ================= -->
-  <section id="publications" class="section">
-  <h3>Publications & Blogs</h3>
-
-  <!-- Publications -->
-  <div class="item">
-    <h4>Publications</h4>
-    <p>
-      <strong>Disease Detection in Paddy Crop using CNN Algorithm</strong><br>
-      International Journal of Recent Technology and Engineering (IJRTE), 2020
-    </p>
-  </div>
-
-  <!-- Blogs -->
-  <div class="item">
-    <h4>Blogs</h4>
-
-    <ul>
-      <li>
-        <a href="https://medium.com/@sharathnp1998/why-simulation-is-essential-in-robotics-a-beginner-friendly-guide-0f48ba8eb664"
-           target="_blank">
-          Why Simulation Is Essential in Robotics
-        </a>
-      </li>
-    </ul>
-
-    <p style="margin-top: 10px; color: #9aa4bf; font-size: 0.85rem;">
-      More articles coming soon.
-    </p>
-  </div>
-</section>
-
-
-  <!-- ================= CONTACT ================= -->
- <section id="contact" class="section">
-  <h3>Contact</h3>
-
-  <div class="contact-links">
-    <a href="mailto:sharathnpayyadi@gmail.com" class="contact-btn">Email</a>
-    <a href="https://github.com/SHARATHNPAYYADI" target="_blank" class="contact-btn">GitHub</a>
-    <a href="https://www.linkedin.com/in/sharath-n-payyadi" target="_blank" class="contact-btn">LinkedIn</a>
-  </div>
-</section>
-
-<script src="script.js"></script>
+  <script src="main.js"></script>
 </body>
-<footer class="footer">
-  <p>© 2024 Sharath N Payyadi</p>
-</footer>
 </html>
