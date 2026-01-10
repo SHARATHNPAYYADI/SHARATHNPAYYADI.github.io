@@ -1085,10 +1085,14 @@ ul {
 
 /* ===== Hero Grid Layout ===== */
 .hero-grid {
+  position: relative;
+  z-index: 10; /* IMPORTANT: above background effects */
+
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   align-items: center;
   gap: 4rem;
+
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
@@ -1110,7 +1114,6 @@ ul {
   font-weight: 700;
   line-height: 1.15;
 }
-
 /* ===== Hero Photo ===== */
 .hero-photo {
   display: flex;
