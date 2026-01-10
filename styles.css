@@ -94,13 +94,28 @@ ul {
 }
 
 /* ===== Navigation ===== */
-.nav {
+/* .nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
   transition: background-color 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+} */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 100;
+  display: flex;
+  align-items: center;
+
+  height: 4rem;
+  padding: 0 1.5rem;
+
+  transition: background-color 0.3s, backdrop-filter 0.3s, border-color 0.3s;
 }
 
 .nav.scrolled {
@@ -113,10 +128,22 @@ ul {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 4rem;
+}
+
+/* Left zone: hard anchored */
+.nav-left {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+/* Right zone stays right */
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
 }
 
 .nav-logo {
@@ -128,11 +155,13 @@ ul {
 }
 
 .nav-favicon {
-  width: 24px;
-  height: 24px;
+  width: 35px;
+  height: 35px;
   object-fit: contain;
 }
-
+.nav-favicon {
+  filter: drop-shadow(0 0 6px hsla(187, 100%, 50%, 0.35));
+}
 .nav-links {
   display: none;
   gap: 1.5rem;
@@ -186,7 +215,7 @@ ul {
 .btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 0.5rem;
   padding: 0.75rem 2rem;
   border-radius: var(--radius);
@@ -978,4 +1007,141 @@ ul {
 .footer-content p {
   font-size: 0.875rem;
   color: var(--muted-foreground);
+}
+/* ===== Terminal Logo ===== */
+.terminal-logo {
+  /* display: flex;
+  align-items: center;
+  gap: 0.5rem; */
+  margin-left: 0;
+}
+
+.terminal-bracket {
+  color: var(--primary);
+}
+
+.terminal-name {
+  color: var(--foreground);
+}
+
+.terminal-sep {
+  margin: 0 0.25rem;
+  color: var(--muted-foreground);
+}
+
+.terminal-role {
+  color: var(--terminal-green);
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.2em;
+  background-color: var(--terminal-green);
+  margin-left: 4px;
+  animation: terminalBlink 1.2s steps(1) infinite;
+}
+/* Logo glow on scroll */
+.nav.scrolled .terminal-logo {
+  text-shadow: 0 0 12px hsla(187, 100%, 50%, 0.6);
+}
+
+.nav.scrolled .terminal-role {
+  color: var(--primary);
+}
+.nav.scrolled .terminal-cursor {
+  opacity: 1;
+}
+
+.terminal-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  color: var(--terminal-green);
+  white-space: nowrap;
+}
+
+/* ===== SIM / REAL Mode Indicator ===== */
+.terminal-mode {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid;
+  letter-spacing: 0.05em;
+}
+
+.terminal-mode.sim {
+  color: var(--terminal-green);
+  border-color: hsla(142, 70%, 45%, 0.6);
+  background-color: hsla(142, 70%, 45%, 0.1);
+}
+
+.terminal-mode.real {
+  color: var(--primary);
+  border-color: hsla(187, 100%, 50%, 0.6);
+  background-color: hsla(187, 100%, 50%, 0.1);
+}
+
+/* ===== Hero Grid Layout ===== */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.hero-text {
+  text-align: left;
+}
+
+.hero-name {
+  display: block;
+  font-size: clamp(2.8rem, 6vw, 3.8rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  display: block;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+/* ===== Hero Photo ===== */
+.hero-photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-photo img {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 2px solid hsla(187, 100%, 50%, 0.25);
+  box-shadow:
+    0 0 0 8px hsla(187, 100%, 50%, 0.04),
+    0 0 40px -10px hsla(187, 100%, 50%, 0.35);
+}
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+
+  .hero-photo img {
+    width: 200px;
+    height: 200px;
+  }
 }

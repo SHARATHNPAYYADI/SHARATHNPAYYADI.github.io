@@ -84,3 +84,83 @@ const yearElement = document.querySelector('.footer-content p');
 if (yearElement) {
   yearElement.innerHTML = yearElement.innerHTML.replace('2024', new Date().getFullYear());
 }
+
+
+// ===== Continuous ROS Terminal Animation =====
+const terminalLine = document.getElementById('terminal-line');
+
+const terminalSequence = [
+  '$ ./autonomous_system --startup',
+  '[INFO] Booting robot controller',
+  '[INFO] Initializing sensors',
+  '[OK] Perception module online',
+  '[OK] Motion planner ready',
+  '[STATUS] System running'
+];
+
+let lineIndex = 0;
+let charIndex = 0;
+let state = 'typing';
+let pauseCounter = 0;
+
+function runTerminal() {
+  if (!terminalLine) return;
+
+  const currentLine = terminalSequence[lineIndex];
+
+  if (state === 'typing') {
+    if (charIndex < currentLine.length) {
+      terminalLine.textContent += currentLine[charIndex];
+      charIndex++;
+    } else {
+      state = 'pause';
+      pauseCounter = 0;
+    }
+  }
+
+  else if (state === 'pause') {
+    pauseCounter++;
+    if (pauseCounter > 15) { // ~900ms pause
+      state = 'clear';
+    }
+  }
+
+  else if (state === 'clear') {
+    terminalLine.textContent = '';
+    charIndex = 0;
+    lineIndex = (lineIndex + 1) % terminalSequence.length;
+    state = 'typing';
+  }
+}
+
+setInterval(runTerminal, 60);
+
+// ===== Robot Mode Indicator =====
+const modeElement = document.getElementById('terminal-mode');
+
+// Change this to 'real' when needed
+const ROBOT_MODE = 'sim'; // 'sim' | 'real'
+
+if (modeElement) {
+  if (ROBOT_MODE === 'real') {
+    modeElement.textContent = 'REAL';
+    modeElement.classList.remove('sim');
+    modeElement.classList.add('real');
+  } else {
+    modeElement.textContent = 'SIM';
+    modeElement.classList.remove('real');
+    modeElement.classList.add('sim');
+  }
+}
+
+// ===== Switch to REAL mode on CV click =====
+
+document.querySelectorAll('[data-set-mode="real"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (!modeElement) return;
+
+    modeElement.textContent = 'REAL';
+    modeElement.classList.remove('sim');
+    modeElement.classList.add('real');
+  });
+});
