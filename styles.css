@@ -552,13 +552,24 @@ ul {
   margin-bottom: 0.75rem;
 }
 
-.skill-list li {
-  font-size: 0.875rem;
-  color: var(--muted-foreground);
-  padding: 0.25rem 0;
-  transition: color 0.2s;
+.skill-list {
+  list-style: none;
+  padding-left: 0;
 }
 
+.skill-list li {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.skill-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+}
 .skill-list li:hover {
   color: var(--foreground);
 }
