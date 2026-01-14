@@ -321,127 +321,83 @@
 
 
   <!-- Projects Section -->
-  <section class="projects" id="projects">
-    <div class="container">
-      <div class="section-header fade-in">
-        <h2 class="section-title">Featured Projects</h2>
-        <p class="section-description">
-          A selection of robotics projects I've worked on, from autonomous navigation 
-          to computer vision and motion control systems.
-        </p>
-      </div>
-      
-      <div class="projects-grid">
-        <div class="project-card fade-in">
-          <div class="project-image">
-            <img src="images/project-mobile-robot.jpg" alt="Autonomous Mobile Robot" loading="lazy">
-            <div class="project-image-overlay"></div>
-          </div>
-          <div class="project-content">
-            <h3 class="project-title">Autonomous Mobile Robot</h3>
-            <p class="project-description">A self-navigating robot using SLAM, LiDAR, and ROS2 for indoor warehouse operations.</p>
-            <div class="project-tags">
-              <span class="project-tag">ROS2</span>
-              <span class="project-tag">SLAM</span>
-              <span class="project-tag">Python</span>
-              <span class="project-tag">LiDAR</span>
-            </div>
-            <div class="project-links">
-              <a href="#" class="project-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                Code
-              </a>
-              <a href="#" class="project-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-                Demo
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="project-card fade-in">
-          <div class="project-image">
-            <img src="images/project-robot-arm.jpg" alt="Robotic Arm Controller" loading="lazy">
-            <div class="project-image-overlay"></div>
-          </div>
-          <div class="project-content">
-            <h3 class="project-title">Robotic Arm Controller</h3>
-            <p class="project-description">6-DOF robotic arm with inverse kinematics solver and computer vision integration for pick-and-place tasks.</p>
-            <div class="project-tags">
-              <span class="project-tag">C++</span>
-              <span class="project-tag">OpenCV</span>
-              <span class="project-tag">Kinematics</span>
-              <span class="project-tag">Arduino</span>
-            </div>
-            <div class="project-links">
-              <a href="#" class="project-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                Code
-              </a>
-              <a href="#" class="project-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-                Demo
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="project-card fade-in">
-          <div class="project-image">
-            <img src="images/project-drone-swarm.jpg" alt="Drone Swarm System" loading="lazy">
-            <div class="project-image-overlay"></div>
-          </div>
-          <div class="project-content">
-            <h3 class="project-title">Drone Swarm System</h3>
-            <p class="project-description">Multi-drone coordination system with distributed control algorithms for synchronized flight patterns.</p>
-            <div class="project-tags">
-              <span class="project-tag">PX4</span>
-              <span class="project-tag">MAVLink</span>
-              <span class="project-tag">Python</span>
-              <span class="project-tag">Gazebo</span>
-            </div>
-            <div class="project-links">
-              <a href="#" class="project-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                Code
-              </a>
-              <a href="#" class="project-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-                Demo
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="project-card fade-in">
-          <div class="project-image">
-            <img src="images/project-vision.jpg" alt="Object Detection Pipeline" loading="lazy">
-            <div class="project-image-overlay"></div>
-          </div>
-          <div class="project-content">
-            <h3 class="project-title">Object Detection Pipeline</h3>
-            <p class="project-description">Real-time object detection system for robotic manipulation using deep learning and point cloud processing.</p>
-            <div class="project-tags">
-              <span class="project-tag">PyTorch</span>
-              <span class="project-tag">ROS</span>
-              <span class="project-tag">PCL</span>
-              <span class="project-tag">CUDA</span>
-            </div>
-            <div class="project-links">
-              <a href="#" class="project-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                Code
-              </a>
-              <a href="#" class="project-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-                Demo
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- ================= PROJECTS ================= -->
+<section class="projects" id="projects">
+  <div class="container">
+    <div class="section-header fade-in">
+      <h2 class="section-title">Projects</h2>
+      <p class="section-description">
+        Selected academic and applied projects related to robotics systems
+        and intelligent perception.
+      </p>
     </div>
-  </section>
+
+    <div class="projects-grid">
+
+      <!-- ================= Project 1 ================= -->
+      <div class="project-card fade-in">
+        <div class="project-image">
+          <img src="images/tiago_robot.jpg"
+              alt="TIAGo robot pick and place project"
+              loading="lazy">
+          <div class="project-image-overlay"></div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">
+            Pick and Place using TIAGo Robot
+          </h3>
+
+          <p class="project-description">
+            Developed a pick-and-place pipeline for a mobile manipulator using
+            vision-based object detection and motion planning. The project
+            involved evaluating system behavior in simulation and real-world
+            robot setups.
+          </p>
+
+          <div class="project-tags">
+            <span class="project-tag">ROS</span>
+            <span class="project-tag">MoveIt</span>
+            <span class="project-tag">Robotic Arm</span>
+            <span class="project-tag">Simulation</span>
+            <span class="project-tag">Computer Vision</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= Project 2 ================= -->
+      <div class="project-card fade-in">
+        <div class="project-image">
+          <img src="images/cnn_photo.png"
+              alt="TIAGo robot pick and place project"
+              loading="lazy">
+          <div class="project-image-overlay"></div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">
+            Disease Detection using CNN
+          </h3>
+
+          <p class="project-description">
+            Implemented a convolutional neural network-based system to detect
+            crop diseases from images using deep learning and image processing
+            techniques. This work resulted in a peer-reviewed journal publication.
+          </p>
+
+          <div class="project-tags">
+            <span class="project-tag">CNN</span>
+            <span class="project-tag">Computer Vision</span>
+            <span class="project-tag">Deep Learning</span>
+            <span class="project-tag">Research</span>
+          </div>
+        </div>
+      </div>
+
+      
+
+    </div>
+  </div>
+</section>
+
 
   <!-- ================= EDUCATION ================= -->
   <section class="education" id="education">
