@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Disease Detection in Paddy Crop | Bachelor Thesis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    .project-detail {
+      padding: 80px 20px;
+    }
+
+    .project-container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .project-header {
+      margin-bottom: 40px;
+    }
+
+    .project-meta {
+      opacity: 0.7;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    .project-tags {
+      margin-top: 15px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #0f172a;
+      border: 1px solid #00f5d4;
+      color: #00f5d4;
+      padding: 6px 12px;
+      margin: 5px 5px 0 0;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    .project-section {
+      margin-top: 50px;
+    }
+
+    .project-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .project-section ul {
+      list-style: disc;
+      padding-left: 22px;
+    }
+
+    .project-section li {
+      margin-bottom: 6px;
+    }
+
+    .project-section li::marker {
+      color: #00f5d4;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 260px;
+      background: #020617;
+      border: 1px dashed #00f5d4;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+      opacity: 0.6;
+      font-size: 14px;
+    }
+
+    .highlight {
+      color: #00f5d4;
+      font-weight: 500;
+    }
+
+    .cta-section {
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .cta-section a {
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<section class="project-detail">
+  <div class="project-container">
+
+    <!-- HEADER -->
+    <div class="project-header">
+      <h1 class="section-title">
+        🌾 Disease Detection in Paddy Crop using CNN
+      </h1>
+
+      <p class="project-meta">
+        🎓 RNS Institute of Technology (VTU)<br>
+        🏢 Bachelor Thesis (Final Year Project)<br>
+        📍 India<br>
+        📅 2020
+      </p>
+
+      <div class="project-tags">
+        <span class="tag">Deep Learning</span>
+        <span class="tag">CNN</span>
+        <span class="tag">Computer Vision</span>
+        <span class="tag">Python</span>
+        <span class="tag">Raspberry Pi</span>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="project-section">
+      <h2>📌 Overview</h2>
+      <p>
+        This project focuses on detecting diseases in paddy crops using 
+        <span class="highlight">Convolutional Neural Networks (CNN)</span>. 
+        The system captures leaf images and classifies them into healthy or diseased categories, 
+        enabling early diagnosis and improving agricultural productivity.
+      </p>
+
+      <div class="image-placeholder">
+        Sample Input / Output (to be added)
+      </div>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="project-section">
+      <h2>⚠️ Problem Statement</h2>
+
+      <p>
+        Manual detection of crop diseases is time-consuming, error-prone, and requires domain expertise.
+      </p>
+
+      <ul>
+        <li>Late detection leads to crop loss</li>
+        <li>Dependence on human expertise</li>
+        <li>Difficulty in identifying diseases visually</li>
+        <li>Lack of automated monitoring systems</li>
+      </ul>
+    </div>
+
+    <!-- APPROACH -->
+    <div class="project-section">
+      <h2>🧠 Approach</h2>
+
+      <ul>
+        <li>Dataset collection of paddy leaf images</li>
+        <li>Image preprocessing and augmentation</li>
+        <li>CNN model training for disease classification</li>
+        <li>Deployment on embedded system (Raspberry Pi)</li>
+        <li>Real-time image capture using Pi camera</li>
+      </ul>
+
+      <div class="image-placeholder">
+        Model Architecture (to be added)
+      </div>
+    </div>
+
+    <!-- PIPELINE -->
+    <div class="project-section">
+      <h2>🔄 System Pipeline</h2>
+
+      <ul>
+        <li>Capture leaf image using camera</li>
+        <li>Preprocess the image</li>
+        <li>Feed image into trained CNN model</li>
+        <li>Classify disease type</li>
+        <li>Display result / alert user</li>
+      </ul>
+
+      <div class="image-placeholder">
+        Pipeline Diagram (to be added)
+      </div>
+    </div>
+
+    <!-- ARCHITECTURE -->
+    <div class="project-section">
+      <h2>🏗️ System Architecture</h2>
+
+      <ul>
+        <li><strong>Hardware:</strong> Raspberry Pi, Pi Camera, GSM module</li>
+        <li><strong>Software:</strong> Python, TensorFlow/Keras</li>
+        <li><strong>Model:</strong> Convolutional Neural Network</li>
+        <li><strong>Interface:</strong> Image capture + classification output</li>
+      </ul>
+
+      <div class="image-placeholder">
+        Block Diagram (to be added)
+      </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="project-section">
+      <h2>✨ Key Features</h2>
+
+      <ul>
+        <li>Automated disease detection using deep learning</li>
+        <li>Real-time image processing</li>
+        <li>Portable embedded system deployment</li>
+        <li>Scalable for different crop types</li>
+        <li>Low-cost agricultural solution</li>
+      </ul>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="project-section">
+      <h2>📊 Results</h2>
+
+      <ul>
+        <li>Successful classification of paddy diseases</li>
+        <li>High accuracy achieved using CNN model</li>
+        <li>Real-time detection using Raspberry Pi setup</li>
+        <li>Demonstrated practical agricultural use-case</li>
+      </ul>
+
+      <div class="image-placeholder">
+        Accuracy Graph / Output (to be added)
+      </div>
+    </div>
+
+    <!-- FUTURE -->
+    <div class="project-section">
+      <h2>🔮 Future Work</h2>
+
+      <ul>
+        <li>Extend to multiple crop types</li>
+        <li>Deploy on mobile application</li>
+        <li>Improve model accuracy with larger datasets</li>
+        <li>Cloud-based monitoring system</li>
+        <li>Integration with IoT-based farm systems</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>📄 Project Report</h2>
+      <p>Explore the detailed implementation and results.</p>
+
+      <a href="../reports/bachelor_thesis_report.pdf" target="_blank" class="btn btn-primary">
+        View Report
+      </a>
+
+      <a href="../index.html#projects" class="btn btn-outline">
+        ← Back to Projects
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

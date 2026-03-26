@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Master Thesis | Traffic Management of Multiple Robots using Graph Environment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    .project-detail {
+      padding: 80px 20px;
+    }
+
+    .project-container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .project-header {
+      margin-bottom: 40px;
+    }
+
+    .project-meta {
+      opacity: 0.7;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    .project-tags {
+      margin-top: 15px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #0f172a;
+      border: 1px solid #00f5d4;
+      color: #00f5d4;
+      padding: 6px 12px;
+      margin: 5px 5px 0 0;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    .project-section {
+      margin-top: 50px;
+    }
+
+    .project-section h2 {
+      margin-bottom: 10px;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 260px;
+      background: #020617;
+      border: 1px dashed #00f5d4;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+      opacity: 0.6;
+      font-size: 14px;
+    }
+
+    .highlight {
+      color: #00f5d4;
+      font-weight: 500;
+    }
+
+    .cta-section {
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .cta-section a {
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<section class="project-detail">
+  <div class="project-container">
+
+    <!-- HEADER -->
+    <div class="project-header">
+      <h1 class="section-title">
+        🚀 Master Thesis – Traffic Management of Multiple Robots using Graph Environment
+      </h1>
+
+      <p class="project-meta">
+        🎓 Hochschule Darmstadt<br>
+        🏢 Node Robotics GmbH<br>
+        📍 Stuttgart, Germany<br>
+        📅 Apr 2022 – Dec 2022
+      </p>
+
+      <div class="project-tags">
+        <span class="tag">ROS2</span>
+        <span class="tag">C++</span>
+        <span class="tag">AMR</span>
+        <span class="tag">Path Planning</span>
+        <span class="tag">Graph-Based Planning</span>
+        <span class="tag">Multi-Robot Systems</span>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="project-section">
+      <h2>📌 Overview</h2>
+      <p>
+        Autonomous Mobile Robots (AMRs) are increasingly used in industrial logistics due to their flexibility.
+        However, coordinating multiple robots in shared environments remains a major challenge.
+      </p>
+
+      
+      <p>
+        This thesis presents a <span class="highlight">centralized traffic management system</span> that enables
+        efficient coordination of multiple robots using a graph-based representation of the environment.
+      </p>
+
+      <div class="image-placeholder">
+        System Overview Diagram (to be added)
+      </div>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="project-section">
+      <h2>⚠️ Problem Statement</h2>
+
+      <p>
+        In real-world industrial environments, multiple robots operate simultaneously in shared spaces such as narrow corridors and intersections.
+      </p>
+
+      <ul>
+        <li>Collision risks between robots</li>
+        <li>Deadlocks in constrained environments</li>
+        <li>Inefficient waiting and delays</li>
+        <li>Limited coordination between robot fleets</li>
+      </ul>
+    </div>
+
+    <!-- APPROACH -->
+    <div class="project-section">
+      <h2>🧠 Approach</h2>
+
+      <p>
+        The system models the environment as a <span class="highlight">topological graph</span>,
+        enabling structured decision-making for robot movement and coordination.
+      </p>
+
+      <ul>
+        <li>Graph-based environment modeling</li>
+        <li>Predefined traffic rules (left/right/center)</li>
+        <li>Centralized traffic controller</li>
+        <li>Real-time robot tracking</li>
+      </ul>
+
+      <div class="image-placeholder">
+        Graph Environment Representation (to be added)
+      </div>
+    </div>
+
+    <!-- CONTRIBUTIONS -->
+    <div class="project-section">
+      <h2>✨ Key Contributions</h2>
+
+      <ul>
+        <li>🔍 Conflict detection between robot paths</li>
+        <li>🔄 Dynamic detour generation to avoid collisions</li>
+        <li>⏸️ Intelligent waiting strategy when detours are not possible</li>
+        <li>📡 ROS2-based system integration</li>
+        <li>🤖 Support for heterogeneous robot fleets</li>
+      </ul>
+    </div>
+
+    <!-- ARCHITECTURE -->
+    <div class="project-section">
+      <h2>🏗️ System Architecture</h2>
+
+      <p>
+        The system consists of two primary layers:
+      </p>
+
+      <ul>
+        <li><strong>Fleet Management System (FMS):</strong> Task allocation and coordination</li>
+        <li><strong>Robot Layer:</strong> Navigation and execution</li>
+      </ul>
+
+      <p>
+        Communication is handled using ROS2 and MQTT-based protocols.
+      </p>
+
+      <div class="image-placeholder">
+        Architecture Diagram (to be added)
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="project-section">
+      <h2>📊 Results</h2>
+
+      <p>
+        The system was evaluated in simulation across multiple scenarios involving multiple robots.
+      </p>
+
+      <ul>
+        <li>Collision avoidance in narrow corridors</li>
+        <li>Reduction in deadlocks using detour strategies</li>
+        <li>Improved coordination efficiency</li>
+      </ul>
+
+      <div class="image-placeholder">
+        Simulation Results (to be added)
+      </div>
+    </div>
+
+    <!-- FUTURE -->
+    <div class="project-section">
+      <h2>🔮 Future Work</h2>
+
+      <ul>
+        <li>Real-world deployment in factory environments</li>
+        <li>Handling dynamic obstacles</li>
+        <li>Scaling to larger robot fleets</li>
+        <li>Enhanced scheduling and prioritization</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>📄 Full Thesis</h2>
+      <p>Explore the detailed implementation and evaluation.</p>
+
+      <a href="../reports/master_thesis.pdf" target="_blank" class="btn btn-primary">
+        View Report
+      </a>
+
+      <a href="../index.html#projects" class="btn btn-outline">
+        ← Back to Projects
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

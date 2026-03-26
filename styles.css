@@ -695,6 +695,53 @@ ul {
   grid-template-columns: 1fr;
   gap: 2rem;
 }
+/* .project-highlights {
+  margin: 1rem 0;
+  padding-left: 1.2rem;
+}
+
+.project-highlights li {
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+} */
+.project-description {
+  font-size: 15px;
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+.project-highlights li {
+  font-size: 14px;        /* ↓ slightly smaller than objective */
+  font-weight: 400;       /* remove bold feel */
+  color: #94a3b8;         /* softer than description */
+  line-height: 1.5;
+}
+
+.project-highlights li::before {
+  content: "▹"; /* or "•" or "✔" */
+  position: absolute;
+  left: 0;
+  color: #00e5ff; /* accent color */
+  font-weight: bold;
+}
+.project-links {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.project-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--primary);
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.project-link:hover {
+  border-color: var(--primary);
+}
 
 @media (min-width: 768px) {
   .projects-grid {
@@ -791,6 +838,33 @@ ul {
 
 .project-link:hover {
   color: var(--primary);
+}
+
+.project-detail {
+  padding: 80px 20px;
+}
+
+.project-section {
+  margin-top: 30px;
+}
+
+.project-section h2 {
+  margin-bottom: 10px;
+}
+
+.project-meta {
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.project-section ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.project-section li {
+  margin-bottom: 6px;
 }
 
 /* ===== Education Section ===== */
