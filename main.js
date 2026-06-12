@@ -164,3 +164,21 @@ document.querySelectorAll('[data-set-mode="real"]').forEach(btn => {
     modeElement.classList.add('real');
   });
 });
+
+// ===== Image Lightbox (Click to Expand) =====
+function openImage(img) {
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImg");
+
+  if (!modal || !modalImg) return;
+
+  modal.style.display = "flex";
+  modalImg.src = img.src;
+}
+
+function closeImage() {
+  const modal = document.getElementById("imageModal");
+  if (!modal) return;
+
+  modal.style.display = "none";
+}

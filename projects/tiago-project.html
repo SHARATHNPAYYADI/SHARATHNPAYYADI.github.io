@@ -63,23 +63,17 @@
       color: #00f5d4;
     }
 
-    .image-placeholder {
-      width: 100%;
-      height: 260px;
-      background: #020617;
-      border: 1px dashed #00f5d4;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 15px;
-      opacity: 0.6;
-      font-size: 14px;
-    }
-
     .highlight {
       color: #00f5d4;
       font-weight: 500;
+    }
+
+    .flowchart-img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 20px;
+      border: 1px solid #00f5d4;
+      background: #020617;
     }
 
     .cta-section {
@@ -128,20 +122,11 @@
         using the TIAGo robot. The system integrates perception, planning, and control to autonomously 
         detect, grasp, and place objects in both simulation and real-world environments.
       </p>
-
-      <div class="image-placeholder">
-        System Overview (to be added)
-      </div>
     </div>
 
     <!-- PROBLEM -->
     <div class="project-section">
       <h2>⚠️ Problem Statement</h2>
-      <p>
-        Autonomous manipulation in dynamic environments is challenging due to perception uncertainty 
-        and motion constraints.
-      </p>
-
       <ul>
         <li>Accurate object detection and pose estimation</li>
         <li>Collision-free motion planning</li>
@@ -153,11 +138,6 @@
     <!-- APPROACH -->
     <div class="project-section">
       <h2>🧠 Approach</h2>
-
-      <p>
-        The system integrates perception and motion planning using a modular ROS-based architecture.
-      </p>
-
       <ul>
         <li>Object detection using ArUco markers and OpenCV</li>
         <li>Pose estimation using camera data</li>
@@ -165,52 +145,31 @@
         <li>Octomap-based collision environment</li>
         <li>Execution on both simulation and real robot</li>
       </ul>
-
-      <div class="image-placeholder">
-        Pipeline Diagram (to be added)
-      </div>
     </div>
 
-    <!-- PIPELINE -->
-    <div class="project-section">
-      <h2>🔄 System Pipeline</h2>
+    <!-- SYSTEM FLOW (IMAGE) -->
+    <div class="image-box">
+      <img src="../images/project/flowchart.png" alt="flowchart Architecture" onclick="openImage(this)">
 
-      <ul>
-        <li>Robot moves to pre-grasp position</li>
-        <li>Head scans environment</li>
-        <li>ArUco marker detection</li>
-        <li>Pose estimation using OpenCV</li>
-        <li>Octomap updated for collision checking</li>
-        <li>Grasp generation and selection</li>
-        <li>Motion planning using MoveIt</li>
-        <li>Execution of pick and place</li>
-      </ul>
-
-      <div class="image-placeholder">
-        Execution Flow (to be added)
-      </div>
+      <p class="image-caption">
+        End-to-end pipeline illustrating perception, planning, and execution for autonomous pick-and-place using the TIAGo robot.
+      </p>
     </div>
 
     <!-- ARCHITECTURE -->
     <div class="project-section">
       <h2>🏗️ System Architecture</h2>
-
       <ul>
         <li><strong>Perception Layer:</strong> Camera + ArUco detection</li>
         <li><strong>Planning Layer:</strong> MoveIt motion planning</li>
         <li><strong>Execution Layer:</strong> Arm and gripper control</li>
         <li><strong>ROS Nodes:</strong> pick_and_place, move_group, tf</li>
       </ul>
-
-      <div class="image-placeholder">
-        ROS Architecture (to be added)
-      </div>
     </div>
 
     <!-- FEATURES -->
     <div class="project-section">
       <h2>✨ Key Features</h2>
-
       <ul>
         <li>Autonomous object detection using RGB-D camera</li>
         <li>Real-time motion planning with collision avoidance</li>
@@ -223,23 +182,17 @@
     <!-- RESULTS -->
     <div class="project-section">
       <h2>📊 Results</h2>
-
       <ul>
         <li>Successful pick-and-place in Gazebo simulation</li>
         <li>Real-world execution on TIAGo robot</li>
         <li>Stable and reliable motion planning</li>
         <li>Accurate pose estimation using ArUco markers</li>
       </ul>
-
-      <div class="image-placeholder">
-        Results / Demo (to be added)
-      </div>
     </div>
 
     <!-- FUTURE -->
     <div class="project-section">
       <h2>🔮 Future Work</h2>
-
       <ul>
         <li>Improve object detection beyond markers</li>
         <li>Integrate mobile base navigation</li>
@@ -265,6 +218,9 @@
 
   </div>
 </section>
-
+<div id="imageModal" class="image-modal" onclick="closeImage()">
+  <img id="modalImg">
+</div>
+<script src="../main.js"></script>
 </body>
 </html>

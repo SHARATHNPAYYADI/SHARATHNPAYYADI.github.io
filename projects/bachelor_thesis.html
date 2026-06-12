@@ -6,89 +6,444 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="../styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
-    .project-detail {
-      padding: 80px 20px;
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface2: #0f1f35;
+      --accent: #00f5d4;
+      --accent-dim: rgba(0, 245, 212, 0.12);
+      --accent-dim2: rgba(0, 245, 212, 0.06);
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --border: rgba(0, 245, 212, 0.18);
+      --border-subtle: rgba(255,255,255,0.06);
+      --green: #4ade80;
+      --amber: #fbbf24;
     }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+    }
+
+    .project-detail { padding: 80px 20px 100px; }
+
     .project-container {
-      max-width: 1000px;
+      max-width: 960px;
       margin: auto;
     }
 
-    .project-header {
-      margin-bottom: 40px;
+    /* ── HEADER ── */
+    .project-header { margin-bottom: 56px; }
+
+    .project-header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 600;
+      line-height: 1.25;
+      color: #fff;
+      margin-bottom: 16px;
     }
+
+    .project-header h1 .emoji { margin-right: 8px; }
 
     .project-meta {
-      opacity: 0.7;
-      margin-top: 10px;
-      line-height: 1.6;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 2;
     }
 
-    .project-tags {
-      margin-top: 15px;
-    }
+    .project-tags { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
 
     .tag {
-      display: inline-block;
-      background: #0f172a;
-      border: 1px solid #00f5d4;
-      color: #00f5d4;
-      padding: 6px 12px;
-      margin: 5px 5px 0 0;
+      background: var(--accent-dim);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      padding: 5px 12px;
       border-radius: 6px;
-      font-size: 13px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
     }
 
-    .project-section {
-      margin-top: 50px;
+    /* ── PUBLICATION BADGE ── */
+    .pub-badge {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: linear-gradient(135deg, rgba(0,245,212,0.08), rgba(0,245,212,0.03));
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-top: 28px;
     }
 
-    .project-section h2 {
+    .pub-badge-icon {
+      font-size: 1.4rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .pub-badge-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+    .pub-badge-text strong { color: var(--accent); font-weight: 600; }
+    .pub-badge-text a { color: var(--accent); text-decoration: none; }
+    .pub-badge-text a:hover { text-decoration: underline; }
+
+    /* ── SECTION ── */
+    .project-section { margin-top: 56px; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
       margin-bottom: 10px;
     }
 
+    .project-section > h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .project-section p { color: var(--text-muted); margin-bottom: 12px; }
+    .project-section p:last-child { margin-bottom: 0; }
+
     .project-section ul {
-      list-style: disc;
-      padding-left: 22px;
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .project-section li {
-      margin-bottom: 6px;
+      color: var(--text-muted);
+      padding-left: 18px;
+      position: relative;
+      font-size: 0.95rem;
     }
 
-    .project-section li::marker {
-      color: #00f5d4;
+    .project-section li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
     }
 
-    .image-placeholder {
-      width: 100%;
-      height: 260px;
-      background: #020617;
-      border: 1px dashed #00f5d4;
+    /* ── STAT CARDS ── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .stat-card {
+      background: var(--surface2);
+      border: 1px solid var(--border-subtle);
       border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 15px;
-      opacity: 0.6;
-      font-size: 14px;
-    }
-
-    .highlight {
-      color: #00f5d4;
-      font-weight: 500;
-    }
-
-    .cta-section {
-      margin-top: 60px;
+      padding: 20px;
       text-align: center;
     }
 
-    .cta-section a {
-      margin: 10px;
+    .stat-card .stat-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1.1;
+    }
+
+    .stat-card .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── FIGURE PANELS ── */
+    .figure-panel {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .figure-panel img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .figure-caption {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+      font-style: italic;
+    }
+
+    /* ── TWO-COL IMAGE GRID ── */
+    .figure-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    /* ── ARCHITECTURE GRID ── */
+    .arch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .arch-card {
+      background: var(--surface2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .arch-card h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .arch-card ul { gap: 6px; }
+
+    /* ── PIPELINE ── */
+    .pipeline {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .pipeline-step {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.82rem;
+      color: var(--text);
+      text-align: center;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .pipeline-step .step-num {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .pipeline-arrow {
+      color: var(--accent);
+      font-size: 1.2rem;
+      padding: 0 6px;
+      flex-shrink: 0;
+    }
+
+    /* ── RESULTS TABLE ── */
+    .results-table-wrap {
+      margin-top: 20px;
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    thead tr {
+      background: var(--surface2);
+    }
+
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.84rem;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .badge-healthy {
+      background: rgba(74, 222, 128, 0.12);
+      color: var(--green);
+      border: 1px solid rgba(74,222,128,0.25);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+    }
+
+    .badge-blast {
+      background: rgba(251, 191, 36, 0.12);
+      color: var(--amber);
+      border: 1px solid rgba(251,191,36,0.25);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+    }
+
+    .badge-blight {
+      background: rgba(248, 113, 113, 0.12);
+      color: #f87171;
+      border: 1px solid rgba(248,113,113,0.25);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+    }
+
+    /* ── ACCURACY BAR ── */
+    .accuracy-row {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .acc-item {}
+
+    .acc-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+      font-size: 0.85rem;
+    }
+
+    .acc-header span:first-child { color: var(--text); }
+
+    .acc-header span:last-child {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .acc-bar {
+      height: 6px;
+      background: var(--surface2);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .acc-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #38bdf8);
+      border-radius: 99px;
+      transition: width 1s ease;
+    }
+
+    /* ── CHALLENGES ── */
+    .challenge-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .challenge-item {
+      background: var(--surface2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .challenge-item strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 0.85rem; }
+
+    /* ── CTA ── */
+    .cta-section {
+      margin-top: 70px;
+      padding: 40px;
+      background: var(--accent-dim2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .cta-section h2 { font-size: 1.15rem; color: #fff; margin-bottom: 8px; }
+    .cta-section p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; }
+
+    .btn {
+      display: inline-block;
+      padding: 11px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin: 6px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0f172a;
+    }
+
+    .btn-primary:hover { opacity: 0.88; }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border-subtle);
+      margin: 56px 0 0;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .stat-row { grid-template-columns: 1fr 1fr; }
+      .arch-grid { grid-template-columns: 1fr; }
+      .figure-grid { grid-template-columns: 1fr; }
+      .pipeline { flex-direction: column; align-items: stretch; }
+      .pipeline-arrow { transform: rotate(90deg); text-align: center; }
+      .cta-section { padding: 28px 20px; }
     }
   </style>
 </head>
@@ -100,15 +455,14 @@
 
     <!-- HEADER -->
     <div class="project-header">
-      <h1 class="section-title">
-        🌾 Disease Detection in Paddy Crop using CNN
-      </h1>
+      <h1><span class="emoji">🌾</span>Disease Detection in Paddy Crop using CNN</h1>
 
       <p class="project-meta">
-        🎓 RNS Institute of Technology (VTU)<br>
-        🏢 Bachelor Thesis (Final Year Project)<br>
-        📍 India<br>
-        📅 2020
+        🎓 RNS Institute of Technology, VTU — ECE Department<br>
+        🏢 Bachelor of Engineering Final Year Thesis<br>
+        📍 Bengaluru, India &nbsp;·&nbsp; 📅 2019–20<br>
+        👥 Sharath N Payyadi · Satya Gururaj Kalluru · Varun S D<br>
+        🧑‍🏫 Guide: Dr. Archana R Kulkarni, Assistant Professor
       </p>
 
       <div class="project-tags">
@@ -116,142 +470,360 @@
         <span class="tag">CNN</span>
         <span class="tag">Computer Vision</span>
         <span class="tag">Python</span>
+        <span class="tag">Keras / TensorFlow</span>
         <span class="tag">Raspberry Pi</span>
+        <span class="tag">Embedded Systems</span>
+        <span class="tag">IoT</span>
+      </div>
+
+      <!-- PUBLICATION BADGE -->
+      <div class="pub-badge">
+        <div class="pub-badge-icon">📄</div>
+        <div class="pub-badge-text">
+          <strong>Published Research Paper</strong><br>
+          "Disease Detection in Paddy Crop using CNN Algorithm" —
+          <strong>International Journal of Recent Technology and Engineering (IJRTE)</strong>,
+          ISSN: 2277-3878, Volume-8 Issue-6, March 2020, pp. 5298–5304.<br>
+          <a href="https://www.ijrte.org/download/volume-8-issue-6/" target="_blank">View Publication ↗</a>
+        </div>
       </div>
     </div>
 
     <!-- OVERVIEW -->
     <div class="project-section">
-      <h2>📌 Overview</h2>
+      <div class="section-label">Overview</div>
+      <h2>📌 What We Built</h2>
       <p>
-        This project focuses on detecting diseases in paddy crops using 
-        <span class="highlight">Convolutional Neural Networks (CNN)</span>. 
-        The system captures leaf images and classifies them into healthy or diseased categories, 
-        enabling early diagnosis and improving agricultural productivity.
+        A portable, autonomous crop-monitoring device that uses a Convolutional Neural Network
+        to detect two economically destructive paddy diseases — <strong style="color:#e2e8f0">blast</strong> and
+        <strong style="color:#e2e8f0">blight</strong> — from leaf images in real time, then alerts the
+        farmer via SMS.
+      </p>
+      <p>
+        Rice blast alone destroys enough rice annually to feed over 60 million people. Bacterial blight
+        can devastate up to 80% of a crop if undetected early. Our system targets detection at the
+        earliest visible symptom stage, when intervention is still effective.
       </p>
 
-      <div class="image-placeholder">
-        Sample Input / Output (to be added)
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">95%</div>
+          <div class="stat-label">Overall Accuracy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">400</div>
+          <div class="stat-label">Training Images</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">1000</div>
+          <div class="stat-label">Epochs Trained</div>
+        </div>
       </div>
     </div>
+
+    <hr class="divider">
 
     <!-- PROBLEM -->
     <div class="project-section">
-      <h2>⚠️ Problem Statement</h2>
-
-      <p>
-        Manual detection of crop diseases is time-consuming, error-prone, and requires domain expertise.
-      </p>
-
+      <div class="section-label">Problem</div>
+      <h2>⚠️ Why This Matters</h2>
       <ul>
-        <li>Late detection leads to crop loss</li>
-        <li>Dependence on human expertise</li>
-        <li>Difficulty in identifying diseases visually</li>
-        <li>Lack of automated monitoring systems</li>
+        <li>Blast and blight can spread across an entire field within 36 hours of onset</li>
+        <li>Manual inspection across large farm fields is physically infeasible for a single farmer</li>
+        <li>20–30% of annual paddy yield is destroyed by these two diseases alone</li>
+        <li>Rural areas often lack internet connectivity, ruling out cloud-based solutions</li>
+        <li>Existing detection methods require lab equipment or trained agronomists on-site</li>
       </ul>
     </div>
+
+    <hr class="divider">
 
     <!-- APPROACH -->
     <div class="project-section">
-      <h2>🧠 Approach</h2>
+      <div class="section-label">Approach</div>
+      <h2>🧠 CNN Model Design</h2>
+      <p>
+        Two separate Keras sequential models were trained — one for blast, one for blight. Each model
+        outputs a confidence score between 0 and 1; a value below 0.5 indicates disease presence.
+        Decision logic then combines both scores to determine the final alert.
+      </p>
 
-      <ul>
-        <li>Dataset collection of paddy leaf images</li>
-        <li>Image preprocessing and augmentation</li>
-        <li>CNN model training for disease classification</li>
-        <li>Deployment on embedded system (Raspberry Pi)</li>
-        <li>Real-time image capture using Pi camera</li>
-      </ul>
+      <div class="accuracy-row">
+        <div class="acc-item">
+          <div class="acc-header">
+            <span>Blast Model</span>
+            <span>96.77%</span>
+          </div>
+          <div class="acc-bar"><div class="acc-fill" style="width:96.77%"></div></div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-header">
+            <span>Blight Model</span>
+            <span>95.47%</span>
+          </div>
+          <div class="acc-bar"><div class="acc-fill" style="width:95.47%"></div></div>
+        </div>
+      </div>
 
-      <div class="image-placeholder">
-        Model Architecture (to be added)
+      <div class="figure-panel" style="margin-top:24px; padding: 20px 24px;">
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em;">CNN Architecture — Layer Stack</p>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-muted); line-height:2;">
+          Input (150×150×3)<br>
+          → Conv2D (32 filters) + MaxPooling2D<br>
+          → Conv2D (64 filters) + MaxPooling2D<br>
+          → Conv2D (64 filters) + MaxPooling2D<br>
+          → Flatten → Dense (128, ReLU) → Dropout<br>
+          → Dense (1, Sigmoid) <span style="color:var(--accent)">→ Healthy / Diseased</span>
+        </div>
+        <div class="figure-caption">Total trainable parameters: 2,424,065 · Optimizer: Adam</div>
+      </div>
+
+      <div class="figure-grid">
+        <div class="figure-panel">
+          <div style="height:160px; display:flex; align-items:center; justify-content:center; background:var(--surface2); flex-direction:column; gap:8px;">
+            <span style="font-size:2rem;">📈</span>
+            <span style="font-size:0.8rem; color:var(--text-muted)">Blast model accuracy graph</span>
+            <span style="font-size:0.72rem; color:var(--accent)">Add: Fig 4.4 from report</span>
+          </div>
+          <div class="figure-caption">Blast model — accuracy over 1000 epochs</div>
+        </div>
+        <div class="figure-panel">
+          <div style="height:160px; display:flex; align-items:center; justify-content:center; background:var(--surface2); flex-direction:column; gap:8px;">
+            <span style="font-size:2rem;">📈</span>
+            <span style="font-size:0.8rem; color:var(--text-muted)">Blight model accuracy graph</span>
+            <span style="font-size:0.72rem; color:var(--accent)">Add: Fig 4.5 from report</span>
+          </div>
+          <div class="figure-caption">Blight model — accuracy over 1000 epochs</div>
+        </div>
       </div>
     </div>
+
+    <hr class="divider">
 
     <!-- PIPELINE -->
     <div class="project-section">
-      <h2>🔄 System Pipeline</h2>
+      <div class="section-label">System Flow</div>
+      <h2>🔄 End-to-End Pipeline</h2>
 
-      <ul>
-        <li>Capture leaf image using camera</li>
-        <li>Preprocess the image</li>
-        <li>Feed image into trained CNN model</li>
-        <li>Classify disease type</li>
-        <li>Display result / alert user</li>
-      </ul>
-
-      <div class="image-placeholder">
-        Pipeline Diagram (to be added)
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <span class="step-num">01</span>
+          Pi Camera captures leaf image every 30 min
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <span class="step-num">02</span>
+          Image reshaped to 150×150 px
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <span class="step-num">03</span>
+          Both CNN models predict confidence scores X, Y
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <span class="step-num">04</span>
+          Decision logic: X&lt;0.5 or Y&lt;0.5?
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <span class="step-num">05</span>
+          GSM alert sent to farmer with remedy
+        </div>
       </div>
     </div>
+
+    <hr class="divider">
 
     <!-- ARCHITECTURE -->
     <div class="project-section">
-      <h2>🏗️ System Architecture</h2>
+      <div class="section-label">Architecture</div>
+      <h2>🏗️ System Components</h2>
 
-      <ul>
-        <li><strong>Hardware:</strong> Raspberry Pi, Pi Camera, GSM module</li>
-        <li><strong>Software:</strong> Python, TensorFlow/Keras</li>
-        <li><strong>Model:</strong> Convolutional Neural Network</li>
-        <li><strong>Interface:</strong> Image capture + classification output</li>
-      </ul>
+      <div class="arch-grid">
+        <div class="arch-card">
+          <h4>Hardware</h4>
+          <ul>
+            <li>Raspberry Pi 3 Model B (1.2GHz quad-core ARM)</li>
+            <li>Pi Camera — MIPI serial interface</li>
+            <li>GSM800A modem — 2G SMS alerts</li>
+            <li>MG996R servo motor — 360° field coverage</li>
+            <li>SMPS + Buck converter power supply</li>
+            <li>Acrylic weatherproof enclosure</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <h4>Software</h4>
+          <ul>
+            <li>Python 3 — main control script</li>
+            <li>TensorFlow / Keras — CNN training & inference</li>
+            <li>PiCamera library — image capture</li>
+            <li>RPi.GPIO — servo motor control</li>
+            <li>PySerial — GSM modem communication</li>
+            <li>Model saved as H5 file on-device</li>
+          </ul>
+        </div>
+      </div>
 
-      <div class="image-placeholder">
-        Block Diagram (to be added)
+      <div class="figure-grid" style="margin-top:20px;">
+        <div class="figure-panel">
+          <div style="height:180px; display:flex; align-items:center; justify-content:center; background:var(--surface2); flex-direction:column; gap:8px;">
+            <span style="font-size:2rem;">🖼️</span>
+            <span style="font-size:0.8rem; color:var(--text-muted)">Hardware setup photo</span>
+            <span style="font-size:0.72rem; color:var(--accent)">Add: Fig 5.1 from report</span>
+          </div>
+          <div class="figure-caption">Assembled prototype in acrylic enclosure with Pi Camera mounted</div>
+        </div>
+        <div class="figure-panel">
+          <div style="height:180px; display:flex; align-items:center; justify-content:center; background:var(--surface2); flex-direction:column; gap:8px;">
+            <span style="font-size:2rem;">🖼️</span>
+            <span style="font-size:0.8rem; color:var(--text-muted)">Field deployment photo</span>
+            <span style="font-size:0.72rem; color:var(--accent)">Add: Fig 5.2 from report</span>
+          </div>
+          <div class="figure-caption">System deployed in field for real-time monitoring</div>
+        </div>
       </div>
     </div>
 
-    <!-- FEATURES -->
-    <div class="project-section">
-      <h2>✨ Key Features</h2>
-
-      <ul>
-        <li>Automated disease detection using deep learning</li>
-        <li>Real-time image processing</li>
-        <li>Portable embedded system deployment</li>
-        <li>Scalable for different crop types</li>
-        <li>Low-cost agricultural solution</li>
-      </ul>
-    </div>
+    <hr class="divider">
 
     <!-- RESULTS -->
     <div class="project-section">
-      <h2>📊 Results</h2>
+      <div class="section-label">Results</div>
+      <h2>📊 Experimental Results</h2>
+      <p>
+        The system was validated using diseased paddy leaf samples collected from Dhamtari district,
+        Chhattisgarh. Both models run simultaneously for each captured image, and the combined
+        decision logic determines the disease type and appropriate remedy.
+      </p>
 
-      <ul>
-        <li>Successful classification of paddy diseases</li>
-        <li>High accuracy achieved using CNN model</li>
-        <li>Real-time detection using Raspberry Pi setup</li>
-        <li>Demonstrated practical agricultural use-case</li>
-      </ul>
+      <div class="figure-grid">
+        <div class="figure-panel">
+          <div style="height:160px; display:flex; align-items:center; justify-content:center; background:var(--surface2); flex-direction:column; gap:8px;">
+            <span style="font-size:2rem;">🍃</span>
+            <span style="font-size:0.8rem; color:var(--text-muted)">Blast diseased leaf</span>
+            <span style="font-size:0.72rem; color:var(--accent)">Add: Fig 5.4 from report</span>
+          </div>
+          <div class="figure-caption">Rice blast — characteristic grey-white lesions on leaf</div>
+        </div>
+        <div class="figure-panel">
+          <div style="height:160px; display:flex; align-items:center; justify-content:center; background:var(--surface2); flex-direction:column; gap:8px;">
+            <span style="font-size:2rem;">🍃</span>
+            <span style="font-size:0.8rem; color:var(--text-muted)">Blight diseased leaf</span>
+            <span style="font-size:0.72rem; color:var(--accent)">Add: Fig 5.5 from report</span>
+          </div>
+          <div class="figure-caption">Bacterial blight — yellowing and wilting from leaf edges</div>
+        </div>
+      </div>
 
-      <div class="image-placeholder">
-        Accuracy Graph / Output (to be added)
+      <div class="results-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Experiment</th>
+              <th>Blast Score (X)</th>
+              <th>Blight Score (Y)</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>0.548</td>
+              <td>0.672</td>
+              <td><span class="badge-healthy">Healthy</span></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>0.620</td>
+              <td>0.024</td>
+              <td><span class="badge-blight">Blight</span></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>5.7e⁻²</td>
+              <td>0.540</td>
+              <td><span class="badge-blast">Blast</span></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>0.360</td>
+              <td>0.240</td>
+              <td><span class="badge-blight">Blight</span></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>0.000</td>
+              <td>0.000</td>
+              <td><span class="badge-blast">Both likely</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:0.8rem; margin-top:10px;">
+        Scores &lt; 0.5 indicate disease presence. When X &gt; Y → Blast detected; when Y &lt; X → Blight detected.
+        SMS alerts include the specific remedy: Nitrogen fertilizer for both blast and blight.
+      </p>
+
+      <div class="figure-panel" style="margin-top:20px; max-width:320px;">
+        <div style="height:180px; display:flex; align-items:center; justify-content:center; background:var(--surface2); flex-direction:column; gap:8px;">
+          <span style="font-size:2rem;">📱</span>
+          <span style="font-size:0.8rem; color:var(--text-muted)">SMS alert screenshot</span>
+          <span style="font-size:0.72rem; color:var(--accent)">Add: Fig 5.6 from report</span>
+        </div>
+        <div class="figure-caption">Farmer receives SMS: "Bacterial leaf blight disease is detected. Nitrogen nutrient is recommended!"</div>
       </div>
     </div>
 
+    <hr class="divider">
+
+    <!-- CHALLENGES -->
+    <div class="project-section">
+      <div class="section-label">Challenges</div>
+      <h2>🔧 What Was Hard</h2>
+      <div class="challenge-list">
+        <div class="challenge-item">
+          <strong>Deploying Keras model to Raspberry Pi</strong>
+          Porting the model trained in Spyder (desktop Python) to the Pi's ARM architecture required resolving library version conflicts and optimizing for limited RAM.
+        </div>
+        <div class="challenge-item">
+          <strong>Hardware-software integration</strong>
+          Making the servo motor, Pi Camera, GSM module, and CNN inference pipeline run simultaneously and reliably required careful timing and interrupt management.
+        </div>
+        <div class="challenge-item">
+          <strong>Servo motor calibration</strong>
+          Achieving precise 90° increments for full 360° coverage while keeping power consumption acceptable took significant tuning of the SERVO library parameters.
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
     <!-- FUTURE -->
     <div class="project-section">
-      <h2>🔮 Future Work</h2>
-
+      <div class="section-label">Future Work</div>
+      <h2>🔮 What's Next</h2>
       <ul>
-        <li>Extend to multiple crop types</li>
-        <li>Deploy on mobile application</li>
-        <li>Improve model accuracy with larger datasets</li>
-        <li>Cloud-based monitoring system</li>
-        <li>Integration with IoT-based farm systems</li>
+        <li>Expand dataset beyond 400 images to improve generalization to unseen field conditions</li>
+        <li>Add detection for additional paddy diseases (brown spot, sheath blight)</li>
+        <li>Replace GSM with LoRaWAN for lower-cost, longer-range rural connectivity</li>
+        <li>Port model to TensorFlow Lite for faster inference on the Pi</li>
+        <li>Deploy a companion mobile app for farmers to review image history and alerts</li>
+        <li>Integrate with IoT farm dashboards for multi-node field coverage</li>
       </ul>
     </div>
 
     <!-- CTA -->
     <div class="cta-section">
-      <h2>📄 Project Report</h2>
-      <p>Explore the detailed implementation and results.</p>
+      <h2>📄 Full Project Report & Publication</h2>
+      <p>Read the detailed implementation, model architecture, and experimental results in the thesis report or the published IJRTE paper.</p>
 
       <a href="../reports/bachelor_thesis_report.pdf" target="_blank" class="btn btn-primary">
-        View Report
+        View Thesis Report
       </a>
-
+      <a href="https://www.ijrte.org/download/volume-8-issue-6/" target="_blank" class="btn btn-outline">
+        IJRTE Publication ↗
+      </a>
       <a href="../index.html#projects" class="btn btn-outline">
         ← Back to Projects
       </a>
