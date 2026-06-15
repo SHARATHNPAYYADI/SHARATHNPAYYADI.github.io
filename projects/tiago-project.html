@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TIAGo Pick and Place | Robotics Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* ── Layout ─────────────────────────────────────── */
+    .project-detail { padding: 80px 20px; }
+    .project-container { max-width: 1000px; margin: auto; }
+
+    /* ── Header ─────────────────────────────────────── */
+    .project-header { margin-bottom: 48px; }
+    .project-meta { opacity: 0.7; margin-top: 10px; line-height: 1.8; }
+    .project-tags { margin-top: 15px; }
+    .tag {
+      display: inline-block;
+      background: #0f172a;
+      border: 1px solid #00f5d4;
+      color: #00f5d4;
+      padding: 6px 12px;
+      margin: 5px 5px 0 0;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    /* ── Sections ────────────────────────────────────── */
+    .project-section { margin-top: 56px; }
+    .project-section h2 { margin-bottom: 16px; }
+    .project-section p { line-height: 1.8; opacity: 0.9; }
+    .project-section ul { list-style: disc; padding-left: 22px; }
+    .project-section li { margin-bottom: 8px; line-height: 1.7; }
+    .project-section li::marker { color: #00f5d4; }
+    .highlight { color: #00f5d4; font-weight: 500; }
+
+    /* ── Image box ───────────────────────────────────── */
+    .image-box { margin-top: 32px; }
+    .image-box img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #00f5d4;
+      background: #020617;
+      cursor: pointer;
+    }
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      opacity: 0.6;
+      text-align: center;
+    }
+
+    /* ── Metric cards ────────────────────────────────── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .metric-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .metric-card:hover { border-color: #00f5d4; }
+    .metric-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #00f5d4;
+      line-height: 1;
+    }
+    .metric-label {
+      font-size: 12px;
+      opacity: 0.6;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Pipeline / flowchart ────────────────────────── */
+    .pipeline-wrapper {
+      margin-top: 28px;
+      overflow-x: auto;
+    }
+    .pipeline {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      min-width: 720px;
+    }
+    .pipeline-step {
+      flex: 1;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 14px 10px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.4;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .pipeline-step:hover { border-color: #00f5d4; }
+    .pipeline-step .step-icon {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .pipeline-step .step-label {
+      color: #00f5d4;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .pipeline-arrow {
+      color: #00f5d4;
+      font-size: 20px;
+      padding: 0 4px;
+      flex-shrink: 0;
+    }
+
+    /* ── Architecture layers ─────────────────────────── */
+    .arch-layers { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+    .arch-layer {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+    .arch-layer-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #00f5d4;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: right;
+      padding-right: 12px;
+      border-right: 2px solid #00f5d4;
+    }
+    .arch-layer-items { display: flex; flex-wrap: wrap; gap: 8px; }
+    .arch-item {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      opacity: 0.85;
+    }
+
+    /* ── ROS Node table ──────────────────────────────── */
+    .node-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 13px;
+    }
+    .node-table th {
+      text-align: left;
+      padding: 10px 14px;
+      color: #00f5d4;
+      font-weight: 600;
+      border-bottom: 1px solid #00f5d4;
+      opacity: 0.9;
+    }
+    .node-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #1e293b;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
+    .node-table tr:hover td { background: #0f172a; opacity: 1; }
+    .node-name { color: #00f5d4; font-family: monospace; font-size: 12px; }
+
+    /* ── Spec table ──────────────────────────────────── */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 13px;
+    }
+    .spec-table th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #0f172a;
+      color: #00f5d4;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .spec-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #1e293b;
+      opacity: 0.8;
+    }
+    .spec-table tr:hover td { background: rgba(0,245,212,0.04); }
+
+    /* ── Execution timeline ──────────────────────────── */
+    .exec-timeline { margin-top: 24px; display: flex; flex-direction: column; gap: 0; }
+    .exec-step {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 16px;
+      position: relative;
+    }
+    .exec-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 32px;
+      bottom: 0;
+      width: 2px;
+      background: #1e293b;
+    }
+    .exec-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #00f5d4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #00f5d4;
+      flex-shrink: 0;
+      background: #020617;
+      position: relative;
+      z-index: 1;
+    }
+    .exec-content {
+      padding-bottom: 24px;
+    }
+    .exec-title { font-weight: 600; margin-bottom: 4px; }
+    .exec-desc { font-size: 13px; opacity: 0.65; line-height: 1.6; }
+
+    /* ── Real-world vs sim comparison ───────────────── */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .compare-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .compare-card h4 {
+      font-size: 13px;
+      color: #00f5d4;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+    .compare-card ul {
+      list-style: disc;
+      padding-left: 16px;
+      margin: 0;
+    }
+    .compare-card li { font-size: 13px; opacity: 0.75; margin-bottom: 6px; line-height: 1.5; }
+    .compare-card li::marker { color: #00f5d4; }
+
+    /* ── CTA ─────────────────────────────────────────── */
+    .cta-section { margin-top: 72px; text-align: center; }
+    .cta-section a { margin: 10px; }
+
+    /* ── Responsive ──────────────────────────────────── */
+    @media (max-width: 640px) {
+      .arch-layer { grid-template-columns: 1fr; }
+      .arch-layer-label { text-align: left; border-right: none; border-left: 2px solid #00f5d4; padding-left: 12px; padding-right: 0; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .pipeline { min-width: 560px; }
+    }
+
+    /* ── Image modal ─────────────────────────────────── */
+    .image-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2,6,23,0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+    .image-modal.active { display: flex; }
+    .image-modal img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
+  </style>
+</head>
+
+<body>
+
+<section class="project-detail">
+  <div class="project-container">
+
+    <!-- ═══ HEADER ═══ -->
+    <div class="project-header">
+      <h1 class="section-title">🤖 Pick and Place using TIAGo Robot</h1>
+      <p class="project-meta">
+        🎓 Hochschule Darmstadt (H_Da) — Dept. of Mathematics & Natural Sciences<br>
+        🏢 Academic Project under Prof. Dr. Stephan Neser<br>
+        👥 Team: Sharath Nagaraj Payyadi · Vasanthraj Selvarajan<br>
+        📍 Darmstadt, Germany &nbsp;·&nbsp; 📅 2022
+      </p>
+      <div class="project-tags">
+        <span class="tag">ROS Melodic</span>
+        <span class="tag">MoveIt</span>
+        <span class="tag">ArUco / OpenCV</span>
+        <span class="tag">Gazebo</span>
+        <span class="tag">RViz</span>
+        <span class="tag">Octomap</span>
+        <span class="tag">Python</span>
+        <span class="tag">Ubuntu 18.04</span>
+      </div>
+    </div>
+
+    <!-- ═══ METRICS ═══ -->
+    <div class="project-section">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-number">7</div>
+          <div class="metric-label">DoF Arm</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">12</div>
+          <div class="metric-label">Total DoF (Robot)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">87<span style="font-size:18px">cm</span></div>
+          <div class="metric-label">Arm Reach</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">3<span style="font-size:18px">kg</span></div>
+          <div class="metric-label">Payload Capacity</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">2×</div>
+          <div class="metric-label">Sim + Real Deployment</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ OVERVIEW ═══ -->
+    <div class="project-section">
+      <h2>📌 Overview</h2>
+      <p>
+        Developed a complete <span class="highlight">autonomous pick-and-place pipeline</span> for the 
+        PAL Robotics TIAGo Steel — a 12-DoF indoor service robot. The system integrates computer vision 
+        (ArUco marker detection), probabilistic grasp planning via spherical grasp sampling, 
+        MoveIt-based collision-aware motion planning, and Octomap-driven environment mapping. 
+        The pipeline was validated in both <span class="highlight">Gazebo simulation and on the physical TIAGo robot</span> 
+        at the H_Da robotics lab.
+      </p>
+    </div>
+
+    <!-- ═══ END-TO-END PIPELINE ═══ -->
+    <div class="project-section">
+      <h2>🔄 End-to-End Pipeline</h2>
+      <p>The pick-and-place sequence spans three coordinated phases — Perceive, Plan, Execute — driven by ROS services and topics.</p>
+      <div class="pipeline-wrapper">
+        <div class="pipeline">
+          <div class="pipeline-step">
+            <span class="step-icon">🟢</span>
+            <span class="step-label">Init</span>
+            <div>Subscribe to pick/place servers · Move to pre-grasp pose</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">👁️</span>
+            <span class="step-label">Perceive</span>
+            <div>Head scan · ArUco detection · Pose estimation via RGB-D</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">🗺️</span>
+            <span class="step-label">Map</span>
+            <div>Clear old Octomap · Rebuild with table + cube collision geometry</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">🎯</span>
+            <span class="step-label">Grasp</span>
+            <div>Spherical grasp sampling · MoveIt IK · Arm approach + gripper close</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">📦</span>
+            <span class="step-label">Place</span>
+            <div>Transport to goal pose · Place + retract</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SYSTEM IMAGE ═══ -->
+    <div class="image-box" style="margin-top:32px;">
+      <img src="../images/project/flowchart.png" alt="Pick-and-Place Flowchart" onclick="openImage(this)">
+      <p class="image-caption">
+        Full pipeline flowchart — from ROS service invocation through perception, Octomap construction, grasp selection, and place retraction.
+      </p>
+    </div>
+
+    <!-- ═══ SYSTEM ARCHITECTURE ═══ -->
+    <div class="project-section">
+      <h2>🏗️ System Architecture</h2>
+      <p>The stack is organised into three layers that communicate exclusively through ROS topics and services.</p>
+      <div class="arch-layers">
+        <div class="arch-layer">
+          <div class="arch-layer-label">Perception</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">RGB-D Camera (Head)</div>
+            <div class="arch-item">ArUco Marker Detection</div>
+            <div class="arch-item">OpenCV Pose Estimation</div>
+            <div class="arch-item">/aruco_single node</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Planning</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">MoveIt (OMPL)</div>
+            <div class="arch-item">Octomap Collision World</div>
+            <div class="arch-item">Spherical Grasp Sampling</div>
+            <div class="arch-item">/move_group node</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Execution</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">7-DoF Arm Controller</div>
+            <div class="arch-item">Parallel Gripper</div>
+            <div class="arch-item">/play_motion node</div>
+            <div class="arch-item">/head_controller</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Visualisation</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">Gazebo (Physics Sim)</div>
+            <div class="arch-item">RViz (URDF/TF)</div>
+            <div class="arch-item">/tf_static topic</div>
+            <div class="arch-item">/robot_state_publisher</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ KEY ROS NODES ═══ -->
+    <div class="project-section">
+      <h2>🔗 Key ROS Nodes &amp; Topics</h2>
+      <table class="node-table">
+        <thead>
+          <tr>
+            <th>Node / Topic</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="node-name">/pick_and_place</td>
+            <td>Main service node — orchestrates the full pick/place sequence</td>
+          </tr>
+          <tr>
+            <td class="node-name">/move_group</td>
+            <td>MoveIt interface — IK solving, collision checking, trajectory generation</td>
+          </tr>
+          <tr>
+            <td class="node-name">/aruco_single</td>
+            <td>ArUco marker detection and 6-DoF pose estimation from camera stream</td>
+          </tr>
+          <tr>
+            <td class="node-name">/play_motion</td>
+            <td>Executes named arm poses (pre-grasp, retract) defined in YAML config</td>
+          </tr>
+          <tr>
+            <td class="node-name">/head_controller</td>
+            <td>Drives head pan/tilt to scan for the ArUco marker</td>
+          </tr>
+          <tr>
+            <td class="node-name">/tf_static</td>
+            <td>Broadcasts static coordinate frame relations for real-time state sync</td>
+          </tr>
+          <tr>
+            <td class="node-name">place/feedback</td>
+            <td>Tracks placing position progress for closed-loop confirmation</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ═══ EXECUTION WALKTHROUGH ═══ -->
+    <div class="project-section">
+      <h2>⚙️ Execution Walkthrough</h2>
+      <div class="exec-timeline">
+        <div class="exec-step">
+          <div class="exec-num">1</div>
+          <div class="exec-content">
+            <div class="exec-title">Service Initialisation</div>
+            <div class="exec-desc">ROS service <code>/pick_gui</code> is called. All nodes subscribe to required topics; TF tree and robot state publisher come online.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">2</div>
+          <div class="exec-content">
+            <div class="exec-title">Pre-Grasp Position</div>
+            <div class="exec-desc">Arm moves to a singularity-safe pre-grasp configuration defined in the YAML file, verified in RViz.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">3</div>
+          <div class="exec-content">
+            <div class="exec-title">ArUco Detection &amp; Pose Estimation</div>
+            <div class="exec-desc">Head scans across its full DoF range. The <code>/aruco_single</code> node detects the marker ID, then OpenCV computes the 6-DoF pose. Axes overlaid in RViz confirm detection.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">4</div>
+          <div class="exec-content">
+            <div class="exec-title">Octomap Refresh</div>
+            <div class="exec-desc">The previous Octomap is cleared and rebuilt with the current table and cube geometry, including exact height and collision properties, ensuring no stale obstacles remain.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">5</div>
+          <div class="exec-content">
+            <div class="exec-title">Spherical Grasp Sampling</div>
+            <div class="exec-desc">A sphere of candidate grasp approach vectors is generated around the cube. The highest-probability direction that avoids singularities is selected and passed to MoveIt.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">6</div>
+          <div class="exec-content">
+            <div class="exec-title">Pick Execution</div>
+            <div class="exec-desc">MoveIt computes a collision-free trajectory using OMPL. The arm approaches, gripper closes around the cube, and the robot lifts to the transport pose.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">7</div>
+          <div class="exec-content">
+            <div class="exec-title">Place &amp; Retract</div>
+            <div class="exec-desc">The goal position (defined in YAML) is sent to MoveIt. The arm places the cube back at its original location, holds for 5 seconds, then retracts to safe pose.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SIM vs REAL ═══ -->
+    <div class="project-section">
+      <h2>🌐 Simulation vs Real-World Deployment</h2>
+      <div class="compare-grid">
+        <div class="compare-card">
+          <h4>🖥️ Gazebo Simulation</h4>
+          <ul>
+            <li>ROS Melodic + Gazebo on Ubuntu 18.04 VM</li>
+            <li>Full pick-and-place cycle validated end-to-end</li>
+            <li>Real-time physics with collision objects</li>
+            <li>RViz for trajectory and Octomap visualisation</li>
+            <li>Launch: <code>roslaunch tiago_pick_demo vs_pick_simulation.launch</code></li>
+          </ul>
+        </div>
+        <div class="compare-card">
+          <h4>🤖 Physical TIAGo Robot</h4>
+          <ul>
+            <li>Connected via TIAGo Wi-Fi (ROS_MASTER_URI to robot)</li>
+            <li>Same code executed on real hardware with zero changes</li>
+            <li>Head motion disabled via web commander for controlled test</li>
+            <li>Successful cube grasp &amp; place in lab environment</li>
+            <li>Intel i5 · 4 GB RAM · Ubuntu RT Preempt onboard</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ROBOT SPECS ═══ -->
+    <div class="project-section">
+      <h2>🔧 TIAGo Steel — Hardware Specifications</h2>
+      <table class="spec-table">
+        <thead>
+          <tr><th>Parameter</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>DoF (Arm)</td><td>7</td></tr>
+          <tr><td>End-Effector</td><td>Parallel gripper</td></tr>
+          <tr><td>Arm Reach (no end-effector)</td><td>87 cm</td></tr>
+          <tr><td>Payload at Full Extension</td><td>3 kg</td></tr>
+          <tr><td>Navigation Laser Range</td><td>20 m</td></tr>
+          <tr><td>Head Sensor</td><td>RGB-D Camera (ASUS Xtion)</td></tr>
+          <tr><td>Connectivity</td><td>802.11 n/ac 2×2 Dual Band + Bluetooth 4.0</td></tr>
+          <tr><td>OS / Middleware</td><td>Ubuntu LTS 64-bit RT Preempt · ROS LTS</td></tr>
+          <tr><td>Onboard CPU / RAM / SSD</td><td>Intel i5 · 4 GB · 256 GB</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ═══ TECH APPROACH ═══ -->
+    <div class="project-section">
+      <h2>🧠 Technical Approach</h2>
+      <ul>
+        <li><strong>ArUco Markers:</strong> Binary square fiducial markers (6×6 dictionary) used for robust, rotation-invariant object detection. Single-marker pose estimation provides the 6-DoF grasp target with minimal compute.</li>
+        <li><strong>Octomap Integration:</strong> Point cloud from the RGB-D camera feeds the Octomap occupancy grid. The grid is rebuilt after every detection cycle so the collision world always reflects the current scene.</li>
+        <li><strong>Spherical Grasp Sampling:</strong> Instead of a fixed grasp direction, a probability distribution of approach vectors is generated. The arm approaches from the direction with highest grasp success likelihood, avoiding joint-limit and singularity regions.</li>
+        <li><strong>MoveIt + OMPL:</strong> OMPL plans collision-free joint trajectories accounting for the Octomap, self-collision, and attached objects. Velocity and acceleration constraints are enforced via the <code>joint_limits.yaml</code> file.</li>
+        <li><strong>YAML-Driven Configuration:</strong> Pre-grasp poses, goal positions, and arm joint limits are all externalised in YAML — making the pipeline adaptable without code changes.</li>
+      </ul>
+    </div>
+
+    <!-- ═══ RESULTS ═══ -->
+    <div class="project-section">
+      <h2>📊 Results</h2>
+      <ul>
+        <li>Complete pick-and-place cycle executed successfully in <span class="highlight">Gazebo simulation</span></li>
+        <li><span class="highlight">Real-world deployment</span> on the physical TIAGo robot — identical code, no modifications</li>
+        <li>Stable, repeatable motion planning with collision avoidance via Octomap</li>
+        <li>Accurate ArUco pose estimation enabling reliable gripper alignment</li>
+        <li>Spherical grasp strategy successfully avoided singularity positions during pick-up</li>
+        <li>Validated the full ROS node graph (rqt_graph) with correct topic connections between all 8+ active nodes</li>
+      </ul>
+    </div>
+
+    <!-- ═══ FUTURE WORK ═══ -->
+    <div class="project-section">
+      <h2>🔮 Future Work</h2>
+      <ul>
+        <li>Replace MoveIT joint-space planning with <strong>MoveL (linear Cartesian paths)</strong> to reduce unnecessary arm twist during approach</li>
+        <li>Replace ArUco with <strong>deep-learning-based object detection</strong> (e.g. YOLOv8 + 6-DoF pose estimation) for marker-free grasping</li>
+        <li>Integrate <strong>mobile base navigation</strong> so the robot can fetch objects from arbitrary positions in the room</li>
+        <li>Dockerise the full stack for reproducible deployment across lab machines</li>
+        <li>Combine obstacle avoidance with path planning for <em>on-the-go evade-and-navigate</em> behaviour</li>
+      </ul>
+    </div>
+
+    <!-- ═══ CTA ═══ -->
+    <div class="cta-section">
+      <h2>📄 Full Project Report</h2>
+      <p>Detailed implementation, ROS node graphs, simulation screenshots, and real-world execution photos.</p>
+      <a href="../reports/tiago_project_report.pdf" target="_blank" class="btn btn-primary">View Report</a>
+      <a href="../index.html#projects" class="btn btn-outline">← Back to Projects</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Image Modal -->
+<div id="imageModal" class="image-modal" onclick="closeImage()">
+  <img id="modalImg">
+</div>
+
+<script src="../main.js"></script>
+<script>
+  function openImage(el) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    modalImg.src = el.src;
+    modal.classList.add('active');
+  }
+  function closeImage() {
+    document.getElementById('imageModal').classList.remove('active');
+  }
+</script>
+</body>
+</html>
