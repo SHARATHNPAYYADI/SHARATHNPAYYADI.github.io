@@ -114,6 +114,31 @@
     .scenario-card .scenario-desc { font-size: 13px; opacity: 0.6; line-height: 1.5; }
     .scenario-card .scenario-outcome { margin-top: 10px; font-size: 12px; color: #00f5d4; opacity: 0.85; }
 
+    /* ── Before/After comparison row (inside a scenario card) ── */
+    .scenario-ba-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+    .scenario-ba-item { position: relative; background: #0a0f1e; }
+    .scenario-ba-item img {
+      width: 100%; display: block; cursor: zoom-in;
+    }
+    .scenario-ba-label {
+      position: absolute; top: 8px; left: 8px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 3px 8px; border-radius: 4px;
+      background: rgba(10,15,30,0.85);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #e2e8f0;
+    }
+    .scenario-ba-item.is-after .scenario-ba-label {
+      color: #00f5d4;
+      border-color: rgba(0,245,212,0.4);
+    }
+
     /* ── Tech columns ── */
     .tech-cols {
       display: grid; grid-template-columns: 1fr 1fr;
@@ -140,6 +165,21 @@
     }
     .img-box img {
       width: 100%; display: block; cursor: zoom-in;
+    }
+    /* Diagram images (Overview / Approach / System Architecture) — capped height, centered, proportional */
+    .img-box.img-box--diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .img-box.img-box--diagram img {
+      width: auto;
+      max-width: 100%;
+      max-height: 360px;
+      margin: 0 auto;
+    }
+    .img-box.img-box--diagram .img-caption {
+      width: 100%;
     }
     .img-caption {
       padding: 10px 16px; font-size: 12px;
@@ -212,6 +252,7 @@
       .tech-cols, .img-row, .scenarios-grid { grid-template-columns: 1fr; }
       .pipeline { flex-direction: column; }
       .pipeline-step + .pipeline-step { margin-left: 0; margin-top: 8px; }
+      .scenario-ba-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -274,11 +315,6 @@
 
     <!-- ═══════════════════════════════════════════
          OVERVIEW
-         IMAGE: thesis/fms_overview.png
-         → Fig 3.3 from thesis — the FMS block diagram
-           showing Fleet Management System → AGV/AMR
-           fleet manager → VDA5050 → robots.
-           Use image you shared (Image 3).
     ════════════════════════════════════════════ -->
     <div class="project-section">
       <h2>Overview</h2>
@@ -297,12 +333,7 @@
         fleets via the <span class="highlight">VDA5050 standard protocol over MQTT</span>.
       </p>
 
-      <!-- IMAGE PLACEHOLDER
-           File to add: images/master_thesis_images/fms_overview.png
-           Source: Fig 3.3 from thesis (Image 3 you shared)
-           Shows: FMS → AGV/AMR fleet manager → VDA5050 → 4 robot types
-      -->
-      <div class="img-box">
+      <div class="img-box img-box--diagram">
         <img src="../images/master_thesis_images/fms_overview.png"
              alt="Fleet Management System overview showing FMS connected to AGV and AMR fleets via VDA5050"
              onclick="openImage(this)">
@@ -351,10 +382,6 @@
 
     <!-- ═══════════════════════════════════════════
          APPROACH
-         IMAGE: thesis/topological_graph_nodes_edges.png
-         → Fig 3.7 from thesis — topological map with
-           red circle nodes + blue edge lines + POI labels.
-           Use image you shared (Image 5).
     ════════════════════════════════════════════ -->
     <div class="project-section">
       <h2>Approach</h2>
@@ -393,12 +420,7 @@
         </div>
       </div>
 
-      <!-- IMAGE PLACEHOLDER
-           File to add: images/master_thesis_images/topological_graph_nodes_edges.png
-           Source: Fig 3.7 from thesis (Image 5 you shared)
-           Shows: Red circle nodes + blue edges on factory floor map, poi1/poi2/poi3 labels
-      -->
-      <div class="img-box">
+      <div class="img-box img-box--diagram">
         <img src="../images/master_thesis_images/topological_graph_nodes_edges.png"
              alt="Topological graph of the factory environment showing nodes (red circles) connected by edges (blue lines) and key Points of Interest"
              onclick="openImage(this)">
@@ -469,12 +491,6 @@
 
     <!-- ═══════════════════════════════════════════
          SYSTEM ARCHITECTURE
-         IMAGE 1: thesis/tm_overview.png
-         → Fig 4.1 from thesis (Image 4 you shared)
-           Shows: Fleet Server cloud → Traffic Manager
-           → Fleet Manager → MQTT/VDA5050/Open-API → Robot
-         IMAGE 2: (optional) Fig 4.8 Robot Controller diagram
-           Skip this one — too complex for portfolio.
     ════════════════════════════════════════════ -->
     <div class="project-section">
       <h2>System Architecture</h2>
@@ -506,13 +522,7 @@
         </div>
       </div>
 
-      <!-- IMAGE PLACEHOLDER
-           File to add: images/master_thesis_images/tm_overview.png
-           Source: Fig 4.1 from thesis (Image 4 you shared)
-           Shows: Fleet Server (cloud shape) containing Traffic Manager + Fleet Manager,
-                  connected to Robot via MQTT / VDA5050 / Open-API
-      -->
-      <div class="img-box">
+      <div class="img-box img-box--diagram">
         <img src="../images/master_thesis_images/tm_overview.png"
              alt="System architecture showing Fleet Server with Traffic Manager and Fleet Manager communicating with robots via MQTT and VDA5050"
              onclick="openImage(this)">
@@ -549,16 +559,6 @@
 
     <!-- ═══════════════════════════════════════════
          RESULTS
-         SCENARIO 1 IMAGE: Fig 7.2 — after algorithm
-           (detour path shown in green for robot_B)
-           → Save as: images/master_thesis_images/result_scenario1_after.png
-         SCENARIO 2 IMAGE: Fig 7.3 — waiting spot
-           → Save as: images/master_thesis_images/result_scenario2_wait.png
-         SCENARIO 3 IMAGE: Fig 4.10 crossing sequence
-           (Image 1 you shared — 4-panel strip)
-           → Save as: images/master_thesis_images/crossing.png
-         SCENARIO 4 IMAGE: Fig 7.6 — 3 robots with detour
-           → Save as: images/master_thesis_images/result_scenario4_detour.png
     ════════════════════════════════════════════ -->
     <div class="project-section">
       <h2>Results & Scenarios Tested</h2>
@@ -570,17 +570,25 @@
 
       <div class="scenarios-grid">
 
-        <!-- SCENARIO 1 -->
+        <!-- SCENARIO 1 — now with side-by-side Before / After comparison
+             File 1: images/master_thesis_images/result_scenario1_before.png  (Fig 7.1 — Before Algorithm)
+             File 2: images/master_thesis_images/result_scenario1_after.png   (Fig 7.2 — After running of Algorithm)
+        -->
         <div class="scenario-card">
-          <!-- IMAGE PLACEHOLDER
-               File to add: images/master_thesis_images/result_scenario1_after.png
-               Source: Fig 7.2 from thesis — "After running of Algorithm"
-               Shows: robot_B taking green detour path to avoid narrow corridor conflict with robot_A
-          -->
-          <img src="../images/master_thesis_images/result_scenario1_after.png"
-               alt="Scenario 1 result: robot_B rerouted via green detour path after conflict detected with robot_A in narrow corridor"
-               class="scenario-img"
-               onclick="openImage(this)">
+          <div class="scenario-ba-row">
+            <div class="scenario-ba-item">
+              <span class="scenario-ba-label">Before</span>
+              <img src="../images/master_thesis_images/result_scenario1_before.png"
+                   alt="Scenario 1 before: robot_A and robot_B on conflicting paths through narrow corridor, no detour applied yet"
+                   onclick="openImage(this)">
+            </div>
+            <div class="scenario-ba-item is-after">
+              <span class="scenario-ba-label">After</span>
+              <img src="../images/master_thesis_images/result_scenario1_after.png"
+                   alt="Scenario 1 after: robot_B rerouted via green detour path after conflict detected with robot_A in narrow corridor"
+                   onclick="openImage(this)">
+            </div>
+          </div>
           <div class="scenario-card-body">
             <div class="scenario-tag">Scenario 1</div>
             <div class="scenario-title">Narrow corridor — dynamic detour</div>
@@ -595,12 +603,6 @@
 
         <!-- SCENARIO 2 -->
         <div class="scenario-card">
-          <!-- IMAGE PLACEHOLDER
-               File to add: images/master_thesis_images/result_scenario2_wait.png
-               Source: Fig 7.3 from thesis — "Scenario 2"
-               Shows: robot_A waiting at safe spot while robot_B passes through narrow corridor
-                      (labels: "Waiting Spot", "Colliding Spot" visible in RViz)
-          -->
           <img src="../images/master_thesis_images/result_scenario2_wait.png"
                alt="Scenario 2 result: robot_A waiting at safe spot 2 nodes before conflict while robot_B passes through"
                class="scenario-img"
@@ -619,12 +621,6 @@
 
         <!-- SCENARIO 3 -->
         <div class="scenario-card">
-          <!-- IMAGE PLACEHOLDER
-               File to add: images/master_thesis_images/crossing.png
-               Source: Fig 4.10 from thesis (Image 1 you shared)
-               Shows: 4-panel horizontal strip — two robots approaching a crossing,
-                      robot_A reserves crossing, robot_B waits, then robot_B continues.
-          -->
           <img src="../images/master_thesis_images/crossing.png"
                alt="Scenario 3 crossing sequence: robot_A reserves crossing node, robot_B waits, then robot_B proceeds after robot_A clears"
                class="scenario-img"
@@ -643,12 +639,6 @@
 
         <!-- SCENARIO 4 -->
         <div class="scenario-card">
-          <!-- IMAGE PLACEHOLDER
-               File to add: images/master_thesis_images/result_scenario4_detour.png
-               Source: Fig 7.6 from thesis — "Scenario 4 with detour"
-               Shows: 3 robots (brown/pink/blue paths) with robot_C and robot_A
-                      both rerouted via detour paths in a complex environment
-          -->
           <img src="../images/master_thesis_images/result_scenario4_detour.png"
                alt="Scenario 4 result: three robots with robot_C and robot_A dynamically rerouted while robot_B follows original path"
                class="scenario-img"
@@ -667,12 +657,6 @@
 
       </div>
 
-      <!-- BONUS IMAGE
-           File to add: images/master_thesis_images/crossing_square.png
-           Source: Fig 4.11 from thesis (Image 2 you shared)
-           Shows: 6-panel grid of T-crossing sequence step by step
-           This is the most visually impressive image — full width below the cards
-      -->
       <div class="img-box" style="margin-top: 32px;">
         <img src="../images/master_thesis_images/crossing_square.png"
              alt="T-crossing sequence: 6-panel step-by-step showing robot_A and robot_B negotiating a T-intersection — both reserve, A crosses first, B waits then proceeds"
