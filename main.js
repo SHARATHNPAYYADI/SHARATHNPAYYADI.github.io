@@ -82,7 +82,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ===== Update Copyright Year =====
 const yearElement = document.querySelector('.footer-content p');
 if (yearElement) {
-  yearElement.innerHTML = yearElement.innerHTML.replace('2024', new Date().getFullYear());
+  yearElement.innerHTML = yearElement.innerHTML.replace('2026', new Date().getFullYear());
 }
 
 
