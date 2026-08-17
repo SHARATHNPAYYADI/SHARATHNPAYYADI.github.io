@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>iw_hub Autonomous Pick-and-Place | Robotics Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* ── Layout ─────────────────────────────────────── */
+    .project-detail { padding: 80px 20px; }
+    .project-container { max-width: 1000px; margin: auto; }
+
+    /* ── Header ─────────────────────────────────────── */
+    .project-header { margin-bottom: 48px; }
+    .project-meta { opacity: 0.7; margin-top: 10px; line-height: 1.8; }
+    .project-tags { margin-top: 15px; }
+    .tag {
+      display: inline-block;
+      background: #0f172a;
+      border: 1px solid #00f5d4;
+      color: #00f5d4;
+      padding: 6px 12px;
+      margin: 5px 5px 0 0;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    /* ── Sections ────────────────────────────────────── */
+    .project-section { margin-top: 56px; }
+    .project-section h2 { margin-bottom: 16px; }
+    .project-section p { line-height: 1.8; opacity: 0.9; }
+    .project-section ul { list-style: disc; padding-left: 22px; }
+    .project-section li { margin-bottom: 8px; line-height: 1.7; }
+    .project-section li::marker { color: #00f5d4; }
+    .highlight { color: #00f5d4; font-weight: 500; }
+
+    /* ── Metric cards ────────────────────────────────── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .metric-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .metric-card:hover { border-color: #00f5d4; }
+    .metric-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #00f5d4;
+      line-height: 1;
+    }
+    .metric-label {
+      font-size: 12px;
+      opacity: 0.6;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Pipeline / flowchart ────────────────────────── */
+    .pipeline-wrapper {
+      margin-top: 28px;
+      overflow-x: auto;
+    }
+    .pipeline {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      min-width: 720px;
+    }
+    .pipeline-step {
+      flex: 1;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 14px 10px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.4;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .pipeline-step:hover { border-color: #00f5d4; }
+    .pipeline-step .step-icon {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .pipeline-step .step-label {
+      color: #00f5d4;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .pipeline-arrow {
+      color: #00f5d4;
+      font-size: 20px;
+      padding: 0 4px;
+      flex-shrink: 0;
+    }
+
+    /* ── Architecture layers ─────────────────────────── */
+    .arch-layers { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+    .arch-layer {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+    .arch-layer-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #00f5d4;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: right;
+      padding-right: 12px;
+      border-right: 2px solid #00f5d4;
+    }
+    .arch-layer-items { display: flex; flex-wrap: wrap; gap: 8px; }
+    .arch-item {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      opacity: 0.85;
+    }
+
+    /* ── Package table ────────────────────────────────── */
+    .node-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 13px;
+    }
+    .node-table th {
+      text-align: left;
+      padding: 10px 14px;
+      color: #00f5d4;
+      font-weight: 600;
+      border-bottom: 1px solid #00f5d4;
+      opacity: 0.9;
+    }
+    .node-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #1e293b;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
+    .node-table tr:hover td { background: #0f172a; opacity: 1; }
+    .node-name { color: #00f5d4; font-family: monospace; font-size: 12px; }
+
+    /* ── Execution timeline ──────────────────────────── */
+    .exec-timeline { margin-top: 24px; display: flex; flex-direction: column; gap: 0; }
+    .exec-step {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 16px;
+      position: relative;
+    }
+    .exec-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 32px;
+      bottom: 0;
+      width: 2px;
+      background: #1e293b;
+    }
+    .exec-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #00f5d4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #00f5d4;
+      flex-shrink: 0;
+      background: #020617;
+      position: relative;
+      z-index: 1;
+    }
+    .exec-content {
+      padding-bottom: 24px;
+    }
+    .exec-title { font-weight: 600; margin-bottom: 4px; }
+    .exec-desc { font-size: 13px; opacity: 0.65; line-height: 1.6; }
+
+    /* ── Demo videos ─────────────────────────────────── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+    .video-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .video-card:hover { border-color: #00f5d4; }
+    .video-card video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      background: #000;
+      object-fit: contain;
+    }
+    .video-card-label {
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #00f5d4;
+      font-weight: 600;
+    }
+
+    /* ── CTA ─────────────────────────────────────────── */
+    .cta-section { margin-top: 72px; text-align: center; }
+    .cta-section a { margin: 10px; }
+
+    /* ── Responsive ──────────────────────────────────── */
+    @media (max-width: 640px) {
+      .arch-layer { grid-template-columns: 1fr; }
+      .arch-layer-label { text-align: left; border-right: none; border-left: 2px solid #00f5d4; padding-left: 12px; padding-right: 0; }
+      .pipeline { min-width: 560px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<section class="project-detail">
+  <div class="project-container">
+
+    <!-- ═══ HEADER ═══ -->
+    <div class="project-header">
+      <h1 class="section-title">🤖 iw_hub Autonomous Pick-and-Place — Isaac Sim + ROS2 Nav2</h1>
+      <p class="project-meta">
+        🏢 Personal Robotics Project<br>
+        🤖 Robot: idealworks <code>iw_hub</code> AMR (dual-lidar diff-drive base with scissor lift)<br>
+        📅 2025
+      </p>
+      <div class="project-tags">
+        <span class="tag">ROS2 Humble</span>
+        <span class="tag">Nav2</span>
+        <span class="tag">NVIDIA Isaac Sim</span>
+        <span class="tag">SLAM Toolbox</span>
+        <span class="tag">rosbridge / roslibjs</span>
+        <span class="tag">Python</span>
+      </div>
+    </div>
+
+    <!-- ═══ METRICS ═══ -->
+    <div class="project-section">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-number">5</div>
+          <div class="metric-label">ROS2 Packages</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">2×</div>
+          <div class="metric-label">Lidars (Front + Rear)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">1</div>
+          <div class="metric-label">Service Call → Full Mission</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">50<span style="font-size:18px">Hz</span></div>
+          <div class="metric-label">Lift Command Rate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ OVERVIEW ═══ -->
+    <div class="project-section">
+      <h2>📌 Overview</h2>
+      <p>
+        Built a complete <span class="highlight">autonomous navigation and pick-and-place stack</span> for the
+        idealworks <code>iw_hub</code> AMR, simulated in <span class="highlight">NVIDIA Isaac Sim</span> and driven
+        entirely through <span class="highlight">ROS2 Humble + Nav2</span>. A single service call sends the robot to
+        a dolly, lifts it with a velocity-ramped scissor joint, carries it across a mapped warehouse-style
+        environment, drops it off, and clears itself — all controllable from a browser dashboard over rosbridge.
+      </p>
+    </div>
+
+    <!-- ═══ MISSION PIPELINE ═══ -->
+    <div class="project-section">
+      <h2>🔄 Mission Pipeline</h2>
+      <p>One <code>/mission</code> service call drives the full sequence end-to-end.</p>
+      <div class="pipeline-wrapper">
+        <div class="pipeline">
+          <div class="pipeline-step">
+            <span class="step-icon">🧭</span>
+            <span class="step-label">Navigate</span>
+            <div>Nav2 <code>NavigateToPose</code> to the pick-up waypoint</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">⬆️</span>
+            <span class="step-label">Lift</span>
+            <div>Scissor joint ramps up smoothly to grab the dolly</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">🚚</span>
+            <span class="step-label">Transport</span>
+            <div>Nav2 drives to the destination waypoint carrying the load</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">⬇️</span>
+            <span class="step-label">Lower</span>
+            <div>Lift ramps down to release the dolly</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">↩️</span>
+            <span class="step-label">Clear</span>
+            <div>Straight-line retreat via direct <code>/cmd_vel</code>, bypassing Nav2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SYSTEM ARCHITECTURE ═══ -->
+    <div class="project-section">
+      <h2>🏗️ System Architecture</h2>
+      <p>Browser, mission executor, lift controller, and simulator communicate over ROS2 topics/services and a rosbridge websocket.</p>
+      <div class="arch-layers">
+        <div class="arch-layer">
+          <div class="arch-layer-label">Interface</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">rosbridge_server (websocket)</div>
+            <div class="arch-item">iw_hub_console.html (roslibjs dashboard)</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Mission Layer</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">mission_executor_node</div>
+            <div class="arch-item">/mission service (RunMission)</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Motion Layer</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">Nav2 (NavigateToPose)</div>
+            <div class="arch-item">lift_ramp_node</div>
+            <div class="arch-item">/cmd_vel (retreat move)</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Simulation</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">NVIDIA Isaac Sim (iw_hub USD)</div>
+            <div class="arch-item">Diff-drive base + dual RPLidar S2E</div>
+            <div class="arch-item">Scissor lift joint (PhysX)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PACKAGES ═══ -->
+    <div class="project-section">
+      <h2>🔗 ROS2 Packages</h2>
+      <table class="node-table">
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="node-name">iw_hub_navigation</td>
+            <td>Nav2 bringup — SLAM/AMCL localization, costmap and planner params tuned for the dual-lidar diff-drive base</td>
+          </tr>
+          <tr>
+            <td class="node-name">iw_hub_lift_control</td>
+            <td>Velocity-limited lift joint control — ramps the scissor lift instead of snapping to a target position</td>
+          </tr>
+          <tr>
+            <td class="node-name">iw_hub_pick_place_msgs</td>
+            <td>Custom <code>RunMission</code> service definition (ament_cmake)</td>
+          </tr>
+          <tr>
+            <td class="node-name">iw_hub_pick_place_executor</td>
+            <td>On-demand pick-and-place mission service — orchestrates navigate → lift → transport → lower → clear</td>
+          </tr>
+          <tr>
+            <td class="node-name">frontend/iw_hub_console.html</td>
+            <td>Standalone browser dashboard — triggers missions and shows live lift/pose telemetry over rosbridge</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ═══ EXECUTION WALKTHROUGH ═══ -->
+    <div class="project-section">
+      <h2>⚙️ Key Engineering Decisions</h2>
+      <div class="exec-timeline">
+        <div class="exec-step">
+          <div class="exec-num">1</div>
+          <div class="exec-content">
+            <div class="exec-title">Map from geometry, not driving</div>
+            <div class="exec-desc">Since the full environment already exists as a USD stage, the map was generated with Isaac Sim's built-in Occupancy Map tool instead of SLAM — projecting the geometry directly into a 2D grid. The tool's Z-slice range was set to bracket the lidar's mounted height so the exported map matches what the real 2D scan detects.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">2</div>
+          <div class="exec-content">
+            <div class="exec-title">Dual-lidar costmap, single-lidar localization</div>
+            <div class="exec-desc">Front and rear RPLidar S2E scans both feed the costmap as separate obstacle sources, but AMCL localizes off the front lidar only since it can't fuse two scan topics.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">3</div>
+          <div class="exec-content">
+            <div class="exec-title">Velocity-ramped lift, not a position snap</div>
+            <div class="exec-desc">Commanding <code>/joint_command</code> directly snaps the lift straight to target. <code>lift_ramp_node</code> instead steps the commanded position toward the target at a bounded velocity (default 0.01 m/s), publishing at 50 Hz for smooth motion.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">4</div>
+          <div class="exec-content">
+            <div class="exec-title">Reduced turning speed to stop the dolly sliding</div>
+            <div class="exec-desc">The dolly rests on the lift platform via friction only — no rigid joint. <code>max_vel_theta</code>/<code>acc_lim_theta</code> were reduced below Nav2 defaults, and PhysX static/dynamic friction between the platform and dolly was raised, to stop it sliding crooked mid-transport.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">5</div>
+          <div class="exec-content">
+            <div class="exec-title">Bypassing Nav2 for the final clear-out</div>
+            <div class="exec-desc">The dolly isn't sensed by the lidars as a costmap obstacle, so the next mission's path could clip it mid-turn. The final "drive straight clear" step bypasses Nav2 entirely — a direct <code>/cmd_vel</code> publish with distance tracked via <code>/odom</code> — to guarantee dead-straight retreat.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ DEMO VIDEOS ═══ -->
+    <div class="project-section">
+      <h2>🎥 Demo Videos</h2>
+      <div class="video-grid">
+        <div class="video-card">
+          <video controls preload="metadata">
+            <source src="../videos/iw_hub/navigation.mp4" type="video/mp4">
+          </video>
+          <div class="video-card-label">Autonomous navigation to a goal</div>
+        </div>
+        <div class="video-card">
+          <video controls preload="metadata">
+            <source src="../videos/iw_hub/lift_control.mp4" type="video/mp4">
+          </video>
+          <div class="video-card-label">Smooth lift control</div>
+        </div>
+        <div class="video-card">
+          <video controls preload="metadata">
+            <source src="../videos/iw_hub/mission_video.mp4" type="video/mp4">
+          </video>
+          <div class="video-card-label">Full pick-and-place mission (dashboard-triggered)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ RESULTS ═══ -->
+    <div class="project-section">
+      <h2>📊 Results</h2>
+      <ul>
+        <li>Full pick-and-place mission executed end-to-end from a single ROS2 service call</li>
+        <li>Stable Nav2 localization and path planning on a dual-lidar diff-drive AMR in Isaac Sim</li>
+        <li>Smooth, jerk-free lift transitions that keep an unsecured dolly stable during transport</li>
+        <li>Live browser dashboard for mission triggering and telemetry, with a simulated mode for UI testing without a live stack</li>
+      </ul>
+    </div>
+
+    <!-- ═══ FUTURE WORK ═══ -->
+    <div class="project-section">
+      <h2>🔮 Future Work</h2>
+      <ul>
+        <li>Add lidar-based (or vision-based) dolly detection so the costmap tracks the carried load</li>
+        <li>Multi-robot coordination for concurrent pick-and-place missions in a shared map</li>
+        <li>Dockerise the workspace for reproducible deployment</li>
+      </ul>
+    </div>
+
+    <!-- ═══ CTA ═══ -->
+    <div class="cta-section">
+      <h2>💻 Source Code</h2>
+      <p>Full ROS2 workspace, launch files, and configuration.</p>
+      <a href="https://github.com/SHARATHNPAYYADI/iw_hub_isaac_ws" target="_blank" class="btn btn-primary">View on GitHub</a>
+      <a href="../index.html#projects" class="btn btn-outline">← Back to Projects</a>
+    </div>
+
+  </div>
+</section>
+
+<script src="../main.js"></script>
+</body>
+</html>
