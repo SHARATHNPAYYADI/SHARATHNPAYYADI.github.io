@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Husky Autonomous Inspection Robot | Robotics Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* ── Layout ─────────────────────────────────────── */
+    .project-detail { padding: 80px 20px; }
+    .project-container { max-width: 1000px; margin: auto; }
+
+    /* ── Header ─────────────────────────────────────── */
+    .project-header { margin-bottom: 48px; }
+    .project-meta { opacity: 0.7; margin-top: 10px; line-height: 1.8; }
+    .project-tags { margin-top: 15px; }
+    .tag {
+      display: inline-block;
+      background: #0f172a;
+      border: 1px solid #00f5d4;
+      color: #00f5d4;
+      padding: 6px 12px;
+      margin: 5px 5px 0 0;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    /* ── Sections ────────────────────────────────────── */
+    .project-section { margin-top: 56px; }
+    .project-section h2 { margin-bottom: 16px; }
+    .project-section p { line-height: 1.8; opacity: 0.9; }
+    .project-section ul { list-style: disc; padding-left: 22px; }
+    .project-section li { margin-bottom: 8px; line-height: 1.7; }
+    .project-section li::marker { color: #00f5d4; }
+    .highlight { color: #00f5d4; font-weight: 500; }
+
+    /* ── Metric cards ────────────────────────────────── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .metric-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .metric-card:hover { border-color: #00f5d4; }
+    .metric-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #00f5d4;
+      line-height: 1;
+    }
+    .metric-label {
+      font-size: 12px;
+      opacity: 0.6;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Pipeline / flowchart ────────────────────────── */
+    .pipeline-wrapper { margin-top: 28px; overflow-x: auto; }
+    .pipeline { display: flex; align-items: center; gap: 0; min-width: 720px; }
+    .pipeline-step {
+      flex: 1;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 14px 10px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.4;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .pipeline-step:hover { border-color: #00f5d4; }
+    .pipeline-step .step-icon { font-size: 20px; display: block; margin-bottom: 6px; }
+    .pipeline-step .step-label {
+      color: #00f5d4; font-weight: 600; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .pipeline-arrow { color: #00f5d4; font-size: 20px; padding: 0 4px; flex-shrink: 0; }
+
+    /* ── Architecture layers ─────────────────────────── */
+    .arch-layers { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+    .arch-layer { display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: center; }
+    .arch-layer-label {
+      font-size: 11px; font-weight: 700; color: #00f5d4;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      text-align: right; padding-right: 12px; border-right: 2px solid #00f5d4;
+    }
+    .arch-layer-items { display: flex; flex-wrap: wrap; gap: 8px; }
+    .arch-item {
+      background: #0f172a; border: 1px solid #1e293b; border-radius: 6px;
+      padding: 6px 12px; font-size: 12px; opacity: 0.85;
+    }
+
+    /* ── Package table ────────────────────────────────── */
+    .node-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 13px; }
+    .node-table th {
+      text-align: left; padding: 10px 14px; color: #00f5d4;
+      font-weight: 600; border-bottom: 1px solid #00f5d4; opacity: 0.9;
+    }
+    .node-table td { padding: 10px 14px; border-bottom: 1px solid #1e293b; opacity: 0.8; line-height: 1.5; }
+    .node-table tr:hover td { background: #0f172a; opacity: 1; }
+    .node-name { color: #00f5d4; font-family: monospace; font-size: 12px; }
+
+    /* ── Execution timeline ──────────────────────────── */
+    .exec-timeline { margin-top: 24px; display: flex; flex-direction: column; gap: 0; }
+    .exec-step { display: grid; grid-template-columns: 32px 1fr; gap: 16px; position: relative; }
+    .exec-step:not(:last-child)::after {
+      content: ''; position: absolute; left: 15px; top: 32px; bottom: 0;
+      width: 2px; background: #1e293b;
+    }
+    .exec-num {
+      width: 32px; height: 32px; border-radius: 50%; border: 2px solid #00f5d4;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: #00f5d4; flex-shrink: 0;
+      background: #020617; position: relative; z-index: 1;
+    }
+    .exec-content { padding-bottom: 24px; }
+    .exec-title { font-weight: 600; margin-bottom: 4px; }
+    .exec-desc { font-size: 13px; opacity: 0.65; line-height: 1.6; }
+
+    /* ── Live demo callout ───────────────────────────── */
+    .demo-callout {
+      margin-top: 28px;
+      background: #0f172a;
+      border: 1px solid #00f5d4;
+      border-radius: 12px;
+      padding: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .demo-callout-text { max-width: 560px; }
+    .demo-callout-text h3 { margin-bottom: 8px; }
+    .demo-callout-text p { opacity: 0.8; line-height: 1.6; font-size: 14px; }
+    .demo-callout-note {
+      display: inline-block; margin-top: 10px; font-size: 12px;
+      color: #fbbf24; opacity: 0.9;
+    }
+
+    /* ── Screenshot preview ──────────────────────────── */
+    .demo-preview {
+      margin-top: 24px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #1e293b;
+    }
+    .demo-preview img { width: 100%; display: block; }
+
+    /* ── CTA ─────────────────────────────────────────── */
+    .cta-section { margin-top: 72px; text-align: center; }
+    .cta-section a { margin: 10px; }
+
+    /* ── Responsive ──────────────────────────────────── */
+    @media (max-width: 640px) {
+      .arch-layer { grid-template-columns: 1fr; }
+      .arch-layer-label { text-align: left; border-right: none; border-left: 2px solid #00f5d4; padding-left: 12px; padding-right: 0; }
+      .pipeline { min-width: 560px; }
+      .demo-callout { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+
+<section class="project-detail">
+  <div class="project-container">
+
+    <!-- ═══ HEADER ═══ -->
+    <div class="project-header">
+      <h1 class="section-title">🐾 Husky Autonomous Inspection Robot — ROS2 + Nav2 + Vision</h1>
+      <p class="project-meta">
+        🏢 Personal Robotics Project<br>
+        🤖 Robot: Clearpath <code>Husky</code> UGV (differential-drive outdoor/indoor base)<br>
+        📅 2025 — 2026
+      </p>
+      <div class="project-tags">
+        <span class="tag">ROS2</span>
+        <span class="tag">Nav2</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">WebSockets</span>
+        <span class="tag">Computer Vision</span>
+        <span class="tag">Web Dashboard</span>
+      </div>
+    </div>
+
+    <!-- ═══ METRICS ═══ -->
+    <div class="project-section">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-number">5</div>
+          <div class="metric-label">Inspection Waypoints</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">2</div>
+          <div class="metric-label">Operating Modes</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">1</div>
+          <div class="metric-label">Click → Full Mission Report</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">Live</div>
+          <div class="metric-label">Browser Teleop + Telemetry</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ OVERVIEW ═══ -->
+    <div class="project-section">
+      <h2>📌 Overview</h2>
+      <p>
+        Built an <span class="highlight">autonomous inspection stack</span> for a Clearpath Husky UGV that patrols
+        a set of waypoints (e.g. fire extinguisher checkpoints), captures images at each stop, runs a vision check
+        for presence/absence, and auto-generates an HTML inspection report — all driven from a
+        <span class="highlight">browser dashboard</span> talking to a <span class="highlight">FastAPI + ROS2</span>
+        bridge over REST and WebSockets. The dashboard supports both manual joystick teleop and fully autonomous
+        multi-waypoint missions.
+      </p>
+    </div>
+
+    <!-- ═══ MISSION PIPELINE ═══ -->
+    <div class="project-section">
+      <h2>🔄 Mission Pipeline</h2>
+      <p>Selecting waypoints and hitting <code>START INSPECTION</code> drives the full sequence end-to-end.</p>
+      <div class="pipeline-wrapper">
+        <div class="pipeline">
+          <div class="pipeline-step">
+            <span class="step-icon">🧭</span>
+            <span class="step-label">Navigate</span>
+            <div>Nav2 drives to each selected waypoint in sequence</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">📷</span>
+            <span class="step-label">Capture</span>
+            <div>Camera service grabs an image at the waypoint</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">🔍</span>
+            <span class="step-label">Inspect</span>
+            <div>Vision check classifies presence/absence of the target object</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">📝</span>
+            <span class="step-label">Report</span>
+            <div>Once all waypoints are processed, an HTML report is generated automatically</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SYSTEM ARCHITECTURE ═══ -->
+    <div class="project-section">
+      <h2>🏗️ System Architecture</h2>
+      <p>Browser dashboard, FastAPI bridge, and ROS2 nodes communicate over REST, WebSockets, and ROS2 topics/services.</p>
+      <div class="arch-layers">
+        <div class="arch-layer">
+          <div class="arch-layer-label">Interface</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">Browser dashboard (vanilla JS)</div>
+            <div class="arch-item">nipple.js virtual joystick</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">API Bridge</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">FastAPI (REST: /go, /stop, /capture, /inspect)</div>
+            <div class="arch-item">WebSocket teleop (/ws/teleop → /cmd_vel)</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Mission Layer</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">start_mission_sequence service</div>
+            <div class="arch-item">mission_status / mission_results topics</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Robot / ROS2</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">Nav2 (waypoint navigation)</div>
+            <div class="arch-item">Camera + vision inspection services</div>
+            <div class="arch-item">Clearpath Husky base driver</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PACKAGES ═══ -->
+    <div class="project-section">
+      <h2>🔗 Key Components</h2>
+      <table class="node-table">
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="node-name">husky_dashboard/backend</td>
+            <td>FastAPI bridge — exposes REST + WebSocket endpoints, subscribes to ROS2 mission/status topics, serves captured &amp; annotated images</td>
+          </tr>
+          <tr>
+            <td class="node-name">husky_dashboard/frontend</td>
+            <td>Browser dashboard — manual joystick control, autonomous waypoint mission builder, live status/log/report views</td>
+          </tr>
+          <tr>
+            <td class="node-name">husky_inspection_report</td>
+            <td>HTML report generator — templated per-mission report with per-point images and found/missing status</td>
+          </tr>
+          <tr>
+            <td class="node-name">husky_base / husky_control / husky_bringup</td>
+            <td>Clearpath-provided ROS2 driver, control, and bringup stack for the Husky UGV</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ═══ KEY ENGINEERING DECISIONS ═══ -->
+    <div class="project-section">
+      <h2>⚙️ Key Engineering Decisions</h2>
+      <div class="exec-timeline">
+        <div class="exec-step">
+          <div class="exec-num">1</div>
+          <div class="exec-content">
+            <div class="exec-title">Thin FastAPI bridge over a ROS2 core</div>
+            <div class="exec-desc">Rather than exposing ROS2 directly to the browser, a FastAPI service wraps ROS2 service clients/subscribers and re-exposes them as plain REST + WebSocket endpoints — keeping the dashboard framework-agnostic and easy to iterate on independently of the robot stack.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">2</div>
+          <div class="exec-content">
+            <div class="exec-title">Sequenced multi-waypoint missions, not one-shot goals</div>
+            <div class="exec-desc">A dedicated <code>start_mission_sequence</code> service accepts an ordered list of waypoints and drives navigate → capture → inspect per point, publishing incremental <code>mission_results</code> so the dashboard can render progress live instead of waiting for the whole mission to finish.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">3</div>
+          <div class="exec-content">
+            <div class="exec-title">Auto-generated report on mission completion</div>
+            <div class="exec-desc">The backend tracks how many results have come back against the expected waypoint count; once they match, it fires an internal report generator that fills an HTML template with per-point images and found/missing status — no manual "generate report" step needed.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">4</div>
+          <div class="exec-content">
+            <div class="exec-title">Real-time teleop over WebSocket, control over REST</div>
+            <div class="exec-desc">High-frequency joystick velocity commands go over a persistent WebSocket straight to <code>/cmd_vel</code> for low latency, while lower-frequency actions (go-to-goal, capture, start/stop mission) use simple REST calls — matched to how often each actually needs to fire.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ LIVE DEMO ═══ -->
+    <div class="project-section">
+      <h2>🎮 Try It</h2>
+      <div class="demo-callout">
+        <div class="demo-callout-text">
+          <h3>Interactive dashboard demo</h3>
+          <p>
+            The exact dashboard UI from the real robot, running against a simulated backend in your browser —
+            drive the virtual joystick, queue up waypoints, run an autonomous mission, and open the
+            auto-generated inspection report.
+          </p>
+          <span class="demo-callout-note">⚠️ Simulated data — no live robot connected on this page.</span>
+        </div>
+        <a href="husky-inspection-demo.html" class="btn btn-primary" target="_blank">🚀 Launch Live Demo</a>
+      </div>
+    </div>
+
+    <!-- ═══ RESULTS ═══ -->
+    <div class="project-section">
+      <h2>📊 Results</h2>
+      <ul>
+        <li>End-to-end multi-waypoint inspection mission triggered from a single dashboard action</li>
+        <li>Manual joystick teleop and autonomous mission modes on one unified interface</li>
+        <li>Auto-generated per-mission HTML reports with captured/annotated images and status</li>
+        <li>Fully decoupled dashboard frontend, reusable against both the live robot and a mocked demo backend</li>
+      </ul>
+    </div>
+
+    <!-- ═══ FUTURE WORK ═══ -->
+    <div class="project-section">
+      <h2>🔮 Future Work</h2>
+      <ul>
+        <li>Expand vision inspection beyond single-object presence checks to multi-class defect detection</li>
+        <li>Add mission scheduling (recurring inspections on a timer)</li>
+        <li>Push report history to persistent storage with search/filtering</li>
+      </ul>
+    </div>
+
+    <!-- ═══ CTA ═══ -->
+    <div class="cta-section">
+      <h2>💻 Source Code</h2>
+      <p>ROS2 workspace, FastAPI backend, and dashboard frontend.</p>
+      <a href="husky-inspection-demo.html" target="_blank" class="btn btn-primary">🚀 Launch Live Demo</a>
+      <a href="../index.html#projects" class="btn btn-outline">← Back to Projects</a>
+    </div>
+
+  </div>
+</section>
+
+<script src="../main.js"></script>
+</body>
+</html>
