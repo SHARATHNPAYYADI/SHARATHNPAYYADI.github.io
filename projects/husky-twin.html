@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Husky Digital Twin | Robotics Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* ── Layout ─────────────────────────────────────── */
+    .project-detail { padding: 80px 20px; }
+    .project-container { max-width: 1000px; margin: auto; }
+
+    /* ── Header ─────────────────────────────────────── */
+    .project-header { margin-bottom: 48px; }
+    .project-meta { opacity: 0.7; margin-top: 10px; line-height: 1.8; }
+    .project-tags { margin-top: 15px; }
+    .tag {
+      display: inline-block;
+      background: #0f172a;
+      border: 1px solid #00f5d4;
+      color: #00f5d4;
+      padding: 6px 12px;
+      margin: 5px 5px 0 0;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    /* ── Sections ────────────────────────────────────── */
+    .project-section { margin-top: 56px; }
+    .project-section h2 { margin-bottom: 16px; }
+    .project-section p { line-height: 1.8; opacity: 0.9; }
+    .project-section ul { list-style: disc; padding-left: 22px; }
+    .project-section li { margin-bottom: 8px; line-height: 1.7; }
+    .project-section li::marker { color: #00f5d4; }
+    .highlight { color: #00f5d4; font-weight: 500; }
+
+    /* ── Notice banner ───────────────────────────────── */
+    .notice {
+      margin-top: 24px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-left: 3px solid #00f5d4;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 13px;
+      opacity: 0.85;
+      line-height: 1.7;
+    }
+
+    /* ── Metric cards ────────────────────────────────── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .metric-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .metric-card:hover { border-color: #00f5d4; }
+    .metric-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #00f5d4;
+      line-height: 1;
+    }
+    .metric-label {
+      font-size: 12px;
+      opacity: 0.6;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Pipeline / flowchart ────────────────────────── */
+    .pipeline-wrapper {
+      margin-top: 28px;
+      overflow-x: auto;
+    }
+    .pipeline {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      min-width: 720px;
+    }
+    .pipeline-step {
+      flex: 1;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 14px 10px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.4;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .pipeline-step:hover { border-color: #00f5d4; }
+    .pipeline-step .step-icon {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .pipeline-step .step-label {
+      color: #00f5d4;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .pipeline-arrow {
+      color: #00f5d4;
+      font-size: 20px;
+      padding: 0 4px;
+      flex-shrink: 0;
+    }
+
+    /* ── Architecture layers ─────────────────────────── */
+    .arch-layers { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+    .arch-layer {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+    .arch-layer-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #00f5d4;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: right;
+      padding-right: 12px;
+      border-right: 2px solid #00f5d4;
+    }
+    .arch-layer-items { display: flex; flex-wrap: wrap; gap: 8px; }
+    .arch-item {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      opacity: 0.85;
+    }
+
+    /* ── API table ────────────────────────────────────── */
+    .node-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 13px;
+    }
+    .node-table th {
+      text-align: left;
+      padding: 10px 14px;
+      color: #00f5d4;
+      font-weight: 600;
+      border-bottom: 1px solid #00f5d4;
+      opacity: 0.9;
+    }
+    .node-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #1e293b;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
+    .node-table tr:hover td { background: #0f172a; opacity: 1; }
+    .node-name { color: #00f5d4; font-family: monospace; font-size: 12px; }
+
+    /* ── Execution timeline ──────────────────────────── */
+    .exec-timeline { margin-top: 24px; display: flex; flex-direction: column; gap: 0; }
+    .exec-step {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 16px;
+      position: relative;
+    }
+    .exec-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 32px;
+      bottom: 0;
+      width: 2px;
+      background: #1e293b;
+    }
+    .exec-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #00f5d4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #00f5d4;
+      flex-shrink: 0;
+      background: #020617;
+      position: relative;
+      z-index: 1;
+    }
+    .exec-content {
+      padding-bottom: 24px;
+    }
+    .exec-title { font-weight: 600; margin-bottom: 4px; }
+    .exec-desc { font-size: 13px; opacity: 0.65; line-height: 1.6; }
+
+    /* ── Demo media ───────────────────────────────────── */
+    .demo-gif {
+      margin-top: 24px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #1e293b;
+    }
+    .demo-gif img { width: 100%; display: block; }
+
+    /* ── CTA ─────────────────────────────────────────── */
+    .cta-section { margin-top: 72px; text-align: center; }
+    .cta-section a { margin: 10px; }
+
+    /* ── Responsive ──────────────────────────────────── */
+    @media (max-width: 640px) {
+      .arch-layer { grid-template-columns: 1fr; }
+      .arch-layer-label { text-align: left; border-right: none; border-left: 2px solid #00f5d4; padding-left: 12px; padding-right: 0; }
+      .pipeline { min-width: 560px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<section class="project-detail">
+  <div class="project-container">
+
+    <!-- ═══ HEADER ═══ -->
+    <div class="project-header">
+      <h1 class="section-title">🐺 Husky Digital Twin — Browser-Native Warehouse Robot Simulation</h1>
+      <p class="project-meta">
+        🏢 Personal Robotics Project<br>
+        🤖 Robot: single warehouse Husky (simulated — no ROS, no physics engine)<br>
+        📅 2025<br>
+        🔗 Inspired by <a href="https://github.com/WayneChou-bot/WareTwin" target="_blank" style="color:#00f5d4;">WareTwin</a>
+      </p>
+      <div class="project-tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">Pydantic</span>
+        <span class="tag">WebSocket</span>
+        <span class="tag">React</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">React Three Fiber</span>
+        <span class="tag">zustand</span>
+        <span class="tag">SQLite</span>
+      </div>
+    </div>
+
+    <!-- ═══ LIVE DEMO NOTICE ═══ -->
+    <div class="notice">
+      🔗 <strong>Live demo:</strong> <a href="https://husky-twin.vercel.app" target="_blank" style="color:#00f5d4;">husky-twin.vercel.app</a><br>
+      The backend runs on Render's free tier, kept warm by a scheduled GitHub Action pinging <code>/health</code> every 14 minutes.
+      If it's gone quiet, the first load may take a few extra seconds to wake up. Run history also resets on every backend deploy/restart.
+    </div>
+
+    <!-- ═══ METRICS ═══ -->
+    <div class="project-section">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-number">40×40</div>
+          <div class="metric-label">Warehouse Grid</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">8-Dir</div>
+          <div class="metric-label">A* Pathfinding</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">~100<span style="font-size:18px">ms</span></div>
+          <div class="metric-label">Live Sync Tick Rate</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">2</div>
+          <div class="metric-label">Independent 3D Views</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ OVERVIEW ═══ -->
+    <div class="project-section">
+      <h2>📌 Overview</h2>
+      <p>
+        A single-robot, <span class="highlight">browser-native 3D digital twin</span> of a warehouse Husky —
+        real-time tracking, multi-stop routes, live obstacle replanning, a configurable warehouse layout editor,
+        persistent run history with a metrics dashboard, and an onboard robot camera feed. No ROS, no physics
+        simulator: a deterministic <span class="highlight">Python asyncio tick loop</span> synced live to a
+        <span class="highlight">React Three Fiber</span> scene over WebSocket.
+      </p>
+    </div>
+
+    <!-- ═══ FEATURE PIPELINE ═══ -->
+    <div class="project-section">
+      <h2>🔄 What It Does</h2>
+      <div class="pipeline-wrapper">
+        <div class="pipeline">
+          <div class="pipeline-step">
+            <span class="step-icon">📦</span>
+            <span class="step-label">Place Obstacle</span>
+            <div>Click the floor to drop a pallet (static) or a wandering person</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">🧭</span>
+            <span class="step-label">Replan</span>
+            <div>A* live-replans around anything blocking the robot's current path</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">🗺️</span>
+            <span class="step-label">Multi-Stop Route</span>
+            <div>Robot visits queued stops in sequence via the Route panel</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">🏁</span>
+            <span class="step-label">Report</span>
+            <div>Duration, distance, replans, and obstacles hit — per stop</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <span class="step-icon">📊</span>
+            <span class="step-label">Metrics</span>
+            <div>Every run persisted to SQLite, browsable in the dashboard</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ DEMO ═══ -->
+    <div class="project-section">
+      <h2>🎥 Demo</h2>
+      <div class="demo-gif">
+        <img src="../images/husky_twin_demo.gif" alt="Husky Digital Twin demo — live 3D warehouse simulation" loading="lazy">
+      </div>
+    </div>
+
+    <!-- ═══ SYSTEM ARCHITECTURE ═══ -->
+    <div class="project-section">
+      <h2>🏗️ System Architecture</h2>
+      <p>A deterministic backend tick loop drives the simulation state; the frontend renders it live over WebSocket.</p>
+      <div class="arch-layers">
+        <div class="arch-layer">
+          <div class="arch-layer-label">Frontend</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">React + TypeScript + Vite</div>
+            <div class="arch-item">React Three Fiber (Three.js) + drei</div>
+            <div class="arch-item">zustand store</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Live Channel</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">WebSocket (~100ms tick)</div>
+            <div class="arch-item">Shared Pydantic ↔ TS schema (hand-mirrored)</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Backend</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">FastAPI</div>
+            <div class="arch-item">asyncio tick loop — state machine (idle → navigating → replanning → arrived)</div>
+            <div class="arch-item">hand-rolled A* pathfinder</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Persistence</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">SQLite — run history</div>
+            <div class="arch-item">SQLite — saved layouts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ REST API ═══ -->
+    <div class="project-section">
+      <h2>🔗 REST API</h2>
+      <p>Alongside the primary <code>/ws</code> WebSocket channel, the backend exposes:</p>
+      <table class="node-table">
+        <thead>
+          <tr>
+            <th>Route</th>
+            <th>What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="node-name">GET /health</td>
+            <td>Liveness check</td>
+          </tr>
+          <tr>
+            <td class="node-name">GET /runs?limit=50</td>
+            <td>Run history, newest first</td>
+          </tr>
+          <tr>
+            <td class="node-name">GET /runs/stats</td>
+            <td>Aggregate stats for the metrics dashboard</td>
+          </tr>
+          <tr>
+            <td class="node-name">GET /runs/{run_id}</td>
+            <td>A single stored run report</td>
+          </tr>
+          <tr>
+            <td class="node-name">GET /layouts</td>
+            <td>Saved layout summaries</td>
+          </tr>
+          <tr>
+            <td class="node-name">GET /layouts/starter</td>
+            <td>A freshly generated layout, to seed the editor</td>
+          </tr>
+          <tr>
+            <td class="node-name">POST /layouts</td>
+            <td>Save a new layout</td>
+          </tr>
+          <tr>
+            <td class="node-name">POST /layouts/{id}/activate</td>
+            <td>Hot-swap the running sim onto a saved layout — no redeploy needed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ═══ KEY ENGINEERING DECISIONS ═══ -->
+    <div class="project-section">
+      <h2>⚙️ Key Engineering Decisions</h2>
+      <div class="exec-timeline">
+        <div class="exec-step">
+          <div class="exec-num">1</div>
+          <div class="exec-content">
+            <div class="exec-title">No ROS, no physics engine</div>
+            <div class="exec-desc">A deterministic asyncio tick loop plus a hand-rolled 8-directional A* pathfinder is enough to demonstrate real-time tracking, replanning, and multi-stop routing — without the deployment overhead of a full ROS/simulator stack.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">2</div>
+          <div class="exec-content">
+            <div class="exec-title">Hand-mirrored schema, no codegen</div>
+            <div class="exec-desc"><code>backend/app/schema.py</code> (Pydantic) and <code>frontend/src/schema/types.ts</code> are kept in sync by hand as the single source of truth for the WebSocket wire format — simple enough for a solo project to maintain without a codegen pipeline.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">3</div>
+          <div class="exec-content">
+            <div class="exec-title">Two independent 3D views</div>
+            <div class="exec-desc">The Robot Cam is a second, always-streaming onboard/CCTV-style React Three Fiber view, kept fully independent from the main interactive scene so it never interferes with placing obstacles or planning a route.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">4</div>
+          <div class="exec-content">
+            <div class="exec-title">Hot-swappable layouts without a redeploy</div>
+            <div class="exec-desc"><code>POST /layouts/{id}/activate</code> lets the layout editor push a saved warehouse layout onto the <em>live</em> running simulation, so different scenarios can be tried without restarting the backend.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">5</div>
+          <div class="exec-content">
+            <div class="exec-title">Free-tier deployment, kept warm deliberately</div>
+            <div class="exec-desc">Backend on Render's free tier (ephemeral filesystem, so run history resets on restart) is pinged every 14 minutes by a scheduled GitHub Action so it never spins down from inactivity; frontend on Vercel talks to it over a single <code>VITE_WS_URL</code> env var that also derives the REST base URL.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ RESULTS ═══ -->
+    <div class="project-section">
+      <h2>📊 Results</h2>
+      <ul>
+        <li>Real-time robot tracking and live obstacle replanning rendered entirely in-browser, no native client needed</li>
+        <li>Configurable warehouse layout editor that hot-swaps the running simulation without a redeploy</li>
+        <li>Persistent run history and an always-visible metrics dashboard (totals, averages, per-day and per-obstacle-type charts)</li>
+        <li>Deployed end-to-end on free-tier infrastructure (Render + Vercel) with a keep-alive workflow to avoid cold starts</li>
+      </ul>
+    </div>
+
+    <!-- ═══ FUTURE WORK ═══ -->
+    <div class="project-section">
+      <h2>🔮 Future Work</h2>
+      <ul>
+        <li>Multi-robot support — several Husky twins operating in the same warehouse simultaneously</li>
+        <li>Persistent run history across deploys via a paid disk or an external Postgres instance</li>
+        <li>Optional physics-based obstacle dynamics for more realistic wandering-person behavior</li>
+      </ul>
+    </div>
+
+    <!-- ═══ CTA ═══ -->
+    <div class="cta-section">
+      <h2>💻 Source Code</h2>
+      <p>Full backend + frontend source, deployment config, and setup instructions.</p>
+      <a href="https://github.com/SHARATHNPAYYADI/husky-twin" target="_blank" class="btn btn-primary">View on GitHub</a>
+      <a href="https://husky-twin.vercel.app" target="_blank" class="btn btn-outline">🚀 Live Demo</a>
+      <a href="../index.html#projects" class="btn btn-outline">← Back to Projects</a>
+    </div>
+
+  </div>
+</section>
+
+<script src="../main.js"></script>
+</body>
+</html>
