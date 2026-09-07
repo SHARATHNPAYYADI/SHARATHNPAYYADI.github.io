@@ -558,35 +558,42 @@
       <!-- ================= Project 5 ================= -->
       <div class="project-card fade-in">
         <div class="project-image">
-          <img src="images/husky_demo/inspection/point_1.jpg"
-              alt="Husky UGV autonomous inspection robot"
+          <img src="images/husky_inspection/gazebo_setup.png"
+              alt="Husky UGV in Gazebo construction-site simulation"
               loading="lazy">
           <div class="project-image-overlay"></div>
         </div>
         <div class="project-content">
           <h3 class="project-title">
-            Husky Autonomous Inspection Robot — ROS2 + Nav2 + Vision
+            Husky Autonomous Inspection Robot — ROS2 + Nav2 + BT + YOLO
           </h3>
 
           <p class="project-description">
-            <strong>Objective:</strong> Build an autonomous multi-waypoint inspection stack for a Clearpath Husky UGV,
-            controllable from a live browser dashboard with vision-based checks and auto-generated reports.
+            <strong>Objective:</strong> Build a simulation-first, behavior-tree-driven multi-waypoint inspection
+            stack for a Clearpath Husky UGV, with YOLO-based fire-extinguisher detection and a live browser
+            dashboard for mission control and auto-generated reports.
           </p>
 
           <ul class="project-highlights">
-            <li>Manual joystick teleop and autonomous waypoint missions in one FastAPI + ROS2-backed dashboard</li>
-            <li>Per-waypoint image capture and vision inspection with live progress and event log</li>
-            <li>Auto-generated HTML mission reports once all waypoints are inspected</li>
+            <li>BehaviorTree.CPP mission runner: navigate → inspect → report, looped per waypoint via one service call</li>
+            <li>YOLO fire-extinguisher detection per waypoint, feeding found/missing status into the report</li>
+            <li>Manual joystick teleop and autonomous missions on one FastAPI + ROS2-backed dashboard</li>
           </ul>
 
           <div class="project-tags">
             <span class="project-tag">ROS2</span>
+            <span class="project-tag">Gazebo</span>
             <span class="project-tag">Nav2</span>
-            <span class="project-tag">FastAPI</span>
-            <span class="project-tag">Computer Vision</span>
-            <span class="project-tag">Web Dashboard</span>
+            <span class="project-tag">BehaviorTree.CPP</span>
+            <span class="project-tag">YOLO</span>
           </div>
           <div class="project-links">
+            <a href="https://github.com/SHARATHNPAYYADI/husky_ai_inspection"
+              target="_blank"
+              class="project-link">
+              💻 View Code
+            </a>
+
             <a href="projects/husky-inspection-demo.html"
               target="_blank"
               class="project-link primary">

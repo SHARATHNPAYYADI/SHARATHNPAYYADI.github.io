@@ -160,6 +160,58 @@
     }
     .demo-preview img { width: 100%; display: block; }
 
+    /* ── Environment screenshots ─────────────────────── */
+    .env-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+    .env-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .env-card:hover { border-color: #00f5d4; }
+    .env-card img { width: 100%; display: block; }
+    .env-card-label {
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #00f5d4;
+      font-weight: 600;
+    }
+
+    /* ── Demo videos ─────────────────────────────────── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+    .video-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .video-card:hover { border-color: #00f5d4; }
+    .video-card video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      background: #000;
+      object-fit: contain;
+    }
+    .video-card-label {
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #00f5d4;
+      font-weight: 600;
+    }
+
     /* ── CTA ─────────────────────────────────────────── */
     .cta-section { margin-top: 72px; text-align: center; }
     .cta-section a { margin: 10px; }
@@ -181,18 +233,19 @@
 
     <!-- ═══ HEADER ═══ -->
     <div class="project-header">
-      <h1 class="section-title">🐾 Husky Autonomous Inspection Robot — ROS2 + Nav2 + Vision</h1>
+      <h1 class="section-title">🐾 Husky Autonomous Inspection Robot — ROS2 + Nav2 + BT + YOLO</h1>
       <p class="project-meta">
-        🏢 Personal Robotics Project<br>
-        🤖 Robot: Clearpath <code>Husky</code> UGV (differential-drive outdoor/indoor base)<br>
+        🏢 Personal Robotics Project (simulation-first, built on the upstream Clearpath Husky ROS2 stack)<br>
+        🤖 Robot: Clearpath <code>Husky</code> UGV, simulated in Gazebo on a custom construction-site world<br>
         📅 2025 — 2026
       </p>
       <div class="project-tags">
-        <span class="tag">ROS2</span>
-        <span class="tag">Nav2</span>
+        <span class="tag">ROS2 Humble</span>
+        <span class="tag">Gazebo</span>
+        <span class="tag">Nav2 + AMCL</span>
+        <span class="tag">BehaviorTree.CPP</span>
+        <span class="tag">YOLO</span>
         <span class="tag">FastAPI</span>
-        <span class="tag">WebSockets</span>
-        <span class="tag">Computer Vision</span>
         <span class="tag">Web Dashboard</span>
       </div>
     </div>
@@ -205,16 +258,16 @@
           <div class="metric-label">Inspection Waypoints</div>
         </div>
         <div class="metric-card">
-          <div class="metric-number">2</div>
-          <div class="metric-label">Operating Modes</div>
+          <div class="metric-number">10+</div>
+          <div class="metric-label">ROS2 Packages</div>
         </div>
         <div class="metric-card">
           <div class="metric-number">1</div>
-          <div class="metric-label">Click → Full Mission Report</div>
+          <div class="metric-label">Service Call → Full BT Mission</div>
         </div>
         <div class="metric-card">
-          <div class="metric-number">Live</div>
-          <div class="metric-label">Browser Teleop + Telemetry</div>
+          <div class="metric-number">YOLO</div>
+          <div class="metric-label">Per-Waypoint Fire-Extinguisher Detection</div>
         </div>
       </div>
     </div>
@@ -223,43 +276,67 @@
     <div class="project-section">
       <h2>📌 Overview</h2>
       <p>
-        Built an <span class="highlight">autonomous inspection stack</span> for a Clearpath Husky UGV that patrols
-        a set of waypoints (e.g. fire extinguisher checkpoints), captures images at each stop, runs a vision check
-        for presence/absence, and auto-generates an HTML inspection report — all driven from a
-        <span class="highlight">browser dashboard</span> talking to a <span class="highlight">FastAPI + ROS2</span>
-        bridge over REST and WebSockets. The dashboard supports both manual joystick teleop and fully autonomous
-        multi-waypoint missions.
+        A <span class="highlight">simulation-first inspection stack</span> for the Clearpath Husky UGV, built
+        incrementally on top of the upstream Clearpath ROS2 packages: navigation and localization first, then a
+        <span class="highlight">behavior-tree-driven multi-waypoint mission system</span>, then
+        <span class="highlight">AI-based inspection</span>. A YOLO fire-extinguisher detector now runs at every
+        waypoint during each mission, flagging it as found or missing in an auto-generated report — all launchable
+        and controllable from a <span class="highlight">FastAPI + web dashboard</span> with live teleop and mission
+        telemetry.
       </p>
+    </div>
+
+    <!-- ═══ ENVIRONMENT ═══ -->
+    <div class="project-section">
+      <h2>🗺️ Simulation Environment</h2>
+      <p>
+        A custom construction-site world in Gazebo, localized against a SLAM-built occupancy map. Five inspection
+        waypoints are recorded on the map, each aligned to a wall-mounted fire extinguisher the robot checks for
+        during a mission — Point 2 currently reports missing.
+      </p>
+      <div class="env-grid">
+        <div class="env-card">
+          <img src="../images/husky_inspection/gazebo_setup.png" alt="Gazebo construction-site world with Husky UGV" loading="lazy">
+          <div class="env-card-label">Gazebo construction-site world</div>
+        </div>
+        <div class="env-card">
+          <img src="../images/husky_inspection/map.png" alt="SLAM occupancy map" loading="lazy">
+          <div class="env-card-label">SLAM occupancy map (AMCL localization)</div>
+        </div>
+      </div>
+      <div class="demo-preview" style="margin-top:20px;">
+        <img src="../images/husky_inspection/waypoint_map_annotated.png" alt="Inspection waypoints and fire extinguisher locations">
+      </div>
     </div>
 
     <!-- ═══ MISSION PIPELINE ═══ -->
     <div class="project-section">
       <h2>🔄 Mission Pipeline</h2>
-      <p>Selecting waypoints and hitting <code>START INSPECTION</code> drives the full sequence end-to-end.</p>
+      <p>A single <code>/start_mission_sequence</code> service call drives a behavior tree that loops this sequence per waypoint.</p>
       <div class="pipeline-wrapper">
         <div class="pipeline">
           <div class="pipeline-step">
             <span class="step-icon">🧭</span>
             <span class="step-label">Navigate</span>
-            <div>Nav2 drives to each selected waypoint in sequence</div>
+            <div>Nav2 drives to the next waypoint in the sequence</div>
           </div>
           <div class="pipeline-arrow">→</div>
           <div class="pipeline-step">
             <span class="step-icon">📷</span>
             <span class="step-label">Capture</span>
-            <div>Camera service grabs an image at the waypoint</div>
+            <div><code>image_capture_service</code> grabs an image at the waypoint</div>
           </div>
           <div class="pipeline-arrow">→</div>
           <div class="pipeline-step">
             <span class="step-icon">🔍</span>
             <span class="step-label">Inspect</span>
-            <div>Vision check classifies presence/absence of the target object</div>
+            <div><code>yolo_fire_extinguisher_node</code> flags found/missing per point</div>
           </div>
           <div class="pipeline-arrow">→</div>
           <div class="pipeline-step">
             <span class="step-icon">📝</span>
             <span class="step-label">Report</span>
-            <div>Once all waypoints are processed, an HTML report is generated automatically</div>
+            <div>Once the sequence completes, an HTML report is generated automatically</div>
           </div>
         </div>
       </div>
@@ -268,7 +345,7 @@
     <!-- ═══ SYSTEM ARCHITECTURE ═══ -->
     <div class="project-section">
       <h2>🏗️ System Architecture</h2>
-      <p>Browser dashboard, FastAPI bridge, and ROS2 nodes communicate over REST, WebSockets, and ROS2 topics/services.</p>
+      <p>Browser dashboard, FastAPI bridge, mission behavior tree, and simulated Husky communicate over REST, WebSockets, and ROS2 topics/services.</p>
       <div class="arch-layers">
         <div class="arch-layer">
           <div class="arch-layer-label">Interface</div>
@@ -280,23 +357,30 @@
         <div class="arch-layer">
           <div class="arch-layer-label">API Bridge</div>
           <div class="arch-layer-items">
-            <div class="arch-item">FastAPI (REST: /go, /stop, /capture, /inspect)</div>
+            <div class="arch-item">FastAPI (REST: /go, /stop, /capture, /inspect, /missions)</div>
             <div class="arch-item">WebSocket teleop (/ws/teleop → /cmd_vel)</div>
           </div>
         </div>
         <div class="arch-layer">
           <div class="arch-layer-label">Mission Layer</div>
           <div class="arch-layer-items">
-            <div class="arch-item">start_mission_sequence service</div>
-            <div class="arch-item">mission_status / mission_results topics</div>
+            <div class="arch-item">husky_mission_interface (/start_mission, /start_mission_sequence, cancel)</div>
+            <div class="arch-item">husky_mission_bt — behavior tree: navigate → inspect → report per waypoint</div>
           </div>
         </div>
         <div class="arch-layer">
-          <div class="arch-layer-label">Robot / ROS2</div>
+          <div class="arch-layer-label">Perception</div>
           <div class="arch-layer-items">
-            <div class="arch-item">Nav2 (waypoint navigation)</div>
-            <div class="arch-item">Camera + vision inspection services</div>
-            <div class="arch-item">Clearpath Husky base driver</div>
+            <div class="arch-item">image_capture_service</div>
+            <div class="arch-item">yolo_fire_extinguisher_node</div>
+          </div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">Navigation / Sim</div>
+          <div class="arch-layer-items">
+            <div class="arch-item">Nav2 + AMCL localization</div>
+            <div class="arch-item">husky_init_pose (automatic initial pose)</div>
+            <div class="arch-item">Gazebo construction-site world</div>
           </div>
         </div>
       </div>
@@ -308,26 +392,50 @@
       <table class="node-table">
         <thead>
           <tr>
-            <th>Component</th>
+            <th>Package</th>
             <th>Role</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="node-name">husky_dashboard/backend</td>
-            <td>FastAPI bridge — exposes REST + WebSocket endpoints, subscribes to ROS2 mission/status topics, serves captured &amp; annotated images</td>
+            <td class="node-name">husky_gazebo</td>
+            <td>Custom construction-site Gazebo world and simulation bring-up</td>
           </tr>
           <tr>
-            <td class="node-name">husky_dashboard/frontend</td>
-            <td>Browser dashboard — manual joystick control, autonomous waypoint mission builder, live status/log/report views</td>
+            <td class="node-name">husky_nav2 / husky_navigation</td>
+            <td>Nav2 maps, parameters, and configuration for AMCL localization and path planning</td>
           </tr>
           <tr>
-            <td class="node-name">husky_inspection_report</td>
-            <td>HTML report generator — templated per-mission report with per-point images and found/missing status</td>
+            <td class="node-name">husky_init_pose</td>
+            <td>Automatic initial pose node — sets AMCL's starting pose without manual RViz input</td>
           </tr>
           <tr>
-            <td class="node-name">husky_base / husky_control / husky_bringup</td>
-            <td>Clearpath-provided ROS2 driver, control, and bringup stack for the Husky UGV</td>
+            <td class="node-name">husky_waypoint_recorder</td>
+            <td>Waypoint recording via RViz and single-point <code>go_to_waypoint</code> navigation</td>
+          </tr>
+          <tr>
+            <td class="node-name">husky_mission_interface</td>
+            <td>Mission entry point — exposes <code>/start_mission</code>, <code>/start_mission_sequence</code>, and cancel services</td>
+          </tr>
+          <tr>
+            <td class="node-name">husky_mission_bt</td>
+            <td>BehaviorTree.CPP mission runner — loops navigate → inspect → report per waypoint until the sequence finishes</td>
+          </tr>
+          <tr>
+            <td class="node-name">husky_vision_detector</td>
+            <td>YOLO-based fire-extinguisher detection, run per waypoint during inspection</td>
+          </tr>
+          <tr>
+            <td class="node-name">husky_msgs</td>
+            <td>Shared messages/services — <code>MissionGoal</code>, <code>MissionResult</code>, <code>StartMissionSequence</code></td>
+          </tr>
+          <tr>
+            <td class="node-name">husky_dashboard</td>
+            <td>FastAPI backend + web frontend — mission control, teleop, image capture, and report browsing</td>
+          </tr>
+          <tr>
+            <td class="node-name">husky_base / husky_control / husky_description / husky_simulator / husky_viz</td>
+            <td>Upstream Clearpath Husky ROS2 packages this project builds on</td>
           </tr>
         </tbody>
       </table>
@@ -340,30 +448,62 @@
         <div class="exec-step">
           <div class="exec-num">1</div>
           <div class="exec-content">
-            <div class="exec-title">Thin FastAPI bridge over a ROS2 core</div>
-            <div class="exec-desc">Rather than exposing ROS2 directly to the browser, a FastAPI service wraps ROS2 service clients/subscribers and re-exposes them as plain REST + WebSocket endpoints — keeping the dashboard framework-agnostic and easy to iterate on independently of the robot stack.</div>
+            <div class="exec-title">Navigation reliability before mission logic</div>
+            <div class="exec-desc">Development was staged deliberately: Gazebo simulation and Nav2/AMCL localization against a static map were validated first, with automatic initial-pose setting removing the manual RViz step, before any mission orchestration was layered on top.</div>
           </div>
         </div>
         <div class="exec-step">
           <div class="exec-num">2</div>
           <div class="exec-content">
-            <div class="exec-title">Sequenced multi-waypoint missions, not one-shot goals</div>
-            <div class="exec-desc">A dedicated <code>start_mission_sequence</code> service accepts an ordered list of waypoints and drives navigate → capture → inspect per point, publishing incremental <code>mission_results</code> so the dashboard can render progress live instead of waiting for the whole mission to finish.</div>
+            <div class="exec-title">Behavior tree for multi-waypoint missions, not a linear script</div>
+            <div class="exec-desc"><code>husky_mission_bt</code> loops navigate → inspect → publish-result per waypoint via BehaviorTree.CPP, driven by <code>husky_mission_interface</code>'s <code>/start_mission_sequence</code> service — giving the mission a cancellable, resumable structure instead of a single blocking function.</div>
           </div>
         </div>
         <div class="exec-step">
           <div class="exec-num">3</div>
           <div class="exec-content">
-            <div class="exec-title">Auto-generated report on mission completion</div>
-            <div class="exec-desc">The backend tracks how many results have come back against the expected waypoint count; once they match, it fires an internal report generator that fills an HTML template with per-point images and found/missing status — no manual "generate report" step needed.</div>
+            <div class="exec-title">Vision inspection layered on top, not baked into navigation</div>
+            <div class="exec-desc">The YOLO fire-extinguisher detector (<code>husky_vision_detector</code>) and <code>image_capture_service</code> run as a separate inspection step the BT calls at each waypoint, keeping detection swappable independently of the navigation/mission stack.</div>
           </div>
         </div>
         <div class="exec-step">
           <div class="exec-num">4</div>
           <div class="exec-content">
+            <div class="exec-title">Auto-generated report on mission completion</div>
+            <div class="exec-desc">The dashboard backend tracks incoming <code>mission_results</code> against the expected waypoint count; once they match, it fires an internal report generator that fills an HTML template with per-point images and found/missing status — no manual "generate report" step needed.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="exec-num">5</div>
+          <div class="exec-content">
             <div class="exec-title">Real-time teleop over WebSocket, control over REST</div>
             <div class="exec-desc">High-frequency joystick velocity commands go over a persistent WebSocket straight to <code>/cmd_vel</code> for low latency, while lower-frequency actions (go-to-goal, capture, start/stop mission) use simple REST calls — matched to how often each actually needs to fire.</div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ DEMO VIDEOS ═══ -->
+    <div class="project-section">
+      <h2>🎥 Demo Videos</h2>
+      <div class="video-grid">
+        <div class="video-card">
+          <video controls preload="metadata">
+            <source src="../videos/husky_inspection/full_autonomous_demo.mp4" type="video/mp4">
+          </video>
+          <div class="video-card-label">Full autonomous mission — Gazebo + dashboard side by side, through report generation</div>
+        </div>
+        <div class="video-card">
+          <video controls preload="metadata">
+            <source src="../videos/husky_inspection/individual_goal_from_manual_control.mp4" type="video/mp4">
+          </video>
+          <div class="video-card-label">Single goal via Manual Control panel</div>
+        </div>
+        <div class="video-card">
+          <video controls preload="metadata">
+            <source src="../videos/husky_inspection/individual_goal_from_manual_control_with_stop_trigger.mp4" type="video/mp4">
+          </video>
+          <div class="video-card-label">Manual goal + navigation stop trigger</div>
         </div>
       </div>
     </div>
@@ -389,10 +529,11 @@
     <div class="project-section">
       <h2>📊 Results</h2>
       <ul>
-        <li>End-to-end multi-waypoint inspection mission triggered from a single dashboard action</li>
-        <li>Manual joystick teleop and autonomous mission modes on one unified interface</li>
-        <li>Auto-generated per-mission HTML reports with captured/annotated images and status</li>
-        <li>Fully decoupled dashboard frontend, reusable against both the live robot and a mocked demo backend</li>
+        <li>Stable Nav2/AMCL localization and automatic initial pose setting in a custom Gazebo construction-site world</li>
+        <li>Behavior-tree-driven multi-waypoint mission execution with cancel support, triggered from a single service call</li>
+        <li>YOLO-based fire-extinguisher detection running per waypoint, feeding found/missing status straight into the report</li>
+        <li>Auto-generated per-mission HTML reports with captured/annotated images, no manual step required</li>
+        <li>Unified web dashboard for manual joystick teleop and autonomous missions, with a decoupled frontend reusable against a mocked demo backend</li>
       </ul>
     </div>
 
@@ -403,6 +544,7 @@
         <li>Expand vision inspection beyond single-object presence checks to multi-class defect detection</li>
         <li>Add mission scheduling (recurring inspections on a timer)</li>
         <li>Push report history to persistent storage with search/filtering</li>
+        <li>Move from Gazebo simulation toward real Husky hardware deployment</li>
       </ul>
     </div>
 
@@ -410,7 +552,8 @@
     <div class="cta-section">
       <h2>💻 Source Code</h2>
       <p>ROS2 workspace, FastAPI backend, and dashboard frontend.</p>
-      <a href="husky-inspection-demo.html" target="_blank" class="btn btn-primary">🚀 Launch Live Demo</a>
+      <a href="https://github.com/SHARATHNPAYYADI/husky_ai_inspection" target="_blank" class="btn btn-primary">💻 View on GitHub</a>
+      <a href="husky-inspection-demo.html" target="_blank" class="btn btn-outline">🚀 Launch Live Demo</a>
       <a href="../index.html#projects" class="btn btn-outline">← Back to Projects</a>
     </div>
 

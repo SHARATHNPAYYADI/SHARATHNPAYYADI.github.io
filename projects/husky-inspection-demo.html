@@ -514,6 +514,14 @@ function pointLabel(waypoint) {
   return m ? `Point ${m[1]}` : waypoint;
 }
 
+function pointIndex(waypoint) {
+  const m = waypoint.match(/point_?(\d+)/i);
+  return m ? parseInt(m[1], 10) : 1;
+}
+
+// Points 2 and 5 never have a fire extinguisher present in this demo scenario.
+const ALWAYS_MISSING_POINTS = [2, 5];
+
 /* ---------- Images ---------- */
 
 function renderImages() {
@@ -685,8 +693,7 @@ function stopRobot() {
 
 function captureImage() {
   const source = state.status.current_goal || "manual";
-  const n = state.images.length + 1;
-  const idx = ((state.images.length) % 5) + 1;
+  const idx = state.status.current_goal ? pointIndex(source) : ((state.images.length % 5) + 1);
   state.images.unshift({
     url: CAPTURED_IMG(idx),
     label: state.status.current_goal ? pointLabel(source) : "Manual",
@@ -736,7 +743,7 @@ function startMission() {
     }
 
     const wp = waypoints[i];
-    const idx = i % 5 + 1;
+    const idx = pointIndex(wp);
     state.status.state = "MOVING";
     state.status.current_goal = wp;
     renderStatus();
@@ -750,7 +757,7 @@ function startMission() {
       log(`Inspecting ${pointLabel(wp)}`);
 
       state.missionTimer = setTimeout(() => {
-        const found = Math.random() > 0.25;
+        const found = !ALWAYS_MISSING_POINTS.includes(idx);
         const result = {
           point: pointLabel(wp),
           found,
