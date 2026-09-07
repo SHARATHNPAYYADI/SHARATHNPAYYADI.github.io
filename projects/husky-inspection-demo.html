@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Husky Inspection Robot — Live Demo (Simulated)</title>
+
+<script src="https://cdn.jsdelivr.net/npm/nipplejs@0.9.0/dist/nipplejs.min.js"></script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
+  background:#f4f6f9;
+  color:#1f2937;
+}
+
+.demo-banner {
+  background:#111827;
+  color:#fff;
+  text-align:center;
+  padding:10px 16px;
+  font-size:13px;
+  line-height:1.5;
+}
+.demo-banner a { color:#5eead4; text-decoration:none; font-weight:600; }
+.demo-banner a:hover { text-decoration:underline; }
+
+.container {
+  max-width:1400px;
+  margin:auto;
+  padding:30px;
+}
+
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+header h1 { font-size:22px; font-weight:600; }
+
+.mode-toggle button {
+  padding:8px 18px;
+  border:none;
+  border-radius:6px;
+  margin-left:10px;
+  cursor:pointer;
+  font-weight:500;
+}
+
+.mode-toggle .active {
+  background:#2563eb;
+  color:white;
+}
+
+.mode-toggle button:not(.active) {
+  background:#e5e7eb;
+}
+
+.layout {
+  display:grid;
+  grid-template-columns:400px 1fr;
+  gap:25px;
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+.card {
+  background:white;
+  border-radius:10px;
+  padding:22px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+  margin-bottom:20px;
+  font-size:13px;
+  letter-spacing:1px;
+  color:#6b7280;
+}
+
+/* JOYSTICK */
+#joystick-zone {
+  width:240px;
+  height:240px;
+  margin:auto;
+  background:#e5e7eb;
+  border-radius:50%;
+  position:relative;
+}
+
+.readout {
+  margin-top:20px;
+  text-align:center;
+  font-size:14px;
+}
+
+.stop-btn {
+  margin-top:20px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:6px;
+  background:#dc2626;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.capture-btn {
+  margin-top:10px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:6px;
+  background:#2563eb;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.status-item { margin-bottom:10px; }
+
+.grid-right {
+  display:grid;
+  grid-template-rows:auto auto auto 1fr;
+  gap:20px;
+}
+
+.log-box, .inspection-box {
+  height:180px;
+  background:#f9fafb;
+  border-radius:8px;
+  padding:12px;
+  overflow-y:auto;
+  font-size:13px;
+}
+
+.hidden { display:none; }
+
+/* PROGRESS */
+.progress-bar {
+  height:8px;
+  background:#e5e7eb;
+  border-radius:5px;
+  overflow:hidden;
+  margin-bottom:18px;
+}
+
+.progress-fill {
+  height:100%;
+  width:0%;
+  background:#2563eb;
+  transition:width 0.4s ease;
+}
+
+.steps {
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:#9ca3af;
+}
+
+.step.active {
+  color:#2563eb;
+  font-weight:600;
+}
+
+.images-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(120px,1fr));
+  gap:10px;
+  max-height:200px;
+  overflow-y:auto;
+}
+
+.image-card {
+  position: relative;
+  border-radius:6px;
+  overflow:hidden;
+  cursor:pointer;
+  background:#f3f4f6;
+}
+
+.image-card img {
+  width:100%;
+  height:100px;
+  object-fit:cover;
+  display:block;
+}
+
+.image-overlay {
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(0,0,0,0.7);
+  color:white;
+  font-size:11px;
+  padding:6px 8px;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.image-overlay span {
+  display:block;
+  line-height:1.2;
+}
+.waypoint-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.waypoint-card {
+  padding:14px;
+  border-radius:8px;
+  border:2px solid #e5e7eb;
+  text-align:center;
+  cursor:pointer;
+  font-weight:500;
+  background:#f9fafb;
+  transition:all 0.2s ease;
+  user-select:none;
+}
+
+.waypoint-card.active {
+  border-color:#2563eb;
+  background:#2563eb;
+  color:white;
+}
+
+.waypoint-card.disabled {
+  opacity:0.5;
+  pointer-events:none;
+}
+
+.status-found { color:#16a34a; font-weight:700; }
+.status-missing { color:#dc2626; font-weight:700; }
+</style>
+</head>
+<body>
+
+<div class="demo-banner">
+  🧪 SIMULATED DEMO — this page mocks the robot backend entirely in the browser (no live Husky connected).
+  <a href="husky-inspection.html">← Back to project details</a>
+</div>
+
+<div class="container">
+
+<header>
+  <h1>Husky Robot Inspection System <span style="font-weight:400;font-size:13px;color:#9ca3af;">(Simulated)</span></h1>
+
+  <div style="display:flex; align-items:center; gap:20px;">
+
+    <!-- Connection Status -->
+    <div style="display:flex; align-items:center; gap:8px; font-size:13px;">
+      <div id="connectionDot"
+           style="width:10px; height:10px; border-radius:50%; background:#d1d5db;">
+      </div>
+      <span id="connectionText">Connecting...</span>
+    </div>
+
+    <!-- Mode Toggle -->
+    <div class="mode-toggle">
+      <button id="manualBtn" class="active" onclick="switchMode('manual')">Manual</button>
+      <button id="autoBtn" onclick="switchMode('auto')">Autonomous</button>
+    </div>
+
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- LEFT PANEL -->
+  <div>
+
+    <!-- MANUAL -->
+    <div class="card" id="manualPanel">
+      <h3>MANUAL CONTROL</h3>
+
+      <div style="margin-bottom:20px;">
+
+        <select id="manualGoalSelect"
+                style="width:100%; padding:10px; margin-bottom:10px; border-radius:6px; border:1px solid #d1d5db;">
+          <option value="point_1">Point 1</option>
+          <option value="point_2">Point 2</option>
+          <option value="point_3">Point 3</option>
+          <option value="point_4">Point 4</option>
+          <option value="point_5">Point 5</option>
+        </select>
+
+        <button style="
+          width:100%;
+          padding:10px;
+          background:#16a34a;
+          color:white;
+          border:none;
+          border-radius:6px;
+          font-weight:600;
+          cursor:pointer;
+        "
+        onclick="goToGoal()">
+          GO TO GOAL
+        </button>
+
+      </div>
+
+      <!-- JOYSTICK -->
+      <div id="joystick-zone"></div>
+
+      <div class="readout">
+        Linear: <span id="linVal">0.00</span><br>
+        Angular: <span id="angVal">0.00</span>
+      </div>
+
+      <button class="stop-btn" onclick="stopRobot()">STOP</button>
+
+      <button class="capture-btn" onclick="captureImage()">
+        CAPTURE IMAGE
+      </button>
+    </div>
+
+
+    <!-- AUTONOMOUS -->
+    <div class="card hidden" id="autoPanel">
+      <h3>AUTONOMOUS MISSION</h3>
+
+      <div class="waypoint-grid">
+        <div class="waypoint-card" data-value="point_1">Point 1</div>
+        <div class="waypoint-card" data-value="point_2">Point 2</div>
+        <div class="waypoint-card" data-value="point_3">Point 3</div>
+        <div class="waypoint-card" data-value="point_4">Point 4</div>
+        <div class="waypoint-card" data-value="point_5">Point 5</div>
+      </div>
+
+      <button onclick="startMission()" style="width:100%; padding:10px; margin-bottom:10px; background:#16a34a; color:white; border:none; border-radius:6px; cursor:pointer;">
+        START INSPECTION
+      </button>
+
+      <button onclick="cancelMission()" style="width:100%; padding:10px; background:#dc2626; color:white; border:none; border-radius:6px; cursor:pointer;">
+        CANCEL MISSION
+      </button>
+    </div>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="grid-right">
+
+    <div class="card">
+      <h3>ROBOT STATUS</h3>
+      <div class="status-item">State: <strong id="robotState">IDLE</strong></div>
+      <div class="status-item">Current Goal: <strong id="robotGoal">—</strong></div>
+    </div>
+
+    <div class="card">
+      <h3>MISSION PROGRESS</h3>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="steps">
+        <div class="step active" id="step1">Waiting</div>
+        <div class="step" id="step2">Navigating</div>
+        <div class="step" id="step3">Inspecting</div>
+        <div class="step" id="step4">Completed</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>EVENT LOG</h3>
+      <div class="log-box" id="logBox">No logs yet...</div>
+    </div>
+
+    <div class="card">
+      <h3>REPORTS</h3>
+      <div id="reportsTable" style="max-height:200px; overflow-y:auto;">
+        <div style="color:#9ca3af;">No reports yet...</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>CAPTURED IMAGES</h3>
+      <div class="images-grid" id="imagesGrid">
+        <div style="color:#9ca3af;">No images captured yet...</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>INSPECTION RESULTS</h3>
+      <div class="images-grid" id="inspectionGrid">
+        <div style="color:#9ca3af;">No inspection results yet...</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<!-- Lightbox for image preview -->
+<div id="lightbox" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; cursor:zoom-out;">
+  <img id="lightboxImg" style="max-width:90%; max-height:90%; border-radius:8px;">
+</div>
+
+<script>
+/* =====================================================================
+   SIMULATED BACKEND
+   Everything below mimics the real husky_dashboard FastAPI backend
+   (see husky_dashboard/backend/main.py) but runs entirely client-side,
+   so this page works with no ROS2 / robot connection.
+===================================================================== */
+
+const CAPTURED_IMG = i => `../images/husky_demo/captured/point_${i}.jpg`;
+const INSPECTION_IMG = i => `../images/husky_demo/inspection/point_${i}.jpg`;
+
+const state = {
+  status: { state: "IDLE", current_goal: null },
+  logs: [],
+  images: [],
+  inspections: [],
+  missions: [],
+  missionTimer: null,
+};
+
+function nowTime() {
+  return new Date().toLocaleTimeString();
+}
+
+function log(message) {
+  state.logs.unshift({ time: nowTime(), message });
+  renderLogs();
+}
+
+function renderLogs() {
+  const box = document.getElementById("logBox");
+  if (!state.logs.length) {
+    box.innerHTML = "No logs yet...";
+    return;
+  }
+  box.innerHTML = state.logs.slice(0, 20).map(l => `
+    <div style="margin-bottom:6px;">
+      <span style="color:#9ca3af; font-size:11px;">${l.time}</span>
+      <div>${l.message}</div>
+    </div>
+  `).join("");
+}
+
+function renderStatus() {
+  document.getElementById("robotState").textContent = state.status.state;
+  document.getElementById("robotGoal").textContent = state.status.current_goal || "—";
+
+  const isBusy = ["MOVING", "INSPECTING"].includes(state.status.state);
+  const waypointCards = document.querySelectorAll(".waypoint-card");
+  const startBtn = document.querySelector("button[onclick='startMission()']");
+
+  if (isBusy) {
+    waypointCards.forEach(c => c.classList.add("disabled"));
+    startBtn.disabled = true;
+    startBtn.style.opacity = "0.5";
+    startBtn.style.cursor = "not-allowed";
+  } else {
+    waypointCards.forEach(c => c.classList.remove("disabled"));
+    startBtn.disabled = false;
+    startBtn.style.opacity = "1";
+    startBtn.style.cursor = "pointer";
+  }
+}
+
+function setConnectionStatus(connected) {
+  const dot = document.getElementById("connectionDot");
+  const text = document.getElementById("connectionText");
+  if (connected) {
+    dot.style.background = "#16a34a";
+    text.textContent = "Connected (simulated)";
+  } else {
+    dot.style.background = "#d1d5db";
+    text.textContent = "Disconnected";
+  }
+}
+
+function updateProgress(step) {
+  const fill = document.getElementById("progressFill");
+  const steps = ["step1", "step2", "step3", "step4"];
+  steps.forEach(id => document.getElementById(id).classList.remove("active"));
+  const widths = [0, 30, 65, 100];
+  fill.style.width = widths[step - 1] + "%";
+  document.getElementById("step" + step).classList.add("active");
+}
+
+function resetProgress() { updateProgress(1); }
+
+function updateProgressFromState(s) {
+  switch (s) {
+    case "IDLE": updateProgress(1); break;
+    case "MOVING": updateProgress(2); break;
+    case "INSPECTING": updateProgress(3); break;
+    case "COMPLETED": updateProgress(4); break;
+    default: resetProgress();
+  }
+}
+
+function pointLabel(waypoint) {
+  const m = waypoint.match(/point_?(\d+)/i);
+  return m ? `Point ${m[1]}` : waypoint;
+}
+
+function pointIndex(waypoint) {
+  const m = waypoint.match(/point_?(\d+)/i);
+  return m ? parseInt(m[1], 10) : 1;
+}
+
+// Points 2 and 5 never have a fire extinguisher present in this demo scenario.
+const ALWAYS_MISSING_POINTS = [2, 5];
+
+/* ---------- Images ---------- */
+
+function renderImages() {
+  const grid = document.getElementById("imagesGrid");
+  if (!state.images.length) {
+    grid.innerHTML = '<div style="color:#9ca3af;">No images captured yet...</div>';
+    return;
+  }
+  grid.innerHTML = state.images.slice(0, 20).map(img => `
+    <div class="image-card" onclick="openLightbox('${img.url}')">
+      <img src="${img.url}">
+      <div class="image-overlay">
+        <span>📍 ${img.label}</span>
+        <span>🕒 ${img.time}</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+function renderInspections() {
+  const grid = document.getElementById("inspectionGrid");
+  if (!state.inspections.length) {
+    grid.innerHTML = '<div style="color:#9ca3af;">No inspection results yet...</div>';
+    return;
+  }
+  grid.innerHTML = state.inspections.slice(0, 20).map(img => `
+    <div class="image-card" onclick="openLightbox('${img.url}')">
+      <img src="${img.url}">
+      <div class="image-overlay">
+        <span>📍 ${img.label} — <span class="${img.found ? 'status-found' : 'status-missing'}">${img.found ? 'FOUND' : 'MISSING'}</span></span>
+        <span>🕒 ${img.time}</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+function openLightbox(url) {
+  document.getElementById("lightboxImg").src = url;
+  document.getElementById("lightbox").style.display = "flex";
+}
+document.getElementById("lightbox").addEventListener("click", () => {
+  document.getElementById("lightbox").style.display = "none";
+});
+
+/* ---------- Reports ---------- */
+
+function renderReports() {
+  const container = document.getElementById("reportsTable");
+  if (!state.missions.length) {
+    container.innerHTML = '<div style="color:#9ca3af;">No reports yet...</div>';
+    return;
+  }
+  container.innerHTML = "";
+  state.missions.forEach(mission => {
+    const row = document.createElement("div");
+    row.style.cssText = "display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #e5e7eb;font-size:13px;";
+    row.innerHTML = `
+      <div>
+        <div><strong>${mission.name}</strong></div>
+        <div style="color:#6b7280;">🕒 ${mission.time}</div>
+      </div>
+      <button style="padding:6px 10px;background:#2563eb;color:white;border:none;border-radius:5px;cursor:pointer;">Open</button>
+    `;
+    row.querySelector("button").onclick = () => openMockReport(mission);
+    container.appendChild(row);
+  });
+}
+
+function openMockReport(mission) {
+  const rowsHtml = mission.results.map(r => `
+    <tr>
+      <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;">${r.point}</td>
+      <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;"><img src="${r.image}" style="width:120px;border-radius:6px;"></td>
+      <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;" class="${r.found ? 'status-found' : 'status-missing'}">${r.found ? 'FOUND' : 'MISSING'}</td>
+      <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;">${r.time}</td>
+    </tr>
+  `).join("");
+
+  const detected = mission.results.filter(r => r.found).length;
+  const missing = mission.results.length - detected;
+
+  const html = [
+    '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + mission.name + ' — Inspection Report<\/title>',
+    '<style>',
+    'body{font-family:-apple-system,Segoe UI,Roboto;background:#f4f6f9;color:#1f2937;padding:40px;}',
+    'h1{font-size:20px;margin-bottom:6px;} .muted{color:#6b7280;font-size:13px;margin-bottom:24px;}',
+    '.summary{display:flex;gap:16px;margin-bottom:24px;}',
+    '.stat{background:white;border-radius:8px;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,.05);text-align:center;min-width:110px;}',
+    '.stat b{display:block;font-size:22px;} table{width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);}',
+    'th{text-align:left;padding:10px 12px;background:#f9fafb;font-size:12px;color:#6b7280;text-transform:uppercase;}',
+    '.status-found{color:#16a34a;font-weight:700;} .status-missing{color:#dc2626;font-weight:700;}',
+    '<\/style><\/head><body>',
+    '<div style="text-align:right; margin-bottom:20px;">',
+    '<button onclick="window.print()" style="padding:10px 16px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;font-weight:600;">',
+    '\u{1F5A8}️ Download PDF',
+    '<\/button>',
+    '<\/div>',
+    '<h1>\u{1F916} Husky Inspection Report — ' + mission.name + '<\/h1>',
+    '<div class="muted">Generated ' + mission.time + ' · Simulated demo data<\/div>',
+    '<div class="summary">',
+    '<div class="stat"><b>' + mission.results.length + '<\/b>Waypoints<\/div>',
+    '<div class="stat"><b style="color:#16a34a">' + detected + '<\/b>Found<\/div>',
+    '<div class="stat"><b style="color:#dc2626">' + missing + '<\/b>Missing<\/div>',
+    '<\/div>',
+    '<table><thead><tr><th>Point<\/th><th>Image<\/th><th>Status<\/th><th>Time<\/th><\/tr><\/thead>',
+    '<tbody>' + rowsHtml + '<\/tbody><\/table>',
+    '<\/body><\/html>'
+  ].join("\n");
+
+  const w = window.open("", "_blank");
+  w.document.write(html);
+  w.document.close();
+}
+
+/* ---------- Mode switch / waypoint selection ---------- */
+
+let selectedWaypoints = [];
+
+function switchMode(mode) {
+  document.getElementById("manualBtn").classList.toggle("active", mode === "manual");
+  document.getElementById("autoBtn").classList.toggle("active", mode === "auto");
+  document.getElementById("manualPanel").classList.toggle("hidden", mode !== "manual");
+  document.getElementById("autoPanel").classList.toggle("hidden", mode !== "auto");
+}
+
+function initWaypointSelection() {
+  document.querySelectorAll(".waypoint-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const value = card.dataset.value;
+      if (selectedWaypoints.includes(value)) {
+        selectedWaypoints = selectedWaypoints.filter(v => v !== value);
+        card.classList.remove("active");
+      } else {
+        selectedWaypoints.push(value);
+        card.classList.add("active");
+      }
+    });
+  });
+}
+
+/* ---------- Simulated control actions ---------- */
+
+function goToGoal() {
+  const goal = document.getElementById("manualGoalSelect").value;
+  state.status.state = "MOVING";
+  state.status.current_goal = goal;
+  renderStatus();
+  updateProgressFromState("MOVING");
+  log(`Moving to ${pointLabel(goal)}`);
+
+  setTimeout(() => {
+    if (state.status.current_goal !== goal) return;
+    state.status.state = "IDLE";
+    state.status.current_goal = null;
+    renderStatus();
+    updateProgressFromState("IDLE");
+    log(`Arrived at ${pointLabel(goal)}`);
+  }, 2500);
+}
+
+function stopRobot() {
+  clearTimeout(state.missionTimer);
+  state.status.state = "IDLE";
+  state.status.current_goal = null;
+  renderStatus();
+  resetProgress();
+  log("Navigation STOP requested");
+}
+
+function captureImage() {
+  const source = state.status.current_goal || "manual";
+  const idx = state.status.current_goal ? pointIndex(source) : ((state.images.length % 5) + 1);
+  state.images.unshift({
+    url: CAPTURED_IMG(idx),
+    label: state.status.current_goal ? pointLabel(source) : "Manual",
+    time: nowTime(),
+  });
+  renderImages();
+  log(`Image captured (${state.status.current_goal ? pointLabel(source) : 'manual'})`);
+}
+
+function startMission() {
+  if (selectedWaypoints.length === 0) {
+    alert("Please select at least one waypoint");
+    return;
+  }
+
+  const waypoints = [...selectedWaypoints];
+  const results = [];
+  state.status.state = "MOVING";
+  state.status.current_goal = waypoints[0];
+  renderStatus();
+  updateProgressFromState("MOVING");
+  log(`Mission started: [${waypoints.map(pointLabel).join(", ")}]`);
+
+  let i = 0;
+
+  function runStep() {
+    if (i >= waypoints.length) {
+      state.status.state = "COMPLETED";
+      state.status.current_goal = null;
+      renderStatus();
+      updateProgressFromState("COMPLETED");
+      log("Mission complete — all waypoints inspected");
+
+      const missionName = "mission_" + new Date().toISOString().replace(/[-:T.]/g, "").slice(0, 14);
+      state.missions.unshift({ name: missionName, time: nowTime(), results: [...results] });
+      renderReports();
+      log(`Report generated: ${missionName}`);
+
+      state.missionTimer = setTimeout(() => {
+        state.status.state = "IDLE";
+        renderStatus();
+        resetProgress();
+        selectedWaypoints = [];
+        document.querySelectorAll(".waypoint-card").forEach(c => c.classList.remove("active"));
+      }, 1800);
+      return;
+    }
+
+    const wp = waypoints[i];
+    const idx = pointIndex(wp);
+    state.status.state = "MOVING";
+    state.status.current_goal = wp;
+    renderStatus();
+    updateProgressFromState("MOVING");
+    log(`Navigating to ${pointLabel(wp)}`);
+
+    state.missionTimer = setTimeout(() => {
+      state.status.state = "INSPECTING";
+      renderStatus();
+      updateProgressFromState("INSPECTING");
+      log(`Inspecting ${pointLabel(wp)}`);
+
+      state.missionTimer = setTimeout(() => {
+        const found = !ALWAYS_MISSING_POINTS.includes(idx);
+        const result = {
+          point: pointLabel(wp),
+          found,
+          image: INSPECTION_IMG(idx),
+          time: nowTime(),
+        };
+        results.push(result);
+
+        state.inspections.unshift({
+          url: INSPECTION_IMG(idx),
+          label: pointLabel(wp),
+          found,
+          time: nowTime(),
+        });
+        renderInspections();
+        log(`Result: ${pointLabel(wp)} → ${found ? "FOUND" : "MISSING"}`);
+
+        i++;
+        runStep();
+      }, 1600);
+    }, 1800);
+  }
+
+  runStep();
+}
+
+function cancelMission() {
+  clearTimeout(state.missionTimer);
+  state.status.state = "IDLE";
+  state.status.current_goal = null;
+  renderStatus();
+  resetProgress();
+  selectedWaypoints = [];
+  document.querySelectorAll(".waypoint-card").forEach(c => c.classList.remove("active"));
+  log("Mission cancelled");
+}
+
+/* ---------- Joystick (visual only — no real /cmd_vel to send) ---------- */
+
+function initJoystick() {
+  const joystick = nipplejs.create({
+    zone: document.getElementById('joystick-zone'),
+    mode: 'static',
+    position: { left: '50%', top: '50%' },
+    size: 180,
+    color: '#3b82f6'
+  });
+
+  joystick.on('move', function (evt, data) {
+    if (!data.vector) return;
+    const linear = Number(data.vector.y.toFixed(2));
+    const angular = Number((-data.vector.x).toFixed(2));
+    document.getElementById("linVal").textContent = linear;
+    document.getElementById("angVal").textContent = angular;
+  });
+
+  joystick.on('end', function () {
+    document.getElementById("linVal").textContent = "0.00";
+    document.getElementById("angVal").textContent = "0.00";
+  });
+}
+
+/* ---------- Init ---------- */
+
+document.addEventListener("DOMContentLoaded", () => {
+  initJoystick();
+  initWaypointSelection();
+  renderStatus();
+  renderLogs();
+  renderImages();
+  renderInspections();
+  renderReports();
+
+  setTimeout(() => {
+    setConnectionStatus(true);
+    log("Connected to Husky (simulated session)");
+  }, 500);
+});
+</script>
+
+</body>
+</html>
